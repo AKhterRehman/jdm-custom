@@ -20,10 +20,34 @@
 
         <header x-data="{ mobileOpen: false }" class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex h-20 items-center justify-between">
-                    <a href="{{ route('home') }}" class="font-heading text-2xl font-bold tracking-tight text-white">
+                <div class="flex h-20 items-center justify-between gap-8">
+                    <a href="{{ route('home') }}" class="shrink-0 font-heading text-2xl font-bold tracking-tight text-white">
                         JDM <span class="text-red-600">CUSTOM</span>
                     </a>
+
+                    <nav class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide">
+                        <a href="{{ route('home') }}" class="transition {{ request()->routeIs('home') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Home</a>
+                        <a href="{{ route('shop.index') }}" class="transition {{ request()->routeIs('shop.*') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Shop</a>
+                        <div class="relative group">
+                            <button type="button" class="flex items-center gap-1 transition {{ request()->routeIs('category.*') ? 'text-red-600' : 'text-white hover:text-red-600' }}">
+                                Categories
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-3 w-3 mt-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+                            <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition absolute left-1/2 -translate-x-1/2 top-full pt-4 w-56 z-40">
+                                <div class="rounded-lg bg-white text-ink-900 shadow-xl border border-gray-100 py-2 normal-case tracking-normal font-medium">
+                                    @foreach ($navCategories as $navCategory)
+                                        <a href="{{ route('category.show', $navCategory) }}" class="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-red-600 transition">
+                                            {{ $navCategory->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ route('pages.about') }}" class="transition {{ request()->routeIs('pages.about') ? 'text-red-600' : 'text-white hover:text-red-600' }}">About</a>
+                        <a href="{{ route('pages.contact') }}" class="transition {{ request()->routeIs('pages.contact') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Contact Us</a>
+                    </nav>
 
                     <div class="flex items-center gap-5 text-sm">
                         @auth
@@ -61,48 +85,6 @@
                     </div>
                 </div>
             </div>
-
-            <nav class="hidden lg:block bg-black/30 border-t border-white/10">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <ul class="flex items-center justify-center gap-10 py-3 text-sm font-bold uppercase tracking-wide">
-                        <li>
-                            <a href="{{ route('home') }}" class="transition {{ request()->routeIs('home') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Home</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shop.index') }}" class="transition {{ request()->routeIs('shop.*') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Shop</a>
-                        </li>
-                        <li class="relative group">
-                            <button type="button" class="flex items-center gap-1 transition {{ request()->routeIs('category.*') ? 'text-red-600' : 'text-white hover:text-red-600' }}">
-                                Categories
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-3 w-3 mt-0.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
-                                </svg>
-                            </button>
-                            <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56 z-40">
-                                <div class="rounded-lg bg-white text-ink-900 shadow-xl border border-gray-100 py-2 normal-case tracking-normal font-medium">
-                                    @foreach ($navCategories as $navCategory)
-                                        <a href="{{ route('category.show', $navCategory) }}" class="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-red-600 transition">
-                                            {{ $navCategory->name }}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.about') }}" class="transition {{ request()->routeIs('pages.about') ? 'text-red-600' : 'text-white hover:text-red-600' }}">About</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.contact') }}" class="transition {{ request()->routeIs('pages.contact') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Contact Us</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.privacy') }}" class="transition {{ request()->routeIs('pages.privacy') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.terms') }}" class="transition {{ request()->routeIs('pages.terms') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Terms and Condition</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <div
                 @click="mobileOpen = false"
@@ -143,8 +125,6 @@
 
                     <a href="{{ route('pages.about') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.about') ? 'border-red-600 text-red-600' : 'border-transparent text-white hover:border-white/30' }}">About</a>
                     <a href="{{ route('pages.contact') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.contact') ? 'border-red-600 text-red-600' : 'border-transparent text-white hover:border-white/30' }}">Contact Us</a>
-                    <a href="{{ route('pages.privacy') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.privacy') ? 'border-red-600 text-red-600' : 'border-transparent text-white hover:border-white/30' }}">Privacy Policy</a>
-                    <a href="{{ route('pages.terms') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.terms') ? 'border-red-600 text-red-600' : 'border-transparent text-white hover:border-white/30' }}">Terms and Condition</a>
 
                     @auth
                         <div class="mt-6 pt-6 border-t border-white/10 space-y-3 normal-case font-medium">
