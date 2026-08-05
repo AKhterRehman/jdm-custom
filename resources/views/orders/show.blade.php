@@ -66,6 +66,16 @@
             <h2 class="font-semibold mb-2">Payment</h2>
             <p class="text-gray-600 uppercase">{{ $order->payment_method }}</p>
             <p class="text-gray-600 capitalize">{{ $order->payment_status }}</p>
+
+            @if ($order->payment_method === 'stripe' && $order->payment_status !== 'paid')
+                <form action="{{ route('checkout.stripe.retry', $order) }}" method="POST" class="mt-3">
+                    @csrf
+                    <button type="submit" class="rounded-md bg-ink-900 px-4 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">
+                        Pay with Card
+                    </button>
+                </form>
+            @endif
+
             @if ($order->shippingOption)
                 <h2 class="font-semibold mt-4 mb-2">Shipping Method</h2>
                 <p class="text-gray-600">{{ $order->shippingOption->name }}</p>

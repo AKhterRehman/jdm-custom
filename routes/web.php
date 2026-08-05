@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::post('/checkout/coupon', [CheckoutController::class, 'applyCoupon'])->name('checkout.coupon.apply');
     Route::delete('/checkout/coupon', [CheckoutController::class, 'removeCoupon'])->name('checkout.coupon.remove');
+    Route::get('/checkout/{order}/stripe/success', [CheckoutController::class, 'stripeSuccess'])->name('checkout.stripe.success');
+    Route::get('/checkout/{order}/stripe/cancel', [CheckoutController::class, 'stripeCancel'])->name('checkout.stripe.cancel');
+    Route::post('/checkout/{order}/stripe/retry', [CheckoutController::class, 'retryStripePayment'])->name('checkout.stripe.retry');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');

@@ -6,6 +6,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="grid md:grid-cols-4 gap-10">
             <div class="md:col-span-1">
                 @include('partials.account-nav')

@@ -10,6 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Stripe\Checkout\Session as StripeSession;
+use Stripe\StripeClient;
 
 class CheckoutController extends Controller
 {
@@ -67,7 +69,7 @@ class CheckoutController extends Controller
             'new_address.postal_code' => ['nullable', 'string', 'max:50'],
             'new_address.country' => ['required_without:address_id', 'string', 'max:255'],
             'shipping_option_id' => ['required', 'exists:shipping_options,id'],
-            'payment_method' => ['required', 'in:cod'],
+            'payment_method' => ['required', 'in:cod,stripe'],
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
 
@@ -95,7 +97,7 @@ class CheckoutController extends Controller
                 'coupon_id' => $coupon?->id,
                 'status' => 'pending',
                 'payment_method' => $validated['payment_method'],
-                'payment_status' => $validated['payment_method'] === 'cod' ? 'pending' : 'pending',
+                'payment_status' => 'pending',
                 'subtotal' => $totals['subtotal'],
                 'discount_amount' => $totals['discount'],
                 'shipping_amount' => $totals['shipping'],
@@ -129,7 +131,78 @@ class CheckoutController extends Controller
 
         $request->session()->forget('checkout.coupon_code');
 
+        if ($order->payment_method === 'stripe') {
+            return redirect($this->createStripeSession($order)->url);
+        }
+
         return redirect()->route('orders.show', $order)->with('status', 'Order placed successfully!');
+    }
+
+    public function retryStripePayment(Request $request, Order $order): RedirectResponse
+    {
+        abort_unless($order->user_id === $request->user()->id, 403);
+        abort_unless($order->payment_method === 'stripe' && $order->payment_status !== 'paid', 404);
+
+        return redirect($this->createStripeSession($order)->url);
+    }
+
+    public function stripeSuccess(Request $request, Order $order): RedirectResponse
+    {
+        abort_unless($order->user_id === $request->user()->id, 403);
+
+        $sessionId = $request->query('session_id');
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        try {
+            $session = $stripe->checkout->sessions->retrieve($sessionId);
+        } catch (\Exception $e) {
+            return redirect()->route('orders.show', $order)->with('error', 'We could not confirm your payment. Please contact support.');
+        }
+
+        if ($session->id !== $order->stripe_session_id) {
+            return redirect()->route('orders.show', $order)->with('error', 'This payment session does not match this order.');
+        }
+
+        if ($session->payment_status === 'paid') {
+            $order->update(['payment_status' => 'paid']);
+
+            return redirect()->route('orders.show', $order)->with('status', 'Payment successful! Your order is confirmed.');
+        }
+
+        return redirect()->route('orders.show', $order)->with('error', 'Payment was not completed.');
+    }
+
+    public function stripeCancel(Request $request, Order $order): RedirectResponse
+    {
+        abort_unless($order->user_id === $request->user()->id, 403);
+
+        return redirect()->route('orders.show', $order)->with('error', 'Payment was cancelled. You can try again from this order.');
+    }
+
+    private function createStripeSession(Order $order): StripeSession
+    {
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        $session = $stripe->checkout->sessions->create([
+            'mode' => 'payment',
+            'customer_email' => $order->user->email,
+            'line_items' => [[
+                'quantity' => 1,
+                'price_data' => [
+                    'currency' => 'usd',
+                    'unit_amount' => (int) round($order->total * 100),
+                    'product_data' => [
+                        'name' => "JDM Custom Order {$order->order_number}",
+                    ],
+                ],
+            ]],
+            'success_url' => route('checkout.stripe.success', $order).'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('checkout.stripe.cancel', $order),
+        ]);
+
+        $order->update(['stripe_session_id' => $session->id]);
+
+        return $session;
     }
 
     private function sessionCoupon(Request $request): ?Coupon

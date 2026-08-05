@@ -18,7 +18,7 @@
             $cartCount = auth()->check() ? auth()->user()->cart?->items()->sum('quantity') : null;
         @endphp
 
-        <header class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
+        <header x-data="{ mobileOpen: false }" class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-20 items-center justify-between">
                     <a href="{{ route('home') }}" class="font-heading text-2xl font-bold tracking-tight text-white">
@@ -26,6 +26,15 @@
                     </a>
 
                     <div class="flex items-center gap-5 text-sm">
+                        <button type="button" @click="mobileOpen = !mobileOpen" class="lg:hidden text-gray-300 hover:text-white transition" aria-label="Toggle menu">
+                            <svg x-cloak x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                            </svg>
+                            <svg x-cloak x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+
                         @auth
                             <a href="{{ route('wishlist.index') }}" title="Wishlist" class="text-gray-300 hover:text-white transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
@@ -97,6 +106,50 @@
                     </ul>
                 </div>
             </nav>
+
+            <div x-cloak x-show="mobileOpen" x-transition class="lg:hidden bg-ink-900 border-t border-white/10">
+                <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-4 text-sm font-bold uppercase tracking-wide divide-y divide-white/10">
+                    <a href="{{ route('home') }}" class="block py-3 {{ request()->routeIs('home') ? 'text-red-600' : 'text-white' }}">Home</a>
+                    <a href="{{ route('shop.index') }}" class="block py-3 {{ request()->routeIs('shop.*') ? 'text-red-600' : 'text-white' }}">Shop</a>
+
+                    <div x-data="{ open: false }" class="py-3">
+                        <button type="button" @click="open = !open" class="flex items-center justify-between w-full {{ request()->routeIs('category.*') ? 'text-red-600' : 'text-white' }}">
+                            Categories
+                            <svg :class="open ? 'rotate-180' : ''" class="h-3 w-3 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div x-cloak x-show="open" x-transition class="mt-2 pl-3 space-y-2 normal-case font-medium">
+                            @foreach ($navCategories as $navCategory)
+                                <a href="{{ route('category.show', $navCategory) }}" class="block py-1 text-gray-300 hover:text-white">{{ $navCategory->name }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <a href="{{ route('pages.about') }}" class="block py-3 {{ request()->routeIs('pages.about') ? 'text-red-600' : 'text-white' }}">About</a>
+                    <a href="{{ route('pages.contact') }}" class="block py-3 {{ request()->routeIs('pages.contact') ? 'text-red-600' : 'text-white' }}">Contact Us</a>
+                    <a href="{{ route('pages.privacy') }}" class="block py-3 {{ request()->routeIs('pages.privacy') ? 'text-red-600' : 'text-white' }}">Privacy Policy</a>
+                    <a href="{{ route('pages.terms') }}" class="block py-3 {{ request()->routeIs('pages.terms') ? 'text-red-600' : 'text-white' }}">Terms and Condition</a>
+
+                    <div class="py-3 normal-case font-medium space-y-2">
+                        @auth
+                            <a href="{{ route('account.index') }}" class="block text-gray-300 hover:text-white">My Account</a>
+                            <a href="{{ route('wishlist.index') }}" class="block text-gray-300 hover:text-white">Wishlist</a>
+                            <a href="{{ route('cart.index') }}" class="block text-gray-300 hover:text-white">Cart</a>
+                            @if (auth()->user()->is_admin)
+                                <a href="{{ route('admin.dashboard') }}" class="block text-gray-300 hover:text-white">Admin</a>
+                            @endif
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="text-gray-300 hover:text-white">Log Out</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="block text-gray-300 hover:text-white">Login</a>
+                            <a href="{{ route('register') }}" class="block text-gray-300 hover:text-white">Register</a>
+                        @endauth
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <main>

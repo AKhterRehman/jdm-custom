@@ -27,6 +27,9 @@ Seeded accounts:
 - `test@example.com` / `password` — regular customer
 - `admin@jdm-custom.test` / `password` — admin (`is_admin` flag set)
 
+Stripe (test mode) needs `STRIPE_KEY` / `STRIPE_SECRET` set in `.env` — see `.env.example`.
+Test card: `4242 4242 4242 4242`, any future expiry, any CVC.
+
 ## Project Status
 
 Built in phases — see the project board / task tracker for current progress. Completed so far:
@@ -42,7 +45,9 @@ Built in phases — see the project board / task tracker for current progress. C
       order PDF/print receipts, image upload for product gallery, full visual overhaul
       (Lexend/Inter typography, dark header/footer, hero sections) across storefront, account,
       and admin
-- [ ] Phase 5 — Payment gateways (Stripe, PayPal, JazzCash, EasyPaisa)
+- [x] Phase 5 (partial) — Stripe Checkout wired up and working end-to-end (test mode); COD still
+      available; PayPal/JazzCash/EasyPaisa shown at checkout as "coming soon", not yet functional
+- [x] Mobile navigation — hamburger menu with collapsible categories
 - [ ] Phase 6 — SEO & marketing
 - [ ] Phase 7 — Performance & security hardening
 - [ ] Phase 8 — Newsletter, social/WhatsApp integration

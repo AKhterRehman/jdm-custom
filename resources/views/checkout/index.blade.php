@@ -68,11 +68,33 @@
 
                 <section>
                     <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Payment Method</h2>
-                    <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4">
-                        <input type="radio" name="payment_method" value="cod" checked>
-                        <span class="text-sm font-medium text-gray-900">Cash on Delivery</span>
-                    </label>
-                    <p class="mt-2 text-xs text-gray-400">Card and mobile wallet payments are coming soon.</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
+                            <input type="radio" name="payment_method" value="cod" checked>
+                            <span class="text-sm font-medium text-gray-900">Cash on Delivery</span>
+                        </label>
+
+                        <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
+                            <input type="radio" name="payment_method" value="stripe">
+                            <span class="text-sm font-medium text-gray-900">Credit / Debit Card (Stripe)</span>
+                        </label>
+
+                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
+                            <input type="radio" disabled>
+                            <span class="text-sm font-medium text-gray-500">PayPal <span class="text-xs">(coming soon)</span></span>
+                        </label>
+
+                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
+                            <input type="radio" disabled>
+                            <span class="text-sm font-medium text-gray-500">JazzCash <span class="text-xs">(coming soon)</span></span>
+                        </label>
+
+                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
+                            <input type="radio" disabled>
+                            <span class="text-sm font-medium text-gray-500">EasyPaisa <span class="text-xs">(coming soon)</span></span>
+                        </label>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-400">Stripe is in test mode — use card number 4242 4242 4242 4242, any future expiry, and any CVC.</p>
                 </section>
 
                 <section>
