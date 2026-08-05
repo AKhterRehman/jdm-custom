@@ -28,16 +28,21 @@
                             ['route' => 'admin.orders.index', 'label' => 'Orders'],
                             ['route' => 'admin.customers.index', 'label' => 'Customers'],
                             ['route' => 'admin.coupons.index', 'label' => 'Coupons'],
+                            ['route' => 'admin.contact-messages.index', 'label' => 'Messages'],
                         ];
+                        $unreadMessages = \App\Models\ContactMessage::where('is_read', false)->count();
                     @endphp
 
                     @foreach ($adminLinks as $link)
                         @php $active = request()->routeIs(str_replace('.index', '', $link['route']).'*'); @endphp
                         <a
                             href="{{ route($link['route']) }}"
-                            class="flex items-center gap-2 rounded-md px-3 py-2.5 font-medium border-l-2 transition {{ $active ? 'bg-white/5 text-white border-red-600' : 'border-transparent hover:bg-white/5 hover:text-white' }}"
+                            class="flex items-center justify-between gap-2 rounded-md px-3 py-2.5 font-medium border-l-2 transition {{ $active ? 'bg-white/5 text-white border-red-600' : 'border-transparent hover:bg-white/5 hover:text-white' }}"
                         >
-                            {{ $link['label'] }}
+                            <span>{{ $link['label'] }}</span>
+                            @if ($link['label'] === 'Messages' && $unreadMessages > 0)
+                                <span class="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold text-white">{{ $unreadMessages }}</span>
+                            @endif
                         </a>
                     @endforeach
                 </nav>

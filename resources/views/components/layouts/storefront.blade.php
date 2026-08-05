@@ -25,14 +25,6 @@
                         JDM <span class="text-red-600">CUSTOM</span>
                     </a>
 
-                    <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest">
-                        @foreach ($navCategories as $navCategory)
-                            <a href="{{ route('category.show', $navCategory) }}" class="relative py-2 text-gray-300 hover:text-white transition after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-0 after:bg-red-600 after:transition-all hover:after:w-full">
-                                {{ $navCategory->name }}
-                            </a>
-                        @endforeach
-                    </nav>
-
                     <div class="flex items-center gap-5 text-sm">
                         @auth
                             <a href="{{ route('wishlist.index') }}" title="Wishlist" class="text-gray-300 hover:text-white transition">
@@ -63,6 +55,48 @@
                     </div>
                 </div>
             </div>
+
+            <nav class="hidden lg:block bg-black/30 border-t border-white/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <ul class="flex items-center justify-center gap-10 py-3 text-sm font-bold uppercase tracking-wide">
+                        <li>
+                            <a href="{{ route('home') }}" class="transition {{ request()->routeIs('home') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Home</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('shop.index') }}" class="transition {{ request()->routeIs('shop.*') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Shop</a>
+                        </li>
+                        <li class="relative group">
+                            <button type="button" class="flex items-center gap-1 transition {{ request()->routeIs('category.*') ? 'text-red-600' : 'text-white hover:text-red-600' }}">
+                                Categories
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-3 w-3 mt-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+                            <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56 z-40">
+                                <div class="rounded-lg bg-white text-ink-900 shadow-xl border border-gray-100 py-2 normal-case tracking-normal font-medium">
+                                    @foreach ($navCategories as $navCategory)
+                                        <a href="{{ route('category.show', $navCategory) }}" class="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-red-600 transition">
+                                            {{ $navCategory->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{ route('pages.about') }}" class="transition {{ request()->routeIs('pages.about') ? 'text-red-600' : 'text-white hover:text-red-600' }}">About</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pages.contact') }}" class="transition {{ request()->routeIs('pages.contact') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pages.privacy') }}" class="transition {{ request()->routeIs('pages.privacy') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pages.terms') }}" class="transition {{ request()->routeIs('pages.terms') ? 'text-red-600' : 'text-white hover:text-red-600' }}">Terms and Condition</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </header>
 
         <main>
@@ -70,7 +104,7 @@
         </main>
 
         <footer class="mt-24 bg-ink-900 text-gray-400">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
                 <div>
                     <p class="font-heading text-xl font-bold text-white">JDM <span class="text-red-600">CUSTOM</span></p>
                     <p class="mt-3 text-sm leading-relaxed">Premium engine, body, and performance parts engineered for serious JDM builds.</p>
@@ -79,9 +113,20 @@
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Shop</p>
                     <ul class="space-y-2 text-sm">
-                        @foreach ($navCategories->take(6) as $navCategory)
+                        <li><a href="{{ route('shop.index') }}" class="hover:text-white transition">All Products</a></li>
+                        @foreach ($navCategories->take(5) as $navCategory)
                             <li><a href="{{ route('category.show', $navCategory) }}" class="hover:text-white transition">{{ $navCategory->name }}</a></li>
                         @endforeach
+                    </ul>
+                </div>
+
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Company</p>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{{ route('pages.about') }}" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="{{ route('pages.contact') }}" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="{{ route('pages.privacy') }}" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="{{ route('pages.terms') }}" class="hover:text-white transition">Terms and Condition</a></li>
                     </ul>
                 </div>
 

@@ -36,10 +36,14 @@ Built in phases — see the project board / task tracker for current progress. C
 - [x] Phase 2 — Cart, wishlist, checkout (coupons, shipping, tax), COD orders
 - [x] Phase 3 — Customer portal: account hub, saved addresses, order history/tracking
 - [x] Phase 4 — Admin dashboard: analytics, products (+ gallery/specs/variations), categories,
-      orders, customers, coupons. Not yet built: banners, homepage content, blog, reviews,
-      contact form, site settings (planned for later phases)
+      orders, customers, coupons, contact message inbox. Not yet built: banners, homepage
+      content, blog, reviews, site settings (planned for later phases)
+- [x] Premium redesign — Shop page, About/Contact/Privacy/Terms pages, category dropdown nav,
+      order PDF/print receipts, image upload for product gallery, full visual overhaul
+      (Lexend/Inter typography, dark header/footer, hero sections) across storefront, account,
+      and admin
 - [ ] Phase 5 — Payment gateways (Stripe, PayPal, JazzCash, EasyPaisa)
 - [ ] Phase 6 — SEO & marketing
 - [ ] Phase 7 — Performance & security hardening
-- [ ] Phase 8 — Newsletter, contact form, social/WhatsApp integration
+- [ ] Phase 8 — Newsletter, social/WhatsApp integration
 - [ ] Phase 9 — Deployment & client documentation
