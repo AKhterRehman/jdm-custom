@@ -38,6 +38,13 @@
                                 @endif
                             </a>
                             <a href="{{ route('account.index') }}" class="hover:text-red-600 transition">My Account</a>
+                            @if (auth()->user()->is_admin)
+                                <a href="{{ route('admin.dashboard') }}" class="hover:text-red-600 transition">Admin Panel</a>
+                            @endif
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="hover:text-red-600 transition">Log Out</button>
+                            </form>
                         @else
                             <a href="{{ route('login') }}" class="hover:text-red-600 transition">Login</a>
                             <a href="{{ route('register') }}" class="rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-red-600 transition">Register</a>
