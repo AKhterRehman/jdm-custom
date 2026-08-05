@@ -43,8 +43,8 @@
     <table class="header">
         <tr>
             <td>
-                <div class="brand">JDM <span>Custom</span></div>
-                <div class="muted mt-8">Premium JDM parts &amp; accessories</div>
+                <div class="brand">JDM <span>Custom Creations</span></div>
+                <div class="muted mt-8">Handcrafted custom wood creations</div>
             </td>
             <td class="right">
                 <div style="font-size:16px; font-weight:bold;">Receipt</div>
@@ -108,7 +108,7 @@
     </table>
 
     <div class="footer">
-        Thank you for shopping with JDM Custom. For questions about this order, contact support with reference {{ $order->order_number }}.
+        Thank you for shopping with JDM Custom Creations. For questions about this order, contact support with reference {{ $order->order_number }}.
     </div>
 </body>
 </html>

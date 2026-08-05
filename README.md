@@ -1,7 +1,9 @@
-# JDM Custom
+# JDM Custom Creations
 
-A fully custom Laravel eCommerce platform for JDM performance parts and accessories, built per
-the scope in [`docs/Custom eCommerce Website Development Proposal.pdf`](docs/Custom%20eCommerce%20Website%20Development%20Proposal.pdf).
+A fully custom Laravel eCommerce platform for handcrafted wooden creations — engraving, CNC art,
+shadow boxes, jewelry boxes, epoxy signs, 3D CNC models, murals, custom signs, and board games.
+Built per the scope in [`docs/Custom eCommerce Website Development Proposal.pdf`](docs/Custom%20eCommerce%20Website%20Development%20Proposal.pdf),
+catalog modeled after [jdmcustomcreations.com](https://jdmcustomcreations.com/).
 
 ## Tech Stack
 

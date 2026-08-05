@@ -35,17 +35,19 @@
             <div>
                 <h2 class="font-heading text-lg font-semibold text-ink-900 mb-3">3. Returns &amp; Warranty</h2>
                 <p>
-                    Products carry the manufacturer or store warranty period listed on the product page. Parts
-                    that arrive damaged or defective may be returned or exchanged within 30 days of delivery.
-                    Installed or modified parts are not eligible for return.
+                    Ready-made items that arrive damaged or defective may be returned or exchanged within 30
+                    days of delivery. Because most pieces are custom-built or personalized to order, made-to-order
+                    and engraved items are final sale unless the piece arrives damaged or does not match the
+                    approved design.
                 </p>
             </div>
 
             <div>
-                <h2 class="font-heading text-lg font-semibold text-ink-900 mb-3">4. Product Fitment</h2>
+                <h2 class="font-heading text-lg font-semibold text-ink-900 mb-3">4. Custom &amp; Personalized Orders</h2>
                 <p>
-                    Fitment information is provided as a guide. It is the buyer's responsibility to confirm
-                    compatibility with their specific vehicle configuration before installation.
+                    Personalization details (names, dates, dimensions, wood or finish selections) are the buyer's
+                    responsibility to confirm before an order goes into production. Production begins once an
+                    order is placed, so changes after that point may not be possible.
                 </p>
             </div>
 
@@ -60,8 +62,8 @@
             <div>
                 <h2 class="font-heading text-lg font-semibold text-ink-900 mb-3">6. Limitation of Liability</h2>
                 <p>
-                    JDM Custom is not liable for indirect, incidental, or consequential damages arising from the
-                    use or installation of products purchased through this site.
+                    JDM Custom Creations is not liable for indirect, incidental, or consequential damages arising
+                    from the use of products purchased through this site.
                 </p>
             </div>
 

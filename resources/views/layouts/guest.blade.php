@@ -16,21 +16,21 @@
         <div class="min-h-screen grid lg:grid-cols-2">
             <div class="hidden lg:flex flex-col justify-between bg-ink-900 text-white p-12 relative overflow-hidden">
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.2),_transparent_60%)]"></div>
-                <a href="/" class="relative font-heading text-2xl font-bold">
-                    JDM <span class="text-red-600">CUSTOM</span>
+                <a href="/" class="relative font-heading text-xl font-bold">
+                    JDM <span class="text-red-600">Custom Creations</span>
                 </a>
                 <div class="relative">
-                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Performance &middot; Precision &middot; Pride</p>
-                    <h1 class="font-heading text-4xl font-bold leading-tight">Built for the JDM Faithful</h1>
-                    <p class="mt-4 text-gray-300 max-w-sm">Premium engine, body, and performance parts engineered for serious JDM builds.</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
+                    <h1 class="font-heading text-4xl font-bold leading-tight">Wood Art, Handcrafted for You</h1>
+                    <p class="mt-4 text-gray-300 max-w-sm">Custom engravings, CNC art, shadow boxes, and jewelry boxes — shaped with precision and finished by hand.</p>
                 </div>
-                <p class="relative text-xs text-gray-500">&copy; {{ date('Y') }} JDM Custom</p>
+                <p class="relative text-xs text-gray-500">&copy; {{ date('Y') }} JDM Custom Creations</p>
             </div>
 
             <div class="flex flex-col justify-center items-center px-6 py-12 bg-white">
                 <div class="w-full sm:max-w-md">
-                    <a href="/" class="lg:hidden block text-center mb-8 font-heading text-2xl font-bold text-ink-900">
-                        JDM <span class="text-red-600">CUSTOM</span>
+                    <a href="/" class="lg:hidden block text-center mb-8 font-heading text-xl font-bold text-ink-900">
+                        JDM <span class="text-red-600">Custom Creations</span>
                     </a>
 
                     {{ $slot }}

@@ -2,7 +2,7 @@
     <section class="bg-ink-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-3">Full Catalog</p>
-            <h1 class="font-heading text-4xl sm:text-5xl font-bold">Shop All Parts</h1>
+            <h1 class="font-heading text-4xl sm:text-5xl font-bold">Shop All Creations</h1>
         </div>
     </section>
 

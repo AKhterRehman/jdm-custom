@@ -11,35 +11,27 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Engine Parts' => ['Turbochargers', 'Intake Systems'],
-            'Body Kits & Aero' => ['Front Bumpers', 'Spoilers & Wings'],
-            'Wheels & Tires' => [],
-            'Exhaust Systems' => [],
-            'Suspension & Brakes' => [],
-            'Interior Accessories' => [],
+            'Engraving' => 'Timeless designs, etched with precision into premium hardwoods.',
+            'CNC Creations' => 'Precision-cut frames, plaques, and wall art for intricate, custom designs.',
+            'Shadow Boxes' => 'Bring your stories to life with detailed, handcrafted memory displays.',
+            'Jewelry Boxes' => 'Elegant handcrafted homes for your cherished treasures.',
+            'Custom Epoxy Signs' => 'River-style epoxy pours over hand-carved signage and wall art.',
+            '3D CNC Models' => 'Layered, dimensional wood art carved with modern CNC precision.',
+            'Custom Murals' => 'Transform a wall into a one-of-a-kind wooden work of art.',
+            'Custom Signs' => 'Your vision, beautifully carved and displayed.',
+            'Custom Board Games' => 'Fun and memories, handcrafted and personalized for you.',
         ];
 
         $order = 0;
 
-        foreach ($categories as $name => $children) {
-            $parent = Category::create([
+        foreach ($categories as $name => $description) {
+            Category::create([
                 'name' => $name,
                 'slug' => Str::slug($name),
-                'description' => "Shop premium {$name} for your JDM build.",
+                'description' => $description,
                 'is_active' => true,
                 'sort_order' => $order++,
             ]);
-
-            foreach ($children as $childName) {
-                Category::create([
-                    'parent_id' => $parent->id,
-                    'name' => $childName,
-                    'slug' => Str::slug($name.' '.$childName),
-                    'description' => "{$childName} under {$name}.",
-                    'is_active' => true,
-                    'sort_order' => $order++,
-                ]);
-            }
         }
     }
 }

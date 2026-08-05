@@ -3,7 +3,7 @@
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-3">Get In Touch</p>
             <h1 class="font-heading text-4xl sm:text-5xl font-bold">Contact Us</h1>
-            <p class="mt-4 text-gray-300 max-w-xl mx-auto">Questions about fitment, an order, or a custom build? We're here to help.</p>
+            <p class="mt-4 text-gray-300 max-w-xl mx-auto">Questions about a custom piece, an order, or a personalized design? We're here to help.</p>
         </div>
     </section>
 

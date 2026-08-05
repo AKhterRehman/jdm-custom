@@ -3,13 +3,13 @@
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.4))]"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 text-center">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-5">Performance &middot; Precision &middot; Pride</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-5">Handcrafted &middot; Custom &middot; Made Your Way</p>
             <h1 class="font-heading text-5xl sm:text-7xl font-bold tracking-tight leading-[1.05]">
-                Built for the <span class="text-red-600">JDM</span> Faithful
+                Wood Art, <span class="text-red-600">Handcrafted</span> for You
             </h1>
             <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Premium engine, body, and performance parts sourced and engineered for serious JDM builds.
-                Track-proven. Daily-driven. Uncompromising.
+                From intricate engravings to CNC art, shadow boxes, and jewelry boxes — custom wooden
+                creations shaped with precision and finished by hand.
             </p>
             <div class="mt-10 flex items-center justify-center gap-4">
                 <a href="#featured" class="rounded-md bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-500 transition">Shop Now</a>
@@ -66,10 +66,10 @@
 
     <section class="bg-ink-900 text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <h2 class="font-heading text-3xl sm:text-4xl font-bold">Turning Vision Into the Build You Drive</h2>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold">Turning Ideas Into Timeless Pieces</h2>
             <p class="mt-5 text-gray-300 leading-relaxed">
-                Every part we carry is chosen for fitment, durability, and the kind of performance that holds up
-                on the street and the track. This is parts sourcing built by people who build cars too.
+                Every piece we build blends traditional woodworking with modern CNC precision — crafted to be
+                functional, meaningful, and made to last. This is custom work, shaped by hand.
             </p>
             <a href="{{ route('home') }}#categories" class="mt-8 inline-block rounded-md bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-500 transition">Start Shopping</a>
         </div>

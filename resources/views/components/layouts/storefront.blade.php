@@ -21,8 +21,8 @@
         <header x-data="{ mobileOpen: false }" class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-20 items-center justify-between gap-8">
-                    <a href="{{ route('home') }}" class="shrink-0 font-heading text-2xl font-bold tracking-tight text-white">
-                        JDM <span class="text-red-600">CUSTOM</span>
+                    <a href="{{ route('home') }}" class="shrink-0 font-heading text-xl font-bold tracking-tight text-white">
+                        JDM <span class="text-red-600">Custom Creations</span>
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide">
@@ -97,7 +97,7 @@
                 class="lg:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-ink-900 shadow-2xl flex flex-col transition-transform duration-300 ease-out"
             >
                 <div class="flex items-center justify-between px-6 h-20 border-b border-white/10 shrink-0">
-                    <span class="font-heading text-lg font-bold text-white">JDM <span class="text-red-600">CUSTOM</span></span>
+                    <span class="font-heading text-lg font-bold text-white">JDM <span class="text-red-600">Custom Creations</span></span>
                     <button type="button" @click="mobileOpen = false" class="text-gray-400 hover:text-white transition" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -161,8 +161,8 @@
         <footer class="mt-24 bg-ink-900 text-gray-400">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
                 <div>
-                    <p class="font-heading text-xl font-bold text-white">JDM <span class="text-red-600">CUSTOM</span></p>
-                    <p class="mt-3 text-sm leading-relaxed">Premium engine, body, and performance parts engineered for serious JDM builds.</p>
+                    <p class="font-heading text-xl font-bold text-white">JDM <span class="text-red-600">Custom Creations</span></p>
+                    <p class="mt-3 text-sm leading-relaxed">Handcrafted custom wood creations — engraving, CNC art, shadow boxes, and more, made your way.</p>
                 </div>
 
                 <div>
@@ -207,8 +207,8 @@
 
             <div class="border-t border-white/10">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-                    <p>&copy; {{ date('Y') }} JDM Custom. All rights reserved.</p>
-                    <p>Built for the JDM faithful.</p>
+                    <p>&copy; {{ date('Y') }} JDM Custom Creations. All rights reserved.</p>
+                    <p>Handcrafted, made your way.</p>
                 </div>
             </div>
         </footer>
