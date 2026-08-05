@@ -33,7 +33,7 @@ Built in phases — see the project board / task tracker for current progress. C
 
 - [x] Phase 0 — Laravel bootstrap, MySQL, Breeze auth, admin flag/middleware scaffold
 - [x] Phase 1 — Catalog foundation: categories, products, variations, gallery, specs, storefront
-- [ ] Phase 2 — Cart, wishlist, checkout, COD orders
+- [x] Phase 2 — Cart, wishlist, checkout (coupons, shipping, tax), COD orders
 - [ ] Phase 3 — Customer portal (addresses, order history/tracking)
 - [ ] Phase 4 — Admin dashboard
 - [ ] Phase 5 — Payment gateways (Stripe, PayPal, JazzCash, EasyPaisa)

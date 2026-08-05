@@ -42,29 +42,44 @@
                     {{ $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}
                 </p>
 
-                @if ($product->variations->isNotEmpty())
-                    <div class="mt-6 space-y-4">
-                        @foreach ($product->variations->groupBy('attribute_name') as $attributeName => $options)
-                            <div>
-                                <p class="text-sm font-medium text-gray-700 mb-2">{{ $attributeName }}</p>
-                                <div class="flex flex-wrap gap-2">
-                                    @foreach ($options as $option)
-                                        <span class="rounded-md border border-gray-300 px-3 py-1.5 text-sm">
-                                            {{ $option->attribute_value }}
-                                            @if ($option->price_adjustment > 0)
-                                                <span class="text-gray-400">(+${{ number_format($option->price_adjustment, 2) }})</span>
-                                            @endif
-                                        </span>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
+                <form action="{{ route('cart.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                <button type="button" class="mt-8 w-full rounded-md bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-red-600 transition">
-                    Add to Cart
-                </button>
+                    @if ($product->variations->isNotEmpty())
+                        <div class="mt-6 space-y-4">
+                            @foreach ($product->variations->groupBy('attribute_name') as $attributeName => $options)
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-2">{{ $attributeName }}</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        @foreach ($options as $option)
+                                            <label class="rounded-md border border-gray-300 px-3 py-1.5 text-sm cursor-pointer has-[:checked]:border-red-600 has-[:checked]:text-red-600">
+                                                <input type="radio" name="product_variation_id" value="{{ $option->id }}" required class="sr-only">
+                                                {{ $option->attribute_value }}
+                                                @if ($option->price_adjustment > 0)
+                                                    <span class="text-gray-400">(+${{ number_format($option->price_adjustment, 2) }})</span>
+                                                @endif
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <div class="mt-6 flex items-center gap-4">
+                        <input type="number" name="quantity" value="1" min="1" max="99" class="w-20 rounded-md border-gray-300">
+                        <button type="submit" @disabled($product->stock_quantity <= 0) class="flex-1 rounded-md bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                            Add to Cart
+                        </button>
+                    </div>
+                </form>
+
+                <form action="{{ route('wishlist.store') }}" method="POST" class="mt-3">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="text-sm text-gray-500 hover:text-red-600">&hearts; Add to Wishlist</button>
+                </form>
 
                 @if ($product->description)
                     <div class="mt-8 border-t border-gray-100 pt-6">

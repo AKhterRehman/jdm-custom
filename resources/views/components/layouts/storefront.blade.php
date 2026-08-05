@@ -30,6 +30,13 @@
 
                     <div class="flex items-center gap-4 text-sm font-medium">
                         @auth
+                            <a href="{{ route('wishlist.index') }}" class="hover:text-red-600 transition">Wishlist</a>
+                            <a href="{{ route('cart.index') }}" class="hover:text-red-600 transition">
+                                Cart
+                                @if (($itemCount = auth()->user()->cart?->items()->sum('quantity')) > 0)
+                                    <span class="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs text-white">{{ $itemCount }}</span>
+                                @endif
+                            </a>
                             <a href="{{ route('profile.edit') }}" class="hover:text-red-600 transition">My Account</a>
                         @else
                             <a href="{{ route('login') }}" class="hover:text-red-600 transition">Login</a>
