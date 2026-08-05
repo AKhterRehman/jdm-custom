@@ -4,7 +4,13 @@
     $currentIndex = array_search($order->status, $stepKeys, true);
 ?>
 <x-layouts.account :title="'Order '.$order->order_number">
-    <a href="{{ route('orders.index') }}" class="text-sm text-gray-500 hover:text-red-600">&larr; Back to orders</a>
+    <div class="flex items-center justify-between">
+        <a href="{{ route('orders.index') }}" class="text-sm text-gray-500 hover:text-red-600">&larr; Back to orders</a>
+        <div class="flex gap-3 text-sm">
+            <a href="{{ route('orders.receipt', $order) }}" target="_blank" class="rounded-md border border-gray-300 px-3 py-1.5 hover:border-red-600">Print Receipt</a>
+            <a href="{{ route('orders.pdf', $order) }}" class="rounded-md border border-gray-300 px-3 py-1.5 hover:border-red-600">Download PDF</a>
+        </div>
+    </div>
 
     <h1 class="text-2xl font-bold mt-2">Order {{ $order->order_number }}</h1>
     <p class="mt-1 text-gray-500">Placed {{ $order->created_at->format('M j, Y') }}</p>

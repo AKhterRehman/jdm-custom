@@ -11,7 +11,7 @@ class AddressController extends Controller
 {
     public function index(Request $request): View
     {
-        $addresses = $request->user()->addresses()->orderByDesc('is_default')->latest()->get();
+        $addresses = $request->user()->addresses()->orderByDesc('is_default')->latest()->paginate(9);
 
         return view('addresses.index', compact('addresses'));
     }

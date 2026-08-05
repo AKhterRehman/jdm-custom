@@ -16,7 +16,7 @@
                     <div class="flex items-center gap-4 py-4">
                         <div class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
                             @if ($item->product->images->first())
-                                <img src="{{ $item->product->images->first()->path }}" alt="{{ $item->product->name }}" class="h-full w-full object-cover">
+                                <img src="{{ $item->product->images->first()->url() }}" alt="{{ $item->product->name }}" class="h-full w-full object-cover">
                             @endif
                         </div>
 

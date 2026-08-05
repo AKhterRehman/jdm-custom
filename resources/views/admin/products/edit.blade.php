@@ -15,7 +15,10 @@
             <ul class="space-y-2 mb-4 text-sm">
                 @forelse ($product->images as $image)
                     <li class="flex items-center justify-between gap-2 rounded-md border border-gray-200 px-3 py-2">
-                        <span class="truncate">{{ $image->alt_text ?: $image->path }}</span>
+                        <span class="flex items-center gap-2 truncate">
+                            <img src="{{ $image->url() }}" alt="" class="h-8 w-8 rounded object-cover shrink-0">
+                            <span class="truncate">{{ $image->alt_text ?: 'Image #'.$image->id }}</span>
+                        </span>
                         <form action="{{ route('admin.products.images.destroy', [$product, $image]) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -26,11 +29,11 @@
                     <li class="text-gray-400">No images yet.</li>
                 @endforelse
             </ul>
-            <form action="{{ route('admin.products.images.store', $product) }}" method="POST" class="space-y-2">
+            <form action="{{ route('admin.products.images.store', $product) }}" method="POST" enctype="multipart/form-data" class="space-y-2">
                 @csrf
-                <input type="text" name="path" placeholder="Image URL" required class="w-full rounded-md border-gray-300 text-sm">
+                <input type="file" name="image" accept="image/*" required class="w-full rounded-md border-gray-300 text-sm">
                 <input type="text" name="alt_text" placeholder="Alt text (optional)" class="w-full rounded-md border-gray-300 text-sm">
-                <button type="submit" class="w-full rounded-md border border-gray-300 py-2 text-sm hover:border-red-600">Add Image</button>
+                <button type="submit" class="w-full rounded-md border border-gray-300 py-2 text-sm hover:border-red-600">Upload Image</button>
             </form>
         </section>
 
@@ -78,8 +81,8 @@
                 @csrf
                 <input type="text" name="attribute_name" placeholder="Attribute (e.g. Size)" required class="w-full rounded-md border-gray-300 text-sm">
                 <input type="text" name="attribute_value" placeholder="Value (e.g. 18-inch)" required class="w-full rounded-md border-gray-300 text-sm">
-                <input type="number" step="0.01" name="price_adjustment" placeholder="Price adjustment" class="w-full rounded-md border-gray-300 text-sm">
-                <input type="number" name="stock_quantity" placeholder="Stock quantity" class="w-full rounded-md border-gray-300 text-sm">
+                <input type="number" step="0.01" name="price_adjustment" value="0" placeholder="Price adjustment" class="w-full rounded-md border-gray-300 text-sm">
+                <input type="number" name="stock_quantity" value="0" placeholder="Stock quantity" class="w-full rounded-md border-gray-300 text-sm">
                 <button type="submit" class="w-full rounded-md border border-gray-300 py-2 text-sm hover:border-red-600">Add Variation</button>
             </form>
         </section>

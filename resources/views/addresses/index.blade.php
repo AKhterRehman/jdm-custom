@@ -32,5 +32,9 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mt-8">
+            {{ $addresses->links() }}
+        </div>
     @endif
 </x-layouts.account>

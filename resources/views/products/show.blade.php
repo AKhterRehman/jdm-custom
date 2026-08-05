@@ -12,14 +12,14 @@
             <div>
                 <div class="aspect-square overflow-hidden rounded-lg bg-gray-100">
                     @if ($product->images->first())
-                        <img src="{{ $product->images->first()->path }}" alt="{{ $product->images->first()->alt_text }}" class="h-full w-full object-cover">
+                        <img src="{{ $product->images->first()->url() }}" alt="{{ $product->images->first()->alt_text }}" class="h-full w-full object-cover">
                     @endif
                 </div>
 
                 @if ($product->images->count() > 1)
                     <div class="mt-4 grid grid-cols-4 gap-3">
                         @foreach ($product->images->skip(1) as $image)
-                            <img src="{{ $image->path }}" alt="{{ $image->alt_text }}" class="aspect-square rounded-md object-cover bg-gray-100">
+                            <img src="{{ $image->url() }}" alt="{{ $image->alt_text }}" class="aspect-square rounded-md object-cover bg-gray-100">
                         @endforeach
                     </div>
                 @endif

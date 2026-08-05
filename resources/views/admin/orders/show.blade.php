@@ -5,6 +5,10 @@
         <div>
             <h1 class="text-2xl font-bold">{{ $order->order_number }}</h1>
             <p class="text-gray-500">{{ $order->user->name }} ({{ $order->user->email }}) &middot; {{ $order->created_at->format('M j, Y g:ia') }}</p>
+            <div class="flex gap-3 text-sm mt-2">
+                <a href="{{ route('admin.orders.receipt', $order) }}" target="_blank" class="rounded-md border border-gray-300 bg-white px-3 py-1.5 hover:border-red-600">Print Receipt</a>
+                <a href="{{ route('admin.orders.pdf', $order) }}" class="rounded-md border border-gray-300 bg-white px-3 py-1.5 hover:border-red-600">Download PDF</a>
+            </div>
         </div>
 
         <form action="{{ route('admin.orders.update', $order) }}" method="POST" class="flex items-end gap-2">

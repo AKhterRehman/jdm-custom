@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -76,18 +77,30 @@ class ProductController extends Controller
     public function storeImage(Request $request, Product $product): RedirectResponse
     {
         $validated = $request->validate([
-            'path' => ['required', 'string', 'max:2048'],
+            'image' => ['required', 'image', 'max:4096'],
             'alt_text' => ['nullable', 'string', 'max:255'],
         ]);
 
-        $product->images()->create($validated + ['sort_order' => $product->images()->count()]);
+        $path = $request->file('image')->store('products', 'public');
+
+        $product->images()->create([
+            'path' => $path,
+            'alt_text' => $validated['alt_text'] ?? null,
+            'sort_order' => $product->images()->count(),
+        ]);
 
         return back()->with('status', 'Image added.');
     }
 
     public function destroyImage(Product $product, int $image): RedirectResponse
     {
-        $product->images()->findOrFail($image)->delete();
+        $productImage = $product->images()->findOrFail($image);
+
+        if (! Str::startsWith($productImage->path, ['http://', 'https://'])) {
+            Storage::disk('public')->delete($productImage->path);
+        }
+
+        $productImage->delete();
 
         return back()->with('status', 'Image removed.');
     }
@@ -120,10 +133,10 @@ class ProductController extends Controller
             'stock_quantity' => ['nullable', 'integer', 'min:0'],
         ]);
 
-        $product->variations()->create($validated + [
-            'price_adjustment' => $validated['price_adjustment'] ?? 0,
-            'stock_quantity' => $validated['stock_quantity'] ?? 0,
-        ]);
+        $validated['price_adjustment'] = $validated['price_adjustment'] ?? 0;
+        $validated['stock_quantity'] = $validated['stock_quantity'] ?? 0;
+
+        $product->variations()->create($validated);
 
         return back()->with('status', 'Variation added.');
     }

@@ -11,7 +11,7 @@ class WishlistController extends Controller
 {
     public function index(Request $request): View
     {
-        $wishlists = $request->user()->wishlists()->with(['product.images'])->latest()->get();
+        $wishlists = $request->user()->wishlists()->with(['product.images'])->latest()->paginate(12);
 
         return view('wishlist.index', compact('wishlists'));
     }

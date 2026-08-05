@@ -23,6 +23,10 @@
                     </div>
                 @endforeach
             </div>
+
+            <div class="mt-8">
+                {{ $wishlists->links() }}
+            </div>
         @endif
     </div>
 </x-layouts.storefront>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -39,5 +40,23 @@ class OrderController extends Controller
         $order->update($validated);
 
         return back()->with('status', 'Order updated.');
+    }
+
+    public function receipt(Order $order): View
+    {
+        $order->load(['items', 'address', 'shippingOption']);
+
+        return view('orders.receipt', [
+            'order' => $order,
+            'pdfUrl' => route('admin.orders.pdf', $order),
+        ]);
+    }
+
+    public function pdf(Order $order)
+    {
+        $order->load(['items', 'address', 'shippingOption']);
+
+        return Pdf::loadView('orders.receipt', ['order' => $order, 'pdfUrl' => '#'])
+            ->download("receipt-{$order->order_number}.pdf");
     }
 }

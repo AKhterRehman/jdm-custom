@@ -43,4 +43,8 @@
             </tbody>
         </table>
     </div>
+
+    <div class="mt-6">
+        {{ $categories->links() }}
+    </div>
 </x-layouts.admin>
