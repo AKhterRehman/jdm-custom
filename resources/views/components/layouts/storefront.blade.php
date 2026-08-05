@@ -37,7 +37,7 @@
                                     <span class="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs text-white">{{ $itemCount }}</span>
                                 @endif
                             </a>
-                            <a href="{{ route('profile.edit') }}" class="hover:text-red-600 transition">My Account</a>
+                            <a href="{{ route('account.index') }}" class="hover:text-red-600 transition">My Account</a>
                         @else
                             <a href="{{ route('login') }}" class="hover:text-red-600 transition">Login</a>
                             <a href="{{ route('register') }}" class="rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-red-600 transition">Register</a>
