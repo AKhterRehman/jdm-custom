@@ -1,7 +1,7 @@
 <x-layouts.account title="Addresses">
     <div class="flex items-center justify-between mb-8">
-        <h1 class="text-2xl font-bold">Saved Addresses</h1>
-        <a href="{{ route('addresses.create') }}" class="rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
+        <h1 class="font-heading text-2xl font-bold text-ink-900">Saved Addresses</h1>
+        <a href="{{ route('addresses.create') }}" class="rounded-md bg-ink-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
             Add Address
         </a>
     </div>

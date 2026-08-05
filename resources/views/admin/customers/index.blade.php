@@ -1,5 +1,5 @@
 <x-layouts.admin title="Customers">
-    <h1 class="text-2xl font-bold mb-8">Customers</h1>
+    <h1 class="font-heading text-2xl font-bold text-ink-900 mb-8">Customers</h1>
 
     <form method="GET" class="flex flex-wrap gap-3 mb-6">
         <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name or email..." class="rounded-md border-gray-300 text-sm">

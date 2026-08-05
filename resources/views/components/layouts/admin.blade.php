@@ -8,15 +8,15 @@
         <title>{{ isset($title) ? $title.' - ' : '' }}Admin - {{ config('app.name') }}</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-gray-50 text-gray-900">
+    <body class="font-sans antialiased bg-gray-50 text-ink-900">
         <div class="flex min-h-screen">
-            <aside class="w-56 shrink-0 bg-gray-900 text-gray-300 flex flex-col">
-                <a href="{{ route('admin.dashboard') }}" class="block px-6 py-5 text-lg font-bold text-white border-b border-gray-800">
-                    JDM <span class="text-red-500">Admin</span>
+            <aside class="w-60 shrink-0 bg-ink-900 text-gray-300 flex flex-col">
+                <a href="{{ route('admin.dashboard') }}" class="block px-6 py-5 font-heading text-lg font-bold text-white border-b border-white/10">
+                    JDM <span class="text-red-500">ADMIN</span>
                 </a>
 
                 <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
@@ -32,20 +32,21 @@
                     @endphp
 
                     @foreach ($adminLinks as $link)
+                        @php $active = request()->routeIs(str_replace('.index', '', $link['route']).'*'); @endphp
                         <a
                             href="{{ route($link['route']) }}"
-                            class="block rounded-md px-3 py-2 font-medium {{ request()->routeIs(str_replace('.index', '', $link['route']).'*') ? 'bg-gray-800 text-white' : 'hover:bg-gray-800 hover:text-white' }}"
+                            class="flex items-center gap-2 rounded-md px-3 py-2.5 font-medium border-l-2 transition {{ $active ? 'bg-white/5 text-white border-red-600' : 'border-transparent hover:bg-white/5 hover:text-white' }}"
                         >
                             {{ $link['label'] }}
                         </a>
                     @endforeach
                 </nav>
 
-                <div class="px-3 py-4 border-t border-gray-800 text-sm space-y-1">
-                    <a href="{{ route('home') }}" class="block rounded-md px-3 py-2 hover:bg-gray-800 hover:text-white">View Store</a>
+                <div class="px-3 py-4 border-t border-white/10 text-sm space-y-1">
+                    <a href="{{ route('home') }}" class="block rounded-md px-3 py-2 hover:bg-white/5 hover:text-white transition">View Store</a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="block w-full text-left rounded-md px-3 py-2 hover:bg-gray-800 hover:text-white">Log Out</button>
+                        <button type="submit" class="block w-full text-left rounded-md px-3 py-2 hover:bg-white/5 hover:text-white transition">Log Out</button>
                     </form>
                 </div>
             </aside>

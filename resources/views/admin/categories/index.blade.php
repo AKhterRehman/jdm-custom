@@ -1,7 +1,7 @@
 <x-layouts.admin title="Categories">
     <div class="flex items-center justify-between mb-8">
-        <h1 class="text-2xl font-bold">Categories</h1>
-        <a href="{{ route('admin.categories.create') }}" class="rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
+        <h1 class="font-heading text-2xl font-bold text-ink-900">Categories</h1>
+        <a href="{{ route('admin.categories.create') }}" class="rounded-md bg-ink-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
             Add Category
         </a>
     </div>

@@ -1,7 +1,7 @@
 <x-layouts.admin :title="'Edit '.$product->name">
     <a href="{{ route('admin.products.index') }}" class="text-sm text-gray-500 hover:text-red-600">&larr; Back to products</a>
 
-    <h1 class="text-2xl font-bold mt-2 mb-8">Edit Product</h1>
+    <h1 class="font-heading text-2xl font-bold text-ink-900 mt-2 mb-8">Edit Product</h1>
 
     <form action="{{ route('admin.products.update', $product) }}" method="POST">
         @csrf

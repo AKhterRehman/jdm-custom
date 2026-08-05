@@ -7,23 +7,34 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+    <body class="font-sans text-ink-900 antialiased">
+        <div class="min-h-screen grid lg:grid-cols-2">
+            <div class="hidden lg:flex flex-col justify-between bg-ink-900 text-white p-12 relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.2),_transparent_60%)]"></div>
+                <a href="/" class="relative font-heading text-2xl font-bold">
+                    JDM <span class="text-red-600">CUSTOM</span>
                 </a>
+                <div class="relative">
+                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Performance &middot; Precision &middot; Pride</p>
+                    <h1 class="font-heading text-4xl font-bold leading-tight">Built for the JDM Faithful</h1>
+                    <p class="mt-4 text-gray-300 max-w-sm">Premium engine, body, and performance parts engineered for serious JDM builds.</p>
+                </div>
+                <p class="relative text-xs text-gray-500">&copy; {{ date('Y') }} JDM Custom</p>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+            <div class="flex flex-col justify-center items-center px-6 py-12 bg-white">
+                <div class="w-full sm:max-w-md">
+                    <a href="/" class="lg:hidden block text-center mb-8 font-heading text-2xl font-bold text-ink-900">
+                        JDM <span class="text-red-600">CUSTOM</span>
+                    </a>
+
+                    {{ $slot }}
+                </div>
             </div>
         </div>
     </body>

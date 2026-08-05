@@ -1,36 +1,36 @@
 <x-layouts.admin title="Dashboard">
-    <h1 class="text-2xl font-bold mb-8">Dashboard</h1>
+    <h1 class="font-heading text-2xl font-bold text-ink-900 mb-8">Dashboard</h1>
 
     <div class="grid sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
-        <div class="rounded-lg border border-gray-200 bg-white p-5">
-            <p class="text-2xl font-bold">${{ number_format($stats['total_revenue'], 2) }}</p>
+        <div class="rounded-xl border border-gray-200 border-l-4 border-l-red-600 bg-white p-5">
+            <p class="font-heading text-2xl font-bold text-ink-900">${{ number_format($stats['total_revenue'], 2) }}</p>
             <p class="text-sm text-gray-500">Revenue (Paid)</p>
         </div>
-        <div class="rounded-lg border border-gray-200 bg-white p-5">
-            <p class="text-2xl font-bold">{{ $stats['total_orders'] }}</p>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['total_orders'] }}</p>
             <p class="text-sm text-gray-500">Total Orders</p>
         </div>
-        <div class="rounded-lg border border-gray-200 bg-white p-5">
-            <p class="text-2xl font-bold">{{ $stats['pending_orders'] }}</p>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['pending_orders'] }}</p>
             <p class="text-sm text-gray-500">Pending Orders</p>
         </div>
-        <div class="rounded-lg border border-gray-200 bg-white p-5">
-            <p class="text-2xl font-bold">{{ $stats['total_customers'] }}</p>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['total_customers'] }}</p>
             <p class="text-sm text-gray-500">Customers</p>
         </div>
-        <div class="rounded-lg border border-gray-200 bg-white p-5">
-            <p class="text-2xl font-bold">{{ $stats['total_products'] }}</p>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['total_products'] }}</p>
             <p class="text-sm text-gray-500">Products</p>
         </div>
-        <div class="rounded-lg border border-gray-200 bg-white p-5">
-            <p class="text-2xl font-bold text-red-600">{{ $stats['low_stock_products'] }}</p>
+        <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <p class="font-heading text-2xl font-bold text-red-600">{{ $stats['low_stock_products'] }}</p>
             <p class="text-sm text-gray-500">Low Stock</p>
         </div>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-8">
         <div>
-            <h2 class="text-lg font-semibold mb-4">Recent Orders</h2>
+            <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Recent Orders</h2>
             <div class="rounded-lg border border-gray-200 bg-white divide-y divide-gray-100">
                 @forelse ($recentOrders as $order)
                     <a href="{{ route('admin.orders.show', $order) }}" class="flex items-center justify-between px-4 py-3 text-sm hover:bg-gray-50">
@@ -48,7 +48,7 @@
         </div>
 
         <div>
-            <h2 class="text-lg font-semibold mb-4">Low Stock Products</h2>
+            <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Low Stock Products</h2>
             <div class="rounded-lg border border-gray-200 bg-white divide-y divide-gray-100">
                 @forelse ($lowStockProducts as $product)
                     <a href="{{ route('admin.products.edit', $product) }}" class="flex items-center justify-between px-4 py-3 text-sm hover:bg-gray-50">

@@ -3,7 +3,7 @@
 
     <div class="flex items-start justify-between mt-2 mb-8">
         <div>
-            <h1 class="text-2xl font-bold">{{ $customer->name }}</h1>
+            <h1 class="font-heading text-2xl font-bold text-ink-900">{{ $customer->name }}</h1>
             <p class="text-gray-500">{{ $customer->email }} &middot; Joined {{ $customer->created_at->format('M j, Y') }}</p>
         </div>
 

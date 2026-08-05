@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <h1 class="text-2xl font-bold mt-2">Order {{ $order->order_number }}</h1>
+    <h1 class="font-heading text-2xl font-bold text-ink-900 mt-2">Order {{ $order->order_number }}</h1>
     <p class="mt-1 text-gray-500">Placed {{ $order->created_at->format('M j, Y') }}</p>
 
     @if ($order->status === 'cancelled')

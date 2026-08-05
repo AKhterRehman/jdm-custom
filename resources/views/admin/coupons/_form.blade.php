@@ -48,6 +48,6 @@
     </label>
 </div>
 
-<button type="submit" class="mt-6 rounded-md bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-red-600 transition">
+<button type="submit" class="mt-6 rounded-md bg-ink-900 px-6 py-3 font-semibold text-white hover:bg-red-600 transition">
     Save Coupon
 </button>

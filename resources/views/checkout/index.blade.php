@@ -1,6 +1,6 @@
 <x-layouts.storefront title="Checkout">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 class="text-3xl font-bold mb-8">Checkout</h1>
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-ink-900 mb-10">Checkout</h1>
 
         @if ($errors->any())
             <div class="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
@@ -17,7 +17,7 @@
 
             <div class="lg:col-span-2 space-y-10">
                 <section>
-                    <h2 class="text-lg font-semibold mb-4">Shipping Address</h2>
+                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Shipping Address</h2>
 
                     @if ($addresses->isNotEmpty())
                         <div class="space-y-3 mb-4">
@@ -49,7 +49,7 @@
                 </section>
 
                 <section>
-                    <h2 class="text-lg font-semibold mb-4">Shipping Method</h2>
+                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Shipping Method</h2>
                     <div class="space-y-3">
                         @foreach ($shippingOptions as $option)
                             <label class="flex items-center justify-between gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600">
@@ -67,7 +67,7 @@
                 </section>
 
                 <section>
-                    <h2 class="text-lg font-semibold mb-4">Payment Method</h2>
+                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Payment Method</h2>
                     <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4">
                         <input type="radio" name="payment_method" value="cod" checked>
                         <span class="text-sm font-medium text-gray-900">Cash on Delivery</span>
@@ -76,14 +76,14 @@
                 </section>
 
                 <section>
-                    <h2 class="text-lg font-semibold mb-4">Order Notes (optional)</h2>
+                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Order Notes (optional)</h2>
                     <textarea name="notes" rows="3" class="w-full rounded-md border-gray-300 text-sm" placeholder="Delivery instructions, etc."></textarea>
                 </section>
             </div>
 
             <div class="lg:col-span-1">
-                <div class="rounded-lg border border-gray-200 p-6 sticky top-24">
-                    <h2 class="text-lg font-semibold mb-4">Order Summary</h2>
+                <div class="rounded-xl border border-gray-200 shadow-sm p-6 sticky top-24">
+                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Order Summary</h2>
 
                     <div class="space-y-2 text-sm mb-4 max-h-64 overflow-y-auto">
                         @foreach ($cart->items as $item)
@@ -131,7 +131,7 @@
                         </dl>
                     </div>
 
-                    <button type="submit" class="mt-6 w-full rounded-md bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-red-600 transition">
+                    <button type="submit" class="mt-6 w-full rounded-md bg-ink-900 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">
                         Place Order
                     </button>
                 </div>

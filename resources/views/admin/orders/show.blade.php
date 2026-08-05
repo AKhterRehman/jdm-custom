@@ -3,7 +3,7 @@
 
     <div class="flex items-start justify-between mt-2 mb-8">
         <div>
-            <h1 class="text-2xl font-bold">{{ $order->order_number }}</h1>
+            <h1 class="font-heading text-2xl font-bold text-ink-900">{{ $order->order_number }}</h1>
             <p class="text-gray-500">{{ $order->user->name }} ({{ $order->user->email }}) &middot; {{ $order->created_at->format('M j, Y g:ia') }}</p>
             <div class="flex gap-3 text-sm mt-2">
                 <a href="{{ route('admin.orders.receipt', $order) }}" target="_blank" class="rounded-md border border-gray-300 bg-white px-3 py-1.5 hover:border-red-600">Print Receipt</a>
@@ -30,7 +30,7 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">Update</button>
+            <button type="submit" class="rounded-md bg-ink-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">Update</button>
         </form>
     </div>
 

@@ -1,6 +1,6 @@
 <x-layouts.storefront title="Your Wishlist">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 class="text-3xl font-bold mb-8">Your Wishlist</h1>
+        <h1 class="font-heading text-3xl font-bold text-ink-900 mb-8">Your Wishlist</h1>
 
         @if (session('status'))
             <div class="mb-6 rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">

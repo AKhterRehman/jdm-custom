@@ -1,5 +1,5 @@
 <x-layouts.account title="Add Address">
-    <h1 class="text-2xl font-bold mb-8">Add Address</h1>
+    <h1 class="font-heading text-2xl font-bold text-ink-900 mb-8">Add Address</h1>
 
     <form action="{{ route('addresses.store') }}" method="POST">
         @csrf
