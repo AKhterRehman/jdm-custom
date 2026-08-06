@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-transparent.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/update logo.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
@@ -93,7 +93,7 @@
             <div class="hidden lg:flex flex-col justify-between bg-ink-900 text-white p-12 relative overflow-hidden">
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.2),_transparent_60%)]"></div>
                 <a href="/" class="relative" aria-label="JDM Custom home">
-                    <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 6rem; width: auto;">
+                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 6rem; width: auto;">
                 </a>
                 <div class="relative">
                     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
@@ -106,7 +106,7 @@
             <div class="flex flex-col justify-start items-center px-6 py-10 lg:items-start lg:overflow-y-auto lg:pl-12 lg:pr-12 lg:py-10 bg-slate-50">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom home">
-                        <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
+                        <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
                     </a>
 
                     {{ $slot }}

@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($title) ? $title.' - ' : '' }}{{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-transparent.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/update logo.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
@@ -102,7 +102,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-20 items-center justify-between gap-8">
                     <a href="{{ route('home') }}" class="shrink-0" aria-label="JDM Custom home">
-                        <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
+                        <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide">
@@ -177,7 +177,7 @@
                 class="lg:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-ink-900 shadow-2xl flex flex-col transition-transform duration-300 ease-out"
             >
                 <div class="flex items-center justify-between px-6 h-20 border-b border-white/10 shrink-0">
-                    <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 3.5rem; width: auto;">
+                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 3.5rem; width: auto;">
                     <button type="button" @click="mobileOpen = false" class="text-gray-400 hover:text-white transition" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -261,7 +261,7 @@
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
                 <div>
-                    <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
+                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
                     <p class="mt-3 text-sm leading-relaxed">Handcrafted custom wood creations,  engraving, CNC art, shadow boxes, and more, made your way.</p>
                 </div>
 

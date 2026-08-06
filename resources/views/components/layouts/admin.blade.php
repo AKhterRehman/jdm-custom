@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($title) ? $title.' - ' : '' }}Admin - {{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-transparent.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/update logo.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
         <div class="flex min-h-screen">
             <aside class="w-60 shrink-0 bg-ink-900 text-gray-300 flex flex-col">
                 <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 border-b border-white/10" aria-label="JDM Custom admin dashboard">
-                    <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
+                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
                 </a>
 
                 <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
