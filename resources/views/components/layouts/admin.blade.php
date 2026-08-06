@@ -17,8 +17,8 @@
         <div class="flex min-h-screen">
             <aside class="w-60 shrink-0 bg-ink-900 text-gray-300 flex flex-col">
                 <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 border-b border-white/10" aria-label="JDM Custom Creations admin dashboard">
-                    <span class="inline-flex items-center rounded-lg bg-white p-2 shadow-md">
-                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 2.75rem; width: auto;">
+                    <span class="inline-flex items-center justify-center rounded-full bg-white overflow-hidden shadow-md" style="height: 3rem; width: 3rem;">
+                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 2.7rem; width: 2.7rem;">
                     </span>
                 </a>
 

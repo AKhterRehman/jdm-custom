@@ -41,22 +41,18 @@
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.4))]"></div>
 
-        {{-- Wood-grain / tree-ring motif tucked in the corner — a nod to the material, not just decoration. --}}
-        <svg class="absolute -right-24 -top-24 w-[34rem] h-[34rem] pointer-events-none" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-            <g stroke="#dc2626" fill="none">
-                <circle cx="200" cy="200" r="60" stroke-opacity="0.35" stroke-width="1.5" />
-                <circle cx="204" cy="196" r="95" stroke-opacity="0.28" stroke-width="1.5" />
-                <circle cx="198" cy="203" r="130" stroke-opacity="0.22" stroke-width="1.5" />
-                <circle cx="202" cy="198" r="165" stroke-opacity="0.16" stroke-width="1.5" />
-                <circle cx="197" cy="202" r="198" stroke-opacity="0.10" stroke-width="1.5" />
-            </g>
-        </svg>
-        <svg class="absolute -left-16 bottom-0 w-64 h-64 pointer-events-none opacity-[0.08]" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-            <g stroke="#ffffff" stroke-width="1.5">
-                <path d="M10 100c30-18 60 18 90 0s60-18 90 0" />
-                <path d="M10 130c30-18 60 18 90 0s60-18 90 0" />
-                <path d="M10 160c30-18 60 18 90 0s60-18 90 0" />
-            </g>
+        {{-- Real wood-grain texture, generated with an SVG turbulence filter (no stock photo needed) —
+             warm amber streaks running across the hero, like a plank behind the dark overlay. --}}
+        <svg class="absolute inset-0 w-full h-full pointer-events-none mix-blend-soft-light opacity-70" aria-hidden="true">
+            <filter id="wood-grain-texture" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.009 0.35" numOctaves="4" seed="19" result="grain" />
+                <feColorMatrix in="grain" type="matrix" values="
+                    0 0 0 0 0.78
+                    0 0 0 0 0.36
+                    0 0 0 0 0.14
+                    0 0 0 0.9 0" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#wood-grain-texture)" />
         </svg>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 text-center">
