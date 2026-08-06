@@ -27,6 +27,8 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        return view('home', compact('categories', 'featuredProducts', 'newArrivals'));
+        $totalProducts = Product::where('is_active', true)->count();
+
+        return view('home', compact('categories', 'featuredProducts', 'newArrivals', 'totalProducts'));
     }
 }
