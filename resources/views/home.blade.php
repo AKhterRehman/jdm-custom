@@ -11,10 +11,6 @@
         .category-tile:hover .category-tile__icon, .category-tile:focus-visible .category-tile__icon { transform: scale(1.15) rotate(-6deg); }
         .category-tile__name { position: relative; z-index: 1; color: #b91c1c; font-family: Lexend, sans-serif; font-weight: 700; transition: color 220ms ease, transform 220ms ease; }
         .category-tile:hover .category-tile__name, .category-tile:focus-visible .category-tile__name { color: #111827; transform: translateY(-2px); }
-
-        .cnc-line-path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: cnc-draw 3.2s ease-out 0.3s forwards; }
-        @keyframes cnc-draw { to { stroke-dashoffset: 0; } }
-        @media (prefers-reduced-motion: reduce) { .cnc-line-path { animation: none; stroke-dashoffset: 0; } }
     </style>
 
     @php
@@ -45,8 +41,22 @@
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.4))]"></div>
 
-        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40" viewBox="0 0 1400 500" preserveAspectRatio="none" fill="none">
-            <path class="cnc-line-path" d="M-50 420 C 250 380, 350 460, 600 400 S 950 300, 1150 340 S 1350 300, 1450 260" stroke="#dc2626" stroke-width="2" />
+        {{-- Wood-grain / tree-ring motif tucked in the corner — a nod to the material, not just decoration. --}}
+        <svg class="absolute -right-24 -top-24 w-[34rem] h-[34rem] pointer-events-none" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+            <g stroke="#dc2626" fill="none">
+                <circle cx="200" cy="200" r="60" stroke-opacity="0.35" stroke-width="1.5" />
+                <circle cx="204" cy="196" r="95" stroke-opacity="0.28" stroke-width="1.5" />
+                <circle cx="198" cy="203" r="130" stroke-opacity="0.22" stroke-width="1.5" />
+                <circle cx="202" cy="198" r="165" stroke-opacity="0.16" stroke-width="1.5" />
+                <circle cx="197" cy="202" r="198" stroke-opacity="0.10" stroke-width="1.5" />
+            </g>
+        </svg>
+        <svg class="absolute -left-16 bottom-0 w-64 h-64 pointer-events-none opacity-[0.08]" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+            <g stroke="#ffffff" stroke-width="1.5">
+                <path d="M10 100c30-18 60 18 90 0s60-18 90 0" />
+                <path d="M10 130c30-18 60 18 90 0s60-18 90 0" />
+                <path d="M10 160c30-18 60 18 90 0s60-18 90 0" />
+            </g>
         </svg>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 text-center">

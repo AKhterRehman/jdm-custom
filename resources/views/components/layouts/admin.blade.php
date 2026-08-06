@@ -16,8 +16,10 @@
     <body class="font-sans antialiased bg-gray-50 text-ink-900">
         <div class="flex min-h-screen">
             <aside class="w-60 shrink-0 bg-ink-900 text-gray-300 flex flex-col">
-                <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 border-b border-white/10" aria-label="JDM Custom admin dashboard">
-                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
+                <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 border-b border-white/10" aria-label="JDM Custom Creations admin dashboard">
+                    <span class="inline-flex items-center rounded-lg bg-white p-2 shadow-md">
+                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 2.75rem; width: auto;">
+                    </span>
                 </a>
 
                 <nav class="flex-1 px-3 py-4 space-y-1 text-sm">

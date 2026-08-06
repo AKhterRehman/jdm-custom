@@ -101,8 +101,8 @@
         <header x-data="{ mobileOpen: false }" class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-24 items-center justify-between gap-8">
-                    <a href="{{ route('home') }}" class="shrink-0" aria-label="JDM Custom Creations home">
-                        <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom Creations" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
+                    <a href="{{ route('home') }}" class="shrink-0 inline-flex items-center rounded-xl bg-white p-2.5 shadow-md" aria-label="JDM Custom Creations home">
+                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.75rem; width: auto;">
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide">
@@ -177,7 +177,9 @@
                 class="lg:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-ink-900 shadow-2xl flex flex-col transition-transform duration-300 ease-out"
             >
                 <div class="flex items-center justify-between px-6 h-20 border-b border-white/10 shrink-0">
-                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 3.5rem; width: auto;">
+                    <span class="inline-flex items-center rounded-lg bg-white p-2 shadow-md">
+                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 2.5rem; width: auto;">
+                    </span>
                     <button type="button" @click="mobileOpen = false" class="text-gray-400 hover:text-white transition" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -238,7 +240,7 @@
             {{ $slot }}
         </main>
 
-        <footer class="mt-24 bg-ink-900 text-gray-400">
+        <footer class="bg-ink-900 text-gray-400">
             <div class="payment-strip">
                 <div class="payment-strip__inner">
                     <p class="payment-strip__label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> Secure payments</p>
@@ -261,7 +263,9 @@
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
                 <div>
-                    <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
+                    <span class="inline-flex items-center rounded-xl bg-white p-2.5 shadow-md">
+                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.5rem; width: auto;">
+                    </span>
                     <p class="mt-3 text-sm leading-relaxed">Handcrafted custom wood creations,  engraving, CNC art, shadow boxes, and more, made your way.</p>
                 </div>
 

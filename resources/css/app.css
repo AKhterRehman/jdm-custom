@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The uploaded brand mark sits on its own near-black square canvas (not a
-   transparent PNG). On the site's dark header/panels that square reads as a
-   visible box around the logo. `screen` blending drops pure-black pixels to
-   fully transparent against a dark backdrop while keeping the red/white
-   artwork at full strength, so the logo appears to sit directly on the
-   header with no visible edge. */
-.jdm-logo {
-    mix-blend-mode: screen;
-}
-
 /* Animated gradient text — cycles through the brand's red/amber palette. */
 .text-gradient-animate {
     background: linear-gradient(90deg, #dc2626, #f59e0b, #dc2626, #991b1b, #dc2626);
