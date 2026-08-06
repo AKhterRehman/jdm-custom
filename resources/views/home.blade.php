@@ -38,22 +38,25 @@
     @endphp
 
     <section class="relative overflow-hidden bg-ink-900 text-white">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.4))]"></div>
-
-        {{-- Real wood-grain texture, generated with an SVG turbulence filter (no stock photo needed) —
-             warm amber streaks running across the hero, like a plank behind the dark overlay. --}}
-        <svg class="absolute inset-0 w-full h-full pointer-events-none mix-blend-soft-light opacity-70" aria-hidden="true">
-            <filter id="wood-grain-texture" x="0" y="0" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.009 0.35" numOctaves="4" seed="19" result="grain" />
+        {{-- Wood-grain background: a procedurally generated swirling walnut-burl texture
+             (feTurbulence, "turbulence" type gives curling grain lines instead of straight
+             streaks) with a warm top-right highlight fading to dark, like a polished plank
+             lit from one side — no stock photo needed. --}}
+        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-90" aria-hidden="true">
+            <filter id="wood-grain-texture" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.012 0.02" numOctaves="5" seed="27" result="grain" />
                 <feColorMatrix in="grain" type="matrix" values="
-                    0 0 0 0 0.78
-                    0 0 0 0 0.36
-                    0 0 0 0 0.14
-                    0 0 0 0.9 0" />
+                    0 0 0 0 0.5
+                    0 0 0 0 0.28
+                    0 0 0 0 0.12
+                    0 0 0 1.3 -0.15" result="woodColor" />
+                <feGaussianBlur in="woodColor" stdDeviation="0.3" />
             </filter>
             <rect width="100%" height="100%" filter="url(#wood-grain-texture)" />
         </svg>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_110%_80%_at_85%_-10%,_rgba(255,196,120,0.4),_transparent_55%)] mix-blend-soft-light"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.15),_transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(200deg,_transparent_0%,_rgba(0,0,0,0.35)_55%,_rgba(0,0,0,0.62)_100%)]"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 text-center">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-5">Handcrafted &middot; Custom &middot; Made Your Way</p>
