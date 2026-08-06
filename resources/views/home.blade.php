@@ -93,8 +93,8 @@
                     <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">Craft Categories</p>
                 </div>
                 <div>
-                    <p class="font-heading text-3xl sm:text-4xl font-bold text-white">&plusmn;0.1<span class="text-lg">mm</span></p>
-                    <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">CNC Precision</p>
+                    <p class="font-heading text-3xl sm:text-4xl font-bold text-white">Made</p>
+                    <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">To Order, Not Stock</p>
                 </div>
                 <div>
                     <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="100" data-suffix="%">0%</p>
