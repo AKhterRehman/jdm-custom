@@ -83,7 +83,7 @@
             </div>
 
             {{-- Precision stats strip — real, database-driven numbers rather than stock marketing copy. --}}
-            <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-y-8 gap-x-4 max-w-3xl mx-auto border-t border-white/10 pt-10" data-reveal>
+            <div class="mt-16 grid grid-cols-3 gap-y-8 gap-x-4 max-w-2xl mx-auto border-t border-white/10 pt-10" data-reveal>
                 <div>
                     <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="{{ $totalProducts }}" data-suffix="+">0+</p>
                     <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">Pieces Crafted</p>
@@ -91,10 +91,6 @@
                 <div>
                     <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="{{ $categories->count() }}">0</p>
                     <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">Craft Categories</p>
-                </div>
-                <div>
-                    <p class="font-heading text-3xl sm:text-4xl font-bold text-white">Made</p>
-                    <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">To Order, Not Stock</p>
                 </div>
                 <div>
                     <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="100" data-suffix="%">0%</p>
