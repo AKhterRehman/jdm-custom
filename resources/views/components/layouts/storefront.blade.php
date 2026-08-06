@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($title) ? $title.' - ' : '' }}{{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/update logo.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
@@ -100,9 +100,9 @@
 
         <header x-data="{ mobileOpen: false }" class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex h-20 items-center justify-between gap-8">
-                    <a href="{{ route('home') }}" class="shrink-0" aria-label="JDM Custom home">
-                        <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
+                <div class="flex h-24 items-center justify-between gap-8">
+                    <a href="{{ route('home') }}" class="shrink-0" aria-label="JDM Custom Creations home">
+                        <img src="{{ asset('images/update logo.png') }}" alt="JDM Custom Creations" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide">

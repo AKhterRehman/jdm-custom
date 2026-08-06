@@ -2,9 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Keeps the uploaded brand mark clear against the site's dark surfaces. */
+/* The uploaded brand mark sits on its own near-black square canvas (not a
+   transparent PNG). On the site's dark header/panels that square reads as a
+   visible box around the logo. `screen` blending drops pure-black pixels to
+   fully transparent against a dark backdrop while keeping the red/white
+   artwork at full strength, so the logo appears to sit directly on the
+   header with no visible edge. */
 .jdm-logo {
-    filter: brightness(1.5) contrast(1.15);
+    mix-blend-mode: screen;
+}
+
+/* Animated gradient text — cycles through the brand's red/amber palette. */
+.text-gradient-animate {
+    background: linear-gradient(90deg, #dc2626, #f59e0b, #dc2626, #991b1b, #dc2626);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Infinite horizontal ticker strip. */
+.marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 28s linear infinite;
+}
+.marquee:hover .marquee__track {
+    animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Diagonal shine sweep on hover, used on primary CTA buttons. */
+.shine-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+.shine-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-20deg);
+    transition: left 550ms ease;
+}
+.shine-btn:hover::after {
+    left: 130%;
+}
+
+/* Scroll-reveal: elements fade + slide up into view (see resources/js/app.js). */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 700ms ease, transform 700ms ease;
+}
+[data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .text-gradient-animate,
+    .marquee__track,
+    .shine-btn::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* Prevent saved browser credentials from adding an overly saturated autofill background. */
