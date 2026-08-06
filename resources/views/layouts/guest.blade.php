@@ -92,8 +92,8 @@
         <div class="min-h-screen grid lg:h-screen lg:grid-cols-2">
             <div class="hidden lg:flex flex-col justify-between bg-ink-900 text-white p-12 relative overflow-hidden">
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.2),_transparent_60%)]"></div>
-                <a href="/" class="relative inline-flex items-center justify-center rounded-full bg-white overflow-hidden shadow-md" style="height: 5.5rem; width: 5.5rem;" aria-label="JDM Custom Creations home">
-                    <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: 5rem;">
+                <a href="/" class="relative inline-flex items-center justify-center" aria-label="JDM Custom Creations home">
+                    <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 7rem; width: auto;">
                 </a>
                 <div class="relative">
                     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
