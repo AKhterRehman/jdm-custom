@@ -38,25 +38,12 @@
     @endphp
 
     <section class="relative overflow-hidden bg-ink-900 text-white">
-        {{-- Wood-grain background: a procedurally generated swirling walnut-burl texture
-             (feTurbulence, "turbulence" type gives curling grain lines instead of straight
-             streaks) with a warm top-right highlight fading to dark, like a polished plank
-             lit from one side — no stock photo needed. --}}
-        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-90" aria-hidden="true">
-            <filter id="wood-grain-texture" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="turbulence" baseFrequency="0.012 0.02" numOctaves="5" seed="27" result="grain" />
-                <feColorMatrix in="grain" type="matrix" values="
-                    0 0 0 0 0.5
-                    0 0 0 0 0.28
-                    0 0 0 0 0.12
-                    0 0 0 1.3 -0.15" result="woodColor" />
-                <feGaussianBlur in="woodColor" stdDeviation="0.3" />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#wood-grain-texture)" />
-        </svg>
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_110%_80%_at_85%_-10%,_rgba(255,196,120,0.4),_transparent_55%)] mix-blend-soft-light"></div>
+        {{-- Real walnut wood-grain photograph as the hero background, with a warm top-right
+             highlight and a dark gradient layered on top so the white headline stays readable. --}}
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}');"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_110%_80%_at_85%_-10%,_rgba(255,196,120,0.35),_transparent_55%)] mix-blend-soft-light"></div>
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.15),_transparent_60%)]"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(200deg,_transparent_0%,_rgba(0,0,0,0.35)_55%,_rgba(0,0,0,0.62)_100%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(200deg,_rgba(0,0,0,0.35)_0%,_rgba(0,0,0,0.55)_55%,_rgba(0,0,0,0.75)_100%)]"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 text-center">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-5">Handcrafted &middot; Custom &middot; Made Your Way</p>
