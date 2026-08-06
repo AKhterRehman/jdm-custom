@@ -26,16 +26,48 @@
                     </div>
                 @endif
 
-                <h2 class="font-heading text-xl font-semibold text-ink-900 mb-6">Send us a message</h2>
+                <h2 class="font-heading text-xl font-semibold text-ink-900 mb-2">Tell us about your enquiry</h2>
+                <p class="mb-6 text-sm text-gray-500">Fields marked with <span class="text-red-600">*</span> are required. The more detail you share, the better we can help.</p>
 
                 <form action="{{ route('pages.contact.submit') }}" method="POST" class="space-y-4">
                     @csrf
                     <div class="grid sm:grid-cols-2 gap-4">
-                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Your name" required class="w-full rounded-md border-gray-300 text-sm">
-                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Email address" required class="w-full rounded-md border-gray-300 text-sm">
+                        <div>
+                            <label for="name" class="mb-1.5 block text-sm font-medium text-gray-700">Full name <span class="text-red-600">*</span></label>
+                            <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" class="w-full rounded-md border-gray-300 text-sm" placeholder="Your full name">
+                        </div>
+                        <div>
+                            <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">Email address <span class="text-red-600">*</span></label>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" class="w-full rounded-md border-gray-300 text-sm" placeholder="you@example.com">
+                        </div>
                     </div>
-                    <input type="text" name="subject" value="{{ old('subject') }}" placeholder="Subject" required class="w-full rounded-md border-gray-300 text-sm">
-                    <textarea name="message" rows="6" placeholder="How can we help?" required class="w-full rounded-md border-gray-300 text-sm">{{ old('message') }}</textarea>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="phone" class="mb-1.5 block text-sm font-medium text-gray-700">Phone number</label>
+                            <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" autocomplete="tel" class="w-full rounded-md border-gray-300 text-sm" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div>
+                            <label for="company_name" class="mb-1.5 block text-sm font-medium text-gray-700">Company or organization</label>
+                            <input id="company_name" type="text" name="company_name" value="{{ old('company_name') }}" autocomplete="organization" class="w-full rounded-md border-gray-300 text-sm" placeholder="Optional">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="inquiry_type" class="mb-1.5 block text-sm font-medium text-gray-700">What can we help with?</label>
+                        <select id="inquiry_type" name="inquiry_type" class="w-full rounded-md border-gray-300 text-sm">
+                            <option value="">Select an enquiry type</option>
+                            @foreach (['general' => 'General enquiry', 'custom-order' => 'Custom order', 'existing-order' => 'Existing order', 'product-question' => 'Product question', 'wholesale' => 'Wholesale or trade', 'other' => 'Other'] as $value => $label)
+                                <option value="{{ $value }}" @selected(old('inquiry_type') === $value)>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label for="subject" class="mb-1.5 block text-sm font-medium text-gray-700">Subject <span class="text-red-600">*</span></label>
+                        <input id="subject" type="text" name="subject" value="{{ old('subject') }}" required class="w-full rounded-md border-gray-300 text-sm" placeholder="A short summary of your enquiry">
+                    </div>
+                    <div>
+                        <label for="message" class="mb-1.5 block text-sm font-medium text-gray-700">Message <span class="text-red-600">*</span></label>
+                        <textarea id="message" name="message" rows="6" required class="w-full rounded-md border-gray-300 text-sm" placeholder="Tell us about your idea, requirements, or question.">{{ old('message') }}</textarea>
+                    </div>
                     <button type="submit" class="rounded-md bg-ink-900 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">
                         Send Message
                     </button>

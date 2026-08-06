@@ -5,7 +5,7 @@
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Our Story</p>
             <h1 class="font-heading text-4xl sm:text-5xl font-bold">About JDM Custom Creations</h1>
             <p class="mt-5 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Handcrafted wooden creations that blend traditional woodworking with modern CNC precision —
+                Handcrafted wooden creations that blend traditional woodworking with modern CNC precision 
                 built by artisans who care about the details.
             </p>
         </div>
@@ -16,10 +16,10 @@
             <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-600 mb-3">Who We Are</p>
                 <h2 class="font-heading text-2xl sm:text-3xl font-bold text-ink-900 mb-4">Bringing your ideas to life in wood</h2>
-                <p class="text-gray-600 leading-relaxed mb-4">
+               <p class="text-gray-600 leading-relaxed mb-4">
                     JDM Custom Creations began with a simple goal: build one-of-a-kind wooden pieces that reflect
                     the people who order them. What started as a small workshop has grown into a full custom
-                    shop, but the approach hasn't changed — every piece is still made to order, by hand.
+                    shop, but the approach hasn't changed. Every piece is still made to order, by hand.
                 </p>
                 <p class="text-gray-600 leading-relaxed">
                     We work across engraving, CNC-cut art, shadow boxes, jewelry boxes, epoxy signage, layered
@@ -70,12 +70,16 @@
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-ink-900 mb-4">Have an idea in mind?</h2>
-        <p class="text-gray-600 mb-8">Browse the full catalog or reach out and we'll help you bring your piece to life.</p>
-        <div class="flex items-center justify-center gap-4">
-            <a href="{{ route('shop.index') }}" class="rounded-md bg-ink-900 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">Shop Now</a>
-            <a href="{{ route('pages.contact') }}" class="rounded-md border border-gray-300 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-ink-900 hover:border-red-600 transition">Contact Us</a>
+    <section class="bg-ink-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold">Have an idea in mind?</h2>
+            <p class="mt-5 text-gray-300 leading-relaxed">
+                Browse the full catalog or reach out and we'll help you bring your piece to life.
+            </p>
+            <div class="mt-8 flex items-center justify-center gap-4">
+                <a href="{{ route('shop.index') }}" class="rounded-md bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-500 transition">Shop Now</a>
+                <a href="{{ route('pages.contact') }}" class="rounded-md border border-white/30 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:border-red-500 hover:text-red-400 transition">Contact Us</a>
+            </div>
         </div>
     </section>
 </x-layouts.storefront>

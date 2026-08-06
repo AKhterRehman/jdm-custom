@@ -1,4 +1,15 @@
 <x-layouts.storefront>
+    <style>
+        .category-tile { position: relative; display: flex; min-height: 6.75rem; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #fecaca; border-radius: 0.875rem; background: #fff1f2; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+        .category-tile::before { position: absolute; inset: 0; background: #fff; content: ''; opacity: 0; transition: opacity 220ms ease; }
+        .category-tile::after { position: absolute; top: 0; left: 1.25rem; right: 1.25rem; height: 3px; border-radius: 0 0 999px 999px; background: #dc2626; content: ''; transform: scaleX(0); transition: transform 220ms ease; }
+        .category-tile:hover, .category-tile:focus-visible { border-color: #e2e8f0; box-shadow: 0 14px 28px rgba(15, 23, 42, 0.10); transform: translateY(-5px); }
+        .category-tile:hover::before, .category-tile:focus-visible::before { opacity: 1; }
+        .category-tile:hover::after, .category-tile:focus-visible::after { transform: scaleX(1); }
+        .category-tile:focus-visible { outline: 2px solid #dc2626; outline-offset: 3px; }
+        .category-tile__name { position: relative; z-index: 1; color: #b91c1c; font-family: Lexend, sans-serif; font-weight: 700; transition: color 220ms ease, transform 220ms ease; }
+        .category-tile:hover .category-tile__name, .category-tile:focus-visible .category-tile__name { color: #111827; transform: translateY(-2px); }
+    </style>
     <section class="relative overflow-hidden bg-ink-900 text-white">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.4))]"></div>
@@ -8,7 +19,7 @@
                 Wood Art, <span class="text-red-600">Handcrafted</span> for You
             </h1>
             <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                From intricate engravings to CNC art, shadow boxes, and jewelry boxes — custom wooden
+                From intricate engravings to CNC art, shadow boxes, and jewelry boxes, custom wooden
                 creations shaped with precision and finished by hand.
             </p>
             <div class="mt-10 flex items-center justify-center gap-4">
@@ -25,8 +36,8 @@
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             @foreach ($categories as $category)
-                <a href="{{ route('category.show', $category) }}" class="group relative overflow-hidden rounded-xl border border-gray-200 p-6 text-center transition hover:-translate-y-1 hover:border-red-600 hover:shadow-xl">
-                    <p class="font-heading font-semibold text-ink-900 group-hover:text-red-600 transition">{{ $category->name }}</p>
+                <a href="{{ route('category.show', $category) }}" class="category-tile p-6 text-center">
+                    <p class="category-tile__name">{{ $category->name }}</p>
                 </a>
             @endforeach
         </div>
@@ -68,7 +79,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
             <h2 class="font-heading text-3xl sm:text-4xl font-bold">Turning Ideas Into Timeless Pieces</h2>
             <p class="mt-5 text-gray-300 leading-relaxed">
-                Every piece we build blends traditional woodworking with modern CNC precision — crafted to be
+                Every piece we build blends traditional woodworking with modern CNC precision,  crafted to be
                 functional, meaningful, and made to last. This is custom work, shaped by hand.
             </p>
             <a href="{{ route('home') }}#categories" class="mt-8 inline-block rounded-md bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-500 transition">Start Shopping</a>

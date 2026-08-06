@@ -15,12 +15,12 @@ class ProductSeeder extends Seeder
             'Engraving' => [
                 [
                     'name' => 'Engraved Walnut Nameplate', 'price' => 65.00, 'sale_price' => null,
-                    'description' => 'A hand-engraved walnut nameplate for a desk, door, or gift — clean lettering cut deep into solid hardwood.',
+                    'description' => 'A hand-engraved walnut nameplate for a desk, door, or gift, clean lettering cut deep into solid hardwood.',
                     'specs' => ['Material' => 'Solid Walnut', 'Finish' => 'Hand-Rubbed Oil', 'Dimensions' => '8in x 3in'],
                 ],
                 [
                     'name' => 'Custom Engraved Cutting Board', 'price' => 85.00, 'sale_price' => 75.00,
-                    'description' => 'A food-safe maple cutting board engraved with a name, date, or design — a lasting piece for the kitchen or a wedding gift.',
+                    'description' => 'A food-safe maple cutting board engraved with a name, date, or design, a lasting piece for the kitchen or a wedding gift.',
                     'specs' => ['Material' => 'Maple Wood', 'Finish' => 'Food-Safe Mineral Oil', 'Dimensions' => '12in x 8in'],
                 ],
             ],
@@ -168,7 +168,7 @@ class ProductSeeder extends Seeder
             foreach ($products as $index => $data) {
                 $slug = Str::slug($data['name']);
 
-                $product = Product::create([
+                $product = Product::firstOrCreate(['slug' => $slug], [
                     'category_id' => $category->id,
                     'name' => $data['name'],
                     'slug' => $slug,
@@ -181,6 +181,10 @@ class ProductSeeder extends Seeder
                     'is_active' => true,
                     'is_featured' => $index === 0,
                 ]);
+
+                if (! $product->wasRecentlyCreated) {
+                    continue;
+                }
 
                 $product->images()->create([
                     'path' => 'https://placehold.co/600x600?text='.urlencode($data['name']),

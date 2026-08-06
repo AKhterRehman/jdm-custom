@@ -25,9 +25,8 @@ class CategorySeeder extends Seeder
         $order = 0;
 
         foreach ($categories as $name => $description) {
-            Category::create([
+            Category::updateOrCreate(['slug' => Str::slug($name)], [
                 'name' => $name,
-                'slug' => Str::slug($name),
                 'description' => $description,
                 'is_active' => true,
                 'sort_order' => $order++,

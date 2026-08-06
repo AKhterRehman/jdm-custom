@@ -22,6 +22,7 @@ Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name(
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'submitContact'])->name('pages.contact.submit');
+Route::post('/newsletter/subscribe', [PageController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('pages.privacy');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('pages.terms');
 

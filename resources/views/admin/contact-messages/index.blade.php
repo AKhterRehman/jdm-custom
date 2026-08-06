@@ -7,6 +7,9 @@
                 <tr>
                     <th class="px-4 py-3">From</th>
                     <th class="px-4 py-3">Subject</th>
+                    <th class="px-4 py-3">Phone Number</th>
+                    <th class="px-4 py-3">Company Name</th>
+                    <th class="px-4 py-3">Inquiry Type</th>
                     <th class="px-4 py-3">Received</th>
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3"></th>
@@ -20,6 +23,9 @@
                             <p class="text-gray-500">{{ $message->email }}</p>
                         </td>
                         <td class="px-4 py-3 {{ $message->is_read ? '' : 'font-semibold text-ink-900' }}">{{ $message->subject }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $message->phone ?: '—' }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $message->company_name ?: '—' }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $message->inquiry_type ? ucfirst(str_replace('-', ' ', $message->inquiry_type)) : '—' }}</td>
                         <td class="px-4 py-3 text-gray-500">{{ $message->created_at->format('M j, Y g:ia') }}</td>
                         <td class="px-4 py-3">
                             @if (! $message->is_read)
@@ -37,7 +43,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="5" class="px-4 py-6 text-center text-gray-500">No messages yet.</td></tr>
+                    <tr><td colspan="8" class="px-4 py-6 text-center text-gray-500">No messages yet.</td></tr>
                 @endforelse
             </tbody>
         </table>

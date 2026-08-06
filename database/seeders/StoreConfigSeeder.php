@@ -11,13 +11,12 @@ class StoreConfigSeeder extends Seeder
 {
     public function run(): void
     {
-        ShippingOption::create(['name' => 'Standard Shipping', 'description' => '5-7 business days', 'cost' => 15.00, 'is_active' => true]);
-        ShippingOption::create(['name' => 'Express Shipping', 'description' => '1-2 business days', 'cost' => 45.00, 'is_active' => true]);
+        ShippingOption::updateOrCreate(['name' => 'Standard Shipping'], ['description' => '5-7 business days', 'cost' => 15.00, 'is_active' => true]);
+        ShippingOption::updateOrCreate(['name' => 'Express Shipping'], ['description' => '1-2 business days', 'cost' => 45.00, 'is_active' => true]);
 
-        TaxRate::create(['name' => 'Standard Sales Tax', 'rate_percent' => 5.00, 'is_active' => true]);
+        TaxRate::updateOrCreate(['name' => 'Standard Sales Tax'], ['rate_percent' => 5.00, 'is_active' => true]);
 
-        Coupon::create([
-            'code' => 'JDM10',
+        Coupon::updateOrCreate(['code' => 'JDM10'], [
             'type' => 'percentage',
             'value' => 10,
             'min_order_amount' => 100,

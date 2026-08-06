@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Keeps the uploaded brand mark clear against the site's dark surfaces. */
+.jdm-logo {
+    filter: brightness(1.5) contrast(1.15);
+}
+
+/* Prevent saved browser credentials from adding an overly saturated autofill background. */
+.login-field:-webkit-autofill,
+.login-field:-webkit-autofill:hover,
+.login-field:-webkit-autofill:focus {
+    -webkit-text-fill-color: #1f2937;
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+    box-shadow: 0 0 0 1000px #ffffff inset;
+}

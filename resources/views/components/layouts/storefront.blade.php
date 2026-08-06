@@ -6,9 +6,89 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($title) ? $title.' - ' : '' }}{{ config('app.name') }}</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-transparent.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
+
+        <style>
+            .payment-methods {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .payment-strip { border-bottom: 1px solid #e5e7eb; background: linear-gradient(100deg, #fbfcfe 0%, #ffffff 50%, #fbfcfe 100%); padding: 1.15rem 1rem; }
+            .payment-strip__inner { display: grid; max-width: 80rem; margin: 0 auto; grid-template-columns: minmax(11rem, 1fr) auto minmax(11rem, 1fr); align-items: center; gap: 1.5rem; }
+            .payment-strip__label { display: flex; align-items: center; gap: 0.55rem; color: #475569; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+            .payment-strip__label svg { color: #dc2626; }
+
+            .footer-payment-actions {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 1.25rem;
+            }
+
+            .footer-social-links {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-left: 1px solid #dbe1e8;
+                padding-left: 1.25rem;
+                justify-self: end;
+            }
+
+            .footer-social-label { color: #64748b; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+            @media (max-width: 640px) {
+                .footer-social-links { border-left: 0; padding-left: 0; }
+            }
+
+            @media (max-width: 900px) {
+                .payment-strip__inner { grid-template-columns: 1fr; justify-items: center; gap: 0.85rem; }
+                .payment-strip__label { justify-content: center; }
+                .footer-social-links { justify-self: center; border-left: 0; padding-left: 0; }
+            }
+
+            .payment-badge {
+                display: inline-flex;
+                min-width: 2.75rem;
+                height: 1.75rem;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #dbe1e8;
+                border-radius: 0.25rem;
+                background: #fff;
+                color: #172033;
+                font-size: 0.62rem;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                line-height: 1;
+                padding: 0 0.35rem;
+                transition: transform 150ms ease, box-shadow 150ms ease;
+            }
+
+            .payment-badge:hover { box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12); transform: translateY(-1px); }
+
+            .payment-badge--amex { background: #1674c7; border-color: #1674c7; color: #fff; }
+            .payment-badge--apple { background: #171717; border-color: #171717; color: #fff; }
+            .payment-badge--discover { color: #222; font-size: 0.54rem; }
+            .payment-badge--google { font-size: 0.58rem; }
+            .payment-badge--mastercard { background: #101010; border-color: #101010; color: #fff; }
+            .payment-badge--venmo { background: #008cff; border-color: #008cff; color: #fff; }
+            .payment-badge--usbank { background: #d71920; border-color: #d71920; color: #fff; }
+            .payment-badge--stripe { background: #635bff; border-color: #635bff; color: #fff; }
+            .payment-badge--shop { background: #5a31c9; border-color: #5a31c9; color: #fff; }
+            .payment-badge--visa { background: #1434cb; border-color: #1434cb; color: #fff; font-style: italic; }
+            .social-badge { display: inline-flex; width: 1.75rem; height: 1.75rem; align-items: center; justify-content: center; border-radius: 0.375rem; color: #fff; transition: transform 150ms ease, opacity 150ms ease; }
+            .social-badge:hover { transform: translateY(-1px); opacity: 0.9; }
+            .social-badge--facebook { background: #1877f2; }
+            .social-badge--instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+        </style>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -21,8 +101,8 @@
         <header x-data="{ mobileOpen: false }" class="bg-ink-900 text-gray-200 sticky top-0 z-30 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-20 items-center justify-between gap-8">
-                    <a href="{{ route('home') }}" class="shrink-0 font-heading text-xl font-bold tracking-tight text-white">
-                        JDM <span class="text-red-600">Custom Creations</span>
+                    <a href="{{ route('home') }}" class="shrink-0" aria-label="JDM Custom home">
+                        <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 4rem; width: auto;">
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide">
@@ -97,7 +177,7 @@
                 class="lg:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-ink-900 shadow-2xl flex flex-col transition-transform duration-300 ease-out"
             >
                 <div class="flex items-center justify-between px-6 h-20 border-b border-white/10 shrink-0">
-                    <span class="font-heading text-lg font-bold text-white">JDM <span class="text-red-600">Custom Creations</span></span>
+                    <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 3.5rem; width: auto;">
                     <button type="button" @click="mobileOpen = false" class="text-gray-400 hover:text-white transition" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -159,10 +239,30 @@
         </main>
 
         <footer class="mt-24 bg-ink-900 text-gray-400">
+            <div class="payment-strip">
+                <div class="payment-strip__inner">
+                    <p class="payment-strip__label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> Secure payments</p>
+                    <div class="payment-methods" aria-label="Accepted payment methods">
+                        <span class="payment-badge" title="PayPal" style="color:#003087">Pay<span style="color:#009cde">Pal</span></span>
+                        <span class="payment-badge payment-badge--venmo" title="Venmo">V venmo</span>
+                        <span class="payment-badge payment-badge--usbank" title="U.S. Bank">usbank</span>
+                        <span class="payment-badge payment-badge--stripe" title="Stripe">stripe</span>
+                    </div>
+                    <div class="footer-social-links" aria-label="Follow us on social media">
+                        <span class="footer-social-label">Follow us</span>
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social-badge social-badge--facebook" aria-label="Visit us on Facebook" title="Facebook">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.75l.41-3.12H13.5V7.89c0-.9.25-1.52 1.55-1.52h1.66V3.58A22.3 22.3 0 0 0 14.29 3c-2.4 0-4.05 1.46-4.05 4.15v2.73H7.5V13h2.74v8h3.26Z" /></svg>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-badge social-badge--instagram" aria-label="Visit us on Instagram" title="Instagram">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" fill="none" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
                 <div>
-                    <p class="font-heading text-xl font-bold text-white">JDM <span class="text-red-600">Custom Creations</span></p>
-                    <p class="mt-3 text-sm leading-relaxed">Handcrafted custom wood creations — engraving, CNC art, shadow boxes, and more, made your way.</p>
+                    <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="jdm-logo object-contain" style="height: 5rem; width: auto;">
+                    <p class="mt-3 text-sm leading-relaxed">Handcrafted custom wood creations,  engraving, CNC art, shadow boxes, and more, made your way.</p>
                 </div>
 
                 <div>
@@ -197,9 +297,16 @@
 
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Stay in the loop</p>
-                    <p class="text-sm mb-3">New drops, restocks, and build features — straight to your inbox.</p>
-                    <form class="flex gap-2">
-                        <input type="email" placeholder="Email address" class="flex-1 rounded-md border-white/10 bg-white/5 text-sm text-white placeholder:text-gray-500 focus:border-red-600 focus:ring-red-600">
+                    <p class="text-sm mb-3">New drops, restocks, and build features,   straight to your inbox.</p>
+                    @if (session('newsletter_status'))
+                        <p class="mb-3 text-sm text-green-400">{{ session('newsletter_status') }}</p>
+                    @endif
+                    @error('email', 'newsletter')
+                        <p class="mb-3 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                    <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex gap-2">
+                        @csrf
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Email address" required autocomplete="email" class="min-w-0 flex-1 rounded-md border-white/10 bg-white/5 text-sm text-white placeholder:text-gray-500 focus:border-red-600 focus:ring-red-600">
                         <button type="submit" class="rounded-md bg-red-600 px-4 text-sm font-semibold text-white hover:bg-red-500 transition">Join</button>
                     </form>
                 </div>

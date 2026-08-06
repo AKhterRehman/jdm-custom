@@ -8,8 +8,7 @@
         body { font-family: Helvetica, Arial, sans-serif; color: #1a1a1a; font-size: 13px; margin: 0; padding: 32px; }
         .header { width: 100%; border-bottom: 3px solid #dc2626; padding-bottom: 16px; margin-bottom: 24px; }
         .header td { vertical-align: top; }
-        .brand { font-size: 22px; font-weight: bold; }
-        .brand span { color: #dc2626; }
+        .brand-logo { display: block; height: 70px; width: auto; object-fit: contain; filter: brightness(1.5) contrast(1.15); }
         .muted { color: #6b7280; }
         .right { text-align: right; }
         .mt-24 { margin-top: 24px; }
@@ -43,7 +42,7 @@
     <table class="header">
         <tr>
             <td>
-                <div class="brand">JDM <span>Custom Creations</span></div>
+                <img src="{{ asset('images/jdm-custom-logo-transparent.png') }}" alt="JDM Custom" class="brand-logo">
                 <div class="muted mt-8">Handcrafted custom wood creations</div>
             </td>
             <td class="right">

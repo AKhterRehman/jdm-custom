@@ -9,6 +9,21 @@
             &middot; {{ $message->created_at->format('M j, Y g:ia') }}
         </p>
 
+        <dl class="mt-6 grid gap-x-6 gap-y-4 rounded-lg border border-gray-200 bg-gray-50 p-5 text-sm sm:grid-cols-2">
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-gray-400">Phone</dt>
+                <dd class="mt-1 text-gray-700">{{ $message->phone ?: 'Not provided' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-gray-400">Company</dt>
+                <dd class="mt-1 text-gray-700">{{ $message->company_name ?: 'Not provided' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-gray-400">Enquiry type</dt>
+                <dd class="mt-1 text-gray-700">{{ $message->inquiry_type ? ucfirst(str_replace('-', ' ', $message->inquiry_type)) : 'Not specified' }}</dd>
+            </div>
+        </dl>
+
         <div class="mt-6 rounded-lg border border-gray-200 bg-white p-6 text-gray-700 leading-relaxed whitespace-pre-line">{{ $message->message }}</div>
 
         <div class="mt-6 flex gap-3">
