@@ -1,9 +1,12 @@
 <x-layouts.storefront title="Privacy Policy">
-    <section class="bg-ink-900 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-3">Legal</p>
-            <h1 class="font-heading text-4xl font-bold">Privacy Policy</h1>
-            <p class="mt-3 text-gray-400 text-sm">Last updated: {{ now()->format('F j, Y') }}</p>
+      <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('http://jdm-custom.test/images/hero-wood-bg.jpg'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-white-500 mb-4">LEGGAL</p>
+            <h1 class="font-heading text-4xl sm:text-5xl font-bold"> Privacy <span class="text-gradient-animate">Policy</span></h1>
+            <p class="mt-5 text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Last updated: {{ now()->format('F j, Y') }}
+            </p>
         </div>
     </section>
 
@@ -17,7 +20,7 @@
             <div>
                 <h2 class="font-heading text-lg font-semibold text-ink-900 mb-3">1. Information We Collect</h2>
                 <p>
-                    When you create an account, place an order, or contact us, we collect information such as
+                    When you Fcreate an account, place an order, or contact us, we collect information such as
                     your name, email address, phone number, shipping address, and order history. We also collect
                     limited technical information (browser type, IP address) to keep the site secure and functioning.
                 </p>
