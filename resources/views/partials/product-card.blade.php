@@ -11,7 +11,7 @@
         @endif
     </div>
     <p class="mt-4 text-xs font-semibold uppercase tracking-widest text-gray-400">{{ $product->category->name }}</p>
-    <p class="font-heading font-semibold text-ink-900 group-hover:text-red-600 transition">{{ $product->name }}</p>
+    <p class="font-heading font-semibold text-white-900 group-hover:text-red-600 transition">{{ $product->name }}</p>
     <p class="mt-1">
         @if ($product->sale_price)
             <span class="font-bold text-red-600">${{ number_format($product->sale_price, 2) }}</span>
