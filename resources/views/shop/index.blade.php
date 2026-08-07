@@ -1,5 +1,5 @@
 <x-layouts.storefront title="Shop">
-     <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('http://jdm-custom.test/images/hero-wood-bg.jpg'); background-size: cover; background-position: center;">
+     <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}'); background-size: cover; background-position: center;">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
         <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Full Catalog</p>

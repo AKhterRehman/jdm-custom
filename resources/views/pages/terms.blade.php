@@ -1,5 +1,5 @@
 <x-layouts.storefront title="Terms and Conditions">
-    <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('http://jdm-custom.test/images/hero-wood-bg.jpg'); background-size: cover; background-position: center;">
+    <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}'); background-size: cover; background-position: center;">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
         <div class="relative mx-auto flex min-h-[280px] max-w-5xl items-center justify-center px-4 sm:px-6 lg:px-8 py-24 text-center">
             <div>
