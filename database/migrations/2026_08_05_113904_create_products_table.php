@@ -18,7 +18,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->decimal('sale_price', 10, 2)->nullable();
             $table->string('sku')->unique()->nullable();
-            $table->unsignedInteger('stock_quantity')->default(0);
+            $table->unsignedInteger('total_stock_quantity')->default(0);
+            $table->unsignedInteger('available_stock_quantity')->default(0);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_featured')->default(false);
             $table->timestamps();

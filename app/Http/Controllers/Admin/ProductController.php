@@ -18,7 +18,7 @@ class ProductController extends Controller
         $products = Product::with('category')
             ->when($request->filled('search'), fn ($q) => $q->where('name', 'like', '%'.$request->search.'%'))
             ->when($request->filled('category_id'), fn ($q) => $q->where('category_id', $request->category_id))
-            ->when($request->boolean('low_stock'), fn ($q) => $q->where('stock_quantity', '<=', 5))
+            ->when($request->boolean('low_stock'), fn ($q) => $q->where('available_stock_quantity', '<=', 5))
             ->latest()
             ->paginate(15)
             ->withQueryString();
@@ -41,6 +41,7 @@ class ProductController extends Controller
         $validated['slug'] = $validated['slug'] ?: Str::slug($validated['name']);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['available_stock_quantity'] = $validated['total_stock_quantity'];
 
         $product = Product::create($validated);
 
@@ -61,6 +62,8 @@ class ProductController extends Controller
         $validated['slug'] = $validated['slug'] ?: Str::slug($validated['name']);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_featured'] = $request->boolean('is_featured');
+        $soldQuantity = max(0, $product->total_stock_quantity - $product->available_stock_quantity);
+        $validated['available_stock_quantity'] = max(0, $validated['total_stock_quantity'] - $soldQuantity);
 
         $product->update($validated);
 
@@ -159,7 +162,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'sale_price' => ['nullable', 'numeric', 'min:0', 'lt:price'],
             'sku' => ['nullable', 'string', 'max:255', 'unique:products,sku,'.($ignoreId ?? 'NULL').',id'],
-            'stock_quantity' => ['required', 'integer', 'min:0'],
+            'total_stock_quantity' => ['required', 'integer', 'min:0'],
         ]);
     }
 }

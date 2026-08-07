@@ -177,7 +177,8 @@ class ProductSeeder extends Seeder
                     'price' => $data['price'],
                     'sale_price' => $data['sale_price'],
                     'sku' => 'JDM-'.$skuCounter++,
-                    'stock_quantity' => fake()->numberBetween(0, 25),
+                    'total_stock_quantity' => $stockQuantity = fake()->numberBetween(0, 25),
+                    'available_stock_quantity' => $stockQuantity,
                     'is_active' => true,
                     'is_featured' => $index === 0,
                 ]);

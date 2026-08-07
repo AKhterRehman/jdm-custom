@@ -39,9 +39,27 @@
                     @endif
                 </div>
 
-                <p class="mt-2 text-sm font-medium {{ $product->stock_quantity > 0 ? 'text-green-600' : 'text-red-600' }}">
-                    {{ $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+                <p class="mt-2 text-sm font-medium {{ $product->available_stock_quantity > 0 ? 'text-green-600' : 'text-red-600' }}">
+                    {{ $product->available_stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}
                 </p>
+
+                <div x-data="{ quantity: 1, available: {{ max(0, (int) $product->available_stock_quantity) }} }">
+                @if (auth()->check() && auth()->user()->is_admin)
+                    <div class="mt-5 grid grid-cols-2 gap-3">
+                        <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
+                            <p class="text-[11px] font-semibold uppercase tracking-wider text-gray-500">Total Stock Quantity</p>
+                            <p class="mt-1 text-lg font-bold text-ink-900">{{ $product->total_stock_quantity }}</p>
+                        </div>
+                        <div class="rounded-lg border border-green-100 bg-green-50 px-4 py-3">
+                            <p class="text-[11px] font-semibold uppercase tracking-wider text-green-700">Available Stock Quantity</p>
+                            <p class="mt-1 text-lg font-bold text-green-700" x-text="available">{{ $product->available_stock_quantity }}</p>
+                        </div>
+                    </div>
+                @endif
+
+                @if ($errors->has('quantity'))
+                    <p class="mt-4 text-sm font-medium text-red-600">{{ $errors->first('quantity') }}</p>
+                @endif
 
                 <form action="{{ route('cart.store') }}" method="POST">
                     @csrf
@@ -55,7 +73,8 @@
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($options as $option)
                                             <label class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium cursor-pointer transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50 has-[:checked]:text-red-600">
-                                                <input type="radio" name="product_variation_id" value="{{ $option->id }}" required class="sr-only">
+                                                <input type="radio" name="product_variation_id" value="{{ $option->id }}" required class="sr-only"
+                                                    x-on:change="available = Math.min({{ max(0, (int) $product->available_stock_quantity) }}, {{ max(0, (int) $option->stock_quantity) }}); if (quantity > available) quantity = available">
                                                 {{ $option->attribute_value }}
                                                 @if ($option->price_adjustment > 0)
                                                     <span class="text-gray-400">(+${{ number_format($option->price_adjustment, 2) }})</span>
@@ -68,13 +87,22 @@
                         </div>
                     @endif
 
-                    <div class="mt-8 flex items-center gap-4">
-                        <input type="number" name="quantity" value="1" min="1" max="99" class="w-20 rounded-md border-gray-300">
-                        <button type="submit" @disabled($product->stock_quantity <= 0) class="flex-1 rounded-md bg-ink-900 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <input type="number" name="quantity" min="1" :max="available" x-model.number="quantity"
+                            @input="quantity = Math.min(Math.max(Number($event.target.value) || 1, 1), available)"
+                            class="w-full sm:w-24 rounded-md border-gray-300">
+                        <button type="submit" @disabled($product->available_stock_quantity <= 0) :disabled="available < 1"
+                            class="flex-1 rounded-md border border-ink-900 bg-white px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-ink-900 hover:border-red-600 hover:text-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
                             Add to Cart
                         </button>
+                        <button type="submit" formaction="{{ route('cart.buy-now') }}" @disabled($product->available_stock_quantity <= 0) :disabled="available < 1"
+                            class="flex-1 rounded-md bg-ink-900 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                            Buy Now
+                        </button>
                     </div>
+                    <p class="mt-3 text-xs text-gray-500">You can add up to <span class="font-semibold text-ink-900" x-text="available"></span> item(s) to your cart.</p>
                 </form>
+                </div>
 
                 <form action="{{ route('wishlist.store') }}" method="POST" class="mt-4">
                     @csrf

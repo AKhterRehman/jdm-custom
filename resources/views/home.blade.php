@@ -56,11 +56,6 @@
             <rect width="100%" height="100%" fill="url(#blueprint-grid)" />
         </svg>
 
-        {{-- Corner registration marks, like a CNC toolpath origin/crop reference. --}}
-        <div class="absolute top-6 left-6 h-9 w-9 border-t-2 border-l-2 border-red-500/40 hidden sm:block" aria-hidden="true"></div>
-        <div class="absolute top-6 right-6 h-9 w-9 border-t-2 border-r-2 border-red-500/40 hidden sm:block" aria-hidden="true"></div>
-        <div class="absolute bottom-6 left-6 h-9 w-9 border-b-2 border-l-2 border-red-500/40 hidden sm:block" aria-hidden="true"></div>
-        <div class="absolute bottom-6 right-6 h-9 w-9 border-b-2 border-r-2 border-red-500/40 hidden sm:block" aria-hidden="true"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 text-center">
             <div class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5 mb-6" data-reveal>

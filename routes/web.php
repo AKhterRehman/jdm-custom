@@ -39,7 +39,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/quick-add', [CartController::class, 'quickAdd'])->name('cart.quick-add');
+    Route::post('/buy-now', [CartController::class, 'buyNow'])->name('cart.buy-now');
+    Route::patch('/cart/{cartItem}/increment', [CartController::class, 'increment'])->name('cart.increment');
+    Route::patch('/cart/{cartItem}/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart', [CartController::class, 'destroySelected'])->name('cart.destroy-selected');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
 
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
