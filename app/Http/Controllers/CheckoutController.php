@@ -19,6 +19,7 @@ class CheckoutController extends Controller
     {
         $cart = $request->user()->activeCart();
         $cart->load(['items.product', 'items.variation']);
+        $cart->setRelation('items', $this->selectedCartItems($request, $cart));
 
         if ($cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('status', 'Your cart is empty.');
@@ -28,7 +29,7 @@ class CheckoutController extends Controller
         $shippingOptions = ShippingOption::where('is_active', true)->get();
         $coupon = $this->sessionCoupon($request);
 
-        $totals = $this->calculateTotals($cart->subtotal(), $coupon, $shippingOptions->first());
+        $totals = $this->calculateTotals($cart->items->sum(fn ($item) => $item->lineTotal()), $coupon, $shippingOptions->first());
 
         return view('checkout.index', compact('cart', 'addresses', 'shippingOptions', 'coupon', 'totals'));
     }
@@ -75,6 +76,7 @@ class CheckoutController extends Controller
 
         $cart = $request->user()->activeCart();
         $cart->load(['items.product', 'items.variation']);
+        $cart->setRelation('items', $this->selectedCartItems($request, $cart));
 
         if ($cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('status', 'Your cart is empty.');
@@ -86,7 +88,7 @@ class CheckoutController extends Controller
 
         $shippingOption = ShippingOption::findOrFail($validated['shipping_option_id']);
         $coupon = $this->sessionCoupon($request);
-        $subtotal = $cart->subtotal();
+        $subtotal = $cart->items->sum(fn ($item) => $item->lineTotal());
         $totals = $this->calculateTotals($subtotal, $coupon, $shippingOption);
 
         $order = DB::transaction(function () use ($request, $cart, $address, $shippingOption, $coupon, $totals, $validated) {
@@ -117,19 +119,19 @@ class CheckoutController extends Controller
                     'line_total' => $item->lineTotal(),
                 ]);
 
-                $item->product->decrement('stock_quantity', min($item->quantity, $item->product->stock_quantity));
+                $item->product->decrement('available_stock_quantity', min($item->quantity, $item->product->available_stock_quantity));
             }
 
             if ($coupon) {
                 $coupon->increment('used_count');
             }
 
-            $cart->items()->delete();
+            $cart->items()->whereKey($cart->items->modelKeys())->delete();
 
             return $order;
         });
 
-        $request->session()->forget('checkout.coupon_code');
+        $request->session()->forget(['checkout.coupon_code', 'checkout.selected_cart_item_ids']);
 
         if ($order->payment_method === 'stripe') {
             return redirect($this->createStripeSession($order)->url);
@@ -210,6 +212,26 @@ class CheckoutController extends Controller
         $code = $request->session()->get('checkout.coupon_code');
 
         return $code ? Coupon::where('code', $code)->first() : null;
+    }
+
+    private function selectedCartItems(Request $request, $cart)
+    {
+        if ($request->has('cart_item_ids')) {
+            $selectedIds = collect($request->input('cart_item_ids', []))
+                ->filter(fn ($id) => is_numeric($id))
+                ->map(fn ($id) => (int) $id)
+                ->unique()
+                ->values()
+                ->all();
+
+            $request->session()->put('checkout.selected_cart_item_ids', $selectedIds);
+        }
+
+        $selectedIds = $request->session()->get('checkout.selected_cart_item_ids');
+
+        return empty($selectedIds)
+            ? $cart->items
+            : $cart->items->whereIn('id', $selectedIds)->values();
     }
 
     private function calculateTotals(float $subtotal, ?Coupon $coupon, ?ShippingOption $shippingOption): array
