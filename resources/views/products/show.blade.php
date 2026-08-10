@@ -181,9 +181,19 @@
                         <span class="text-xs font-bold uppercase tracking-wide text-ink-900">{{ $reviewCount ? $averageRating.' / 5 from '.$reviewCount.' '.str('review')->plural($reviewCount) : 'No reviews yet' }}</span>
                     </div>
                     @auth
+                        @if ($canReview)
                         <button type="button" data-open-review-modal class="inline-flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">
                             Write a Review
                         </button>
+                        @elseif ($hasReviewed)
+                            <span class="inline-flex items-center justify-center rounded-md border border-gray-200 bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-gray-500">
+                                Review Submitted
+                            </span>
+                        @else
+                            <span class="inline-flex items-center justify-center rounded-md border border-gray-200 bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-gray-500">
+                                Available After Delivery
+                            </span>
+                        @endif
                     @else
                         <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">
                             Sign In to Review
@@ -194,7 +204,26 @@
 
             <div class="space-y-4">
                     @forelse ($product->reviews as $review)
-                        <article class="rounded-lg border border-gray-200 bg-white p-5 transition duration-300 ease-out hover:-translate-y-1 hover:border-red-200 hover:shadow-lg hover:shadow-red-950/10">
+                        @php
+                            $reviewMedia = collect($review->image_paths)
+                                ->map(fn ($imagePath) => [
+                                    'type' => 'image',
+                                    'src' => asset('storage/'.$imagePath),
+                                    'alt' => 'Customer uploaded product photo',
+                                ])
+                                ->merge(
+                                    collect($review->video_paths)->map(fn ($videoPath) => [
+                                        'type' => 'video',
+                                        'src' => Storage::url($videoPath),
+                                        'mime' => $videoMimeType($videoPath),
+                                    ])
+                                )
+                                ->values();
+                        @endphp
+                        <article
+                            x-data="{ selectedMedia: null }"
+                            class="rounded-lg border border-gray-200 bg-white p-5 transition duration-300 ease-out hover:-translate-y-1 hover:border-red-200 hover:shadow-lg hover:shadow-red-950/10"
+                        >
                             <div class="flex items-start gap-4">
                                 @if ($review->user->profile_image_path)
                                     <img src="{{ asset('storage/'.$review->user->profile_image_path) }}" alt="{{ $review->user->name }}" class="h-11 w-11 rounded-full object-cover ring-2 ring-red-100">
@@ -216,35 +245,46 @@
                                 </div>
                             </div>
 
-                            @if ($review->title)
-                                <h3 class="mt-5 font-heading text-base font-bold text-ink-900">{{ $review->title }}</h3>
-                            @endif
                             <p class="mt-3 text-sm leading-relaxed text-gray-600">"{{ $review->review }}"</p>
 
-                            @if ($review->image_paths)
-                                <div class="flex flex-wrap gap-3 items-center mt-5">
-                                    @foreach ($review->image_paths as $imagePath)
-                                        <div class="overflow-hidden rounded-lg border border-gray-200 bg-gray-100 text-left shadow-sm">
-                                            <div class="relative">
-                                                <img src="{{ asset('storage/'.$imagePath) }}" alt="Customer uploaded product photo" class="aspect-square object-cover" style="height: 180px">
-                                                <span class="absolute bottom-1.5 left-1.5 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-white/90">
-                                                    Customer uploaded product photo
-                                                </span>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            @if ($review->video_paths)
+                            @if ($reviewMedia->isNotEmpty())
                                 <div class="mt-5 space-y-3">
-                                    @foreach ($review->video_paths as $videoPath)
-                                        <div class="overflow-hidden rounded-lg border border-gray-200 bg-black shadow-sm">
-                                            <video controls preload="metadata" playsinline class="w-full rounded-lg bg-black">
-                                                <source src="{{ Storage::url($videoPath) }}" type="{{ $videoMimeType($videoPath) }}" />
+                                    <div class="flex flex-wrap gap-3">
+                                        @foreach ($reviewMedia as $media)
+                                            <button
+                                                type="button"
+                                                @click="selectedMedia = @js($media)"
+                                                :class="selectedMedia?.src === @js($media['src']) ? 'border-red-500 ring-2 ring-red-100' : 'border-gray-200'"
+                                                class="h-24 w-24 overflow-hidden rounded-lg border bg-gray-100 text-left shadow-sm transition hover:border-red-300 focus:outline-none focus:ring-2 focus:ring-red-100"
+                                                aria-label="{{ $media['type'] === 'image' ? 'Show customer uploaded product photo' : 'Show customer uploaded product video' }}"
+                                            >
+                                                @if ($media['type'] === 'image')
+                                                    <img src="{{ $media['src'] }}" alt="{{ $media['alt'] }}" class="h-full w-full object-cover">
+                                                @else
+                                                    <span class="relative block h-full w-full bg-black">
+                                                        <video preload="metadata" muted playsinline class="h-full w-full object-cover">
+                                                            <source src="{{ $media['src'] }}" type="{{ $media['mime'] }}">
+                                                        </video>
+                                                        <span class="absolute inset-0 flex items-center justify-center bg-black/35 text-white">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                                <path d="M8 5v14l11-7z" />
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                @endif
+                                            </button>
+                                        @endforeach
+                                    </div>
+                                    <div x-show="selectedMedia" x-cloak class="flex h-28  items-center overflow-hidden sm:h-40">
+                                        <template x-if="selectedMedia?.type === 'image'">
+                                            <img :src="selectedMedia.src" :alt="selectedMedia.alt" class="h-28 object-contain sm:h-40">
+                                        </template>
+                                        <template x-if="selectedMedia?.type === 'video'">
+                                            <video :key="selectedMedia.src" controls preload="metadata" playsinline class=" bg-black object-contain" style="height: 180px;"> 
+                                                <source :src="selectedMedia.src" :type="selectedMedia.mime">
                                             </video>
-                                        </div>
-                                    @endforeach
+                                        </template>
+                                    </div>
                                 </div>
                             @endif
                         </article>
@@ -254,12 +294,10 @@
                             <p class="mt-2 text-sm text-gray-500">Be the first to share how this piece worked for your space or gift.</p>
                         </div>
                     @endforelse
-                </div>
-
             </div>
         </section>
 
-        <div id="review-modal" data-review-modal-open="{{ ($errors->review->any() || session('review_status')) ? 'true' : 'false' }}" class="fixed inset-0 z-50 hidden items-start justify-center overflow-y-auto bg-black/60 px-4 py-4 sm:items-center">
+        <div id="review-modal" data-review-modal-open="{{ ($canReview && ($errors->review->any() || session('review_status'))) ? 'true' : 'false' }}" class="fixed inset-0 z-50 hidden items-start justify-center overflow-y-auto bg-black/60 px-4 py-4 sm:items-center">
             <div class="my-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-4 shadow-2xl sm:max-h-[88vh] sm:p-6">
                 <div class="flex items-start justify-between gap-4 border-b border-gray-100 pb-3">
                     <div>
@@ -274,6 +312,7 @@
                 </div>
 
                 @auth
+                    @if ($canReview)
                     <form action="{{ route('product.review', $product) }}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-3">
                         @csrf
 
@@ -296,14 +335,6 @@
                             </div>
                             <input type="hidden" name="rating" id="review-rating" value="{{ old('rating', 0) }}">
                             @error('rating', 'review')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="review-title" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Review Title</label>
-                            <input id="review-title" name="title" type="text" value="{{ old('title') }}" class="mt-1.5 block w-full rounded-lg border-gray-200 py-2 text-sm shadow-sm focus:border-red-500 focus:ring-red-500" placeholder="Example: Beautiful finish and detail">
-                            @error('title', 'review')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -343,6 +374,13 @@
                             </button>
                         </div>
                     </form>
+                    @else
+                        <div class="mt-6 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-5">
+                            <p class="text-sm leading-relaxed text-gray-600">
+                                {{ $hasReviewed ? 'You have already reviewed this product.' : 'You can review this product after an order containing it is delivered.' }}
+                            </p>
+                        </div>
+                    @endif
                 @else
                     <div class="mt-6 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-5">
                         <p class="text-sm leading-relaxed text-gray-600">Sign in to leave a verified review and upload a product photo.</p>

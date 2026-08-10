@@ -13,13 +13,13 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('rating');
-            $table->string('title')->nullable();
             $table->text('review');
-            $table->string('image_path')->nullable();
+            $table->text('image_path')->nullable();
             $table->boolean('is_approved')->default(true);
             $table->timestamps();
 
             $table->index(['product_id', 'is_approved']);
+            $table->unique(['user_id', 'product_id']);
         });
     }
 
