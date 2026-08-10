@@ -9,20 +9,56 @@
         </nav>
 
         <div class="grid md:grid-cols-2 gap-16">
-            <div>
-                <div class="aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-sm">
-                    @if ($product->images->first())
-                        <img src="{{ $product->images->first()->url() }}" alt="{{ $product->images->first()->alt_text }}" class="h-full w-full object-cover">
-                    @endif
+             <div
+                x-data="{
+                    images: {{ Js::from($product->images->map(fn ($img) => ['url' => $img->url(), 'alt' => $img->alt_text])->values()) }},
+                    active: 0,
+                    timer: null,
+                    startAutoSlide() {
+                        clearInterval(this.timer);
+                        if (this.images.length > 1) {
+                            this.timer = setInterval(() => {
+                                this.active = (this.active + 1) % this.images.length;
+                            }, 4000);
+                        }
+                    },
+                    select(index) {
+                        this.active = index;
+                        this.startAutoSlide();
+                    }
+                }"
+                x-init="startAutoSlide()"
+                @mouseenter="clearInterval(timer)"
+                @mouseleave="startAutoSlide()">
+                <div class="relative aspect-square w-full max-w-md overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                    <template x-for="(image, index) in images" :key="index">
+                        <img
+                            :src="image.url"
+                            :alt="image.alt"
+                            x-show="active === index"
+                            x-transition:enter="transition ease-out duration-700"
+                            x-transition:enter-start="opacity-0"
+                            x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition ease-in duration-700"
+                            x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0"
+                            class="absolute inset-0 h-full w-full object-cover"
+                        >
+                    </template>
                 </div>
 
-                @if ($product->images->count() > 1)
-                    <div class="mt-4 grid grid-cols-4 gap-3">
-                        @foreach ($product->images->skip(1) as $image)
-                            <img src="{{ $image->url() }}" alt="{{ $image->alt_text }}" class="aspect-square rounded-md object-cover bg-gray-100">
-                        @endforeach
-                    </div>
-                @endif
+                <div class="mt-4 grid grid-cols-4 gap-3" x-show="images.length > 1" x-cloak>
+                    <template x-for="(image, index) in images" :key="index">
+                        <button
+                            type="button"
+                            @click="select(index)"
+                            class="aspect-square overflow-hidden rounded-md bg-gray-100 ring-offset-1 transition"
+                            :class="active === index ? 'ring-2 ring-red-600' : 'ring-1 ring-gray-200 hover:ring-red-300'"
+                        >
+                            <img :src="image.url" :alt="image.alt" class="h-full w-full object-cover">
+                        </button>
+                    </template>
+                </div>
             </div>
 
             <div>
@@ -181,19 +217,9 @@
                         <span class="text-xs font-bold uppercase tracking-wide text-ink-900">{{ $reviewCount ? $averageRating.' / 5 from '.$reviewCount.' '.str('review')->plural($reviewCount) : 'No reviews yet' }}</span>
                     </div>
                     @auth
-                        @if ($canReview)
                         <button type="button" data-open-review-modal class="inline-flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">
                             Write a Review
                         </button>
-                        @elseif ($hasReviewed)
-                            <span class="inline-flex items-center justify-center rounded-md border border-gray-200 bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-gray-500">
-                                Review Submitted
-                            </span>
-                        @else
-                            <span class="inline-flex items-center justify-center rounded-md border border-gray-200 bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-gray-500">
-                                Available After Delivery
-                            </span>
-                        @endif
                     @else
                         <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">
                             Sign In to Review
@@ -297,7 +323,7 @@
             </div>
         </section>
 
-        <div id="review-modal" data-review-modal-open="{{ ($canReview && ($errors->review->any() || session('review_status'))) ? 'true' : 'false' }}" class="fixed inset-0 z-50 hidden items-start justify-center overflow-y-auto bg-black/60 px-4 py-4 sm:items-center">
+        <div id="review-modal" data-review-modal-open="{{ ($errors->review->any() || session('review_status')) ? 'true' : 'false' }}" class="fixed inset-0 z-50 hidden items-start justify-center overflow-y-auto bg-black/60 px-4 py-4 sm:items-center">
             <div class="my-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-4 shadow-2xl sm:max-h-[88vh] sm:p-6">
                 <div class="flex items-start justify-between gap-4 border-b border-gray-100 pb-3">
                     <div>
@@ -312,7 +338,6 @@
                 </div>
 
                 @auth
-                    @if ($canReview)
                     <form action="{{ route('product.review', $product) }}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-3">
                         @csrf
 
@@ -374,13 +399,6 @@
                             </button>
                         </div>
                     </form>
-                    @else
-                        <div class="mt-6 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-5">
-                            <p class="text-sm leading-relaxed text-gray-600">
-                                {{ $hasReviewed ? 'You have already reviewed this product.' : 'You can review this product after an order containing it is delivered.' }}
-                            </p>
-                        </div>
-                    @endif
                 @else
                     <div class="mt-6 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-5">
                         <p class="text-sm leading-relaxed text-gray-600">Sign in to leave a verified review and upload a product photo.</p>

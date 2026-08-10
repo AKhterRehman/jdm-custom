@@ -84,15 +84,6 @@
                             <span class="text-sm font-medium text-gray-500">PayPal <span class="text-xs">(coming soon)</span></span>
                         </label>
 
-                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
-                            <input type="radio" disabled>
-                            <span class="text-sm font-medium text-gray-500">JazzCash <span class="text-xs">(coming soon)</span></span>
-                        </label>
-
-                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
-                            <input type="radio" disabled>
-                            <span class="text-sm font-medium text-gray-500">EasyPaisa <span class="text-xs">(coming soon)</span></span>
-                        </label>
                     </div>
                     <p class="mt-2 text-xs text-gray-400">Stripe is in test mode — use card number 4242 4242 4242 4242, any future expiry, and any CVC.</p>
                 </section>
