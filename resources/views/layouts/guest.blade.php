@@ -98,7 +98,7 @@
                 <div class="relative">
                     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
                     <h1 class="font-heading text-4xl font-bold leading-tight">Wood Art, Handcrafted for You</h1>
-                    <p class="mt-4 text-gray-300 max-w-sm">Custom engravings, CNC art, shadow boxes, and jewelry boxes — shaped with precision and finished by hand.</p>
+                    <p class="mt-4 text-gray-300 max-w-sm">Custom engravings, CNC art, shadow boxes, and jewelry boxes, shaped with precision and finished by hand.</p>
                 </div>
                 <p class="relative text-xs text-gray-500">&copy; {{ date('Y') }} JDM Custom Creations</p>
             </div>

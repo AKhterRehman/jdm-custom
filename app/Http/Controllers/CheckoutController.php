@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\ShippingOption;
 use App\Models\TaxRate;
+use App\Services\OrderInventoryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +58,7 @@ class CheckoutController extends Controller
         return back()->with('status', 'Coupon removed.');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, OrderInventoryService $inventory): RedirectResponse
     {
         $validated = $request->validate([
             'address_id' => ['nullable', 'exists:addresses,id'],
@@ -86,12 +87,12 @@ class CheckoutController extends Controller
             ? $request->user()->addresses()->findOrFail($validated['address_id'])
             : $request->user()->addresses()->create($validated['new_address']);
 
-        $shippingOption = ShippingOption::findOrFail($validated['shipping_option_id']);
+        $shippingOption = ShippingOption::where('is_active', true)->findOrFail($validated['shipping_option_id']);
         $coupon = $this->sessionCoupon($request);
         $subtotal = $cart->items->sum(fn ($item) => $item->lineTotal());
         $totals = $this->calculateTotals($subtotal, $coupon, $shippingOption);
 
-        $order = DB::transaction(function () use ($request, $cart, $address, $shippingOption, $coupon, $totals, $validated) {
+        $order = DB::transaction(function () use ($request, $cart, $address, $shippingOption, $coupon, $totals, $validated, $inventory) {
             $order = Order::create([
                 'user_id' => $request->user()->id,
                 'address_id' => $address->id,
@@ -119,8 +120,9 @@ class CheckoutController extends Controller
                     'line_total' => $item->lineTotal(),
                 ]);
 
-                $item->product->decrement('available_stock_quantity', min($item->quantity, $item->product->available_stock_quantity));
             }
+
+            $inventory->reserve($order);
 
             if ($coupon) {
                 $coupon->increment('used_count');
@@ -134,21 +136,54 @@ class CheckoutController extends Controller
         $request->session()->forget(['checkout.coupon_code', 'checkout.selected_cart_item_ids']);
 
         if ($order->payment_method === 'stripe') {
-            return redirect($this->createStripeSession($order)->url);
+            try {
+                return redirect($this->createStripeSession($order)->url);
+            } catch (\Throwable $exception) {
+                $this->releaseFailedOrder($order, $inventory);
+
+                report($exception);
+
+                return redirect()->route('orders.show', $order)->with('error', 'We could not start secure card checkout. No payment was taken and your stock reservation was released.');
+            }
         }
 
         return redirect()->route('orders.show', $order)->with('status', 'Order placed successfully!');
     }
 
-    public function retryStripePayment(Request $request, Order $order): RedirectResponse
+    public function retryStripePayment(Request $request, Order $order, OrderInventoryService $inventory): RedirectResponse
     {
         abort_unless($order->user_id === $request->user()->id, 403);
         abort_unless($order->payment_method === 'stripe' && $order->payment_status !== 'paid', 404);
 
-        return redirect($this->createStripeSession($order)->url);
+        DB::transaction(function () use ($order, $inventory) {
+            $lockedOrder = Order::query()->with('coupon')->lockForUpdate()->findOrFail($order->id);
+            $inventory->reserve($lockedOrder);
+
+            if ($lockedOrder->coupon && $lockedOrder->payment_status === 'failed') {
+                $lockedOrder->coupon()->increment('used_count');
+            }
+
+            // Ignore late events from the old checkout session while a new one
+            // is being created below.
+            $lockedOrder->update([
+                'payment_status' => 'pending',
+                'status' => 'pending',
+                'stripe_session_id' => null,
+            ]);
+        });
+
+        try {
+            return redirect($this->createStripeSession($order->fresh('user'))->url);
+        } catch (\Throwable $exception) {
+            $this->releaseFailedOrder($order, $inventory);
+
+            report($exception);
+
+            return back()->with('error', 'We could not restart card checkout. No payment was taken and your stock reservation was released.');
+        }
     }
 
-    public function stripeSuccess(Request $request, Order $order): RedirectResponse
+    public function stripeSuccess(Request $request, Order $order, OrderInventoryService $inventory): RedirectResponse
     {
         abort_unless($order->user_id === $request->user()->id, 403);
 
@@ -166,7 +201,13 @@ class CheckoutController extends Controller
         }
 
         if ($session->payment_status === 'paid') {
-            $order->update(['payment_status' => 'paid']);
+            DB::transaction(function () use ($order, $inventory) {
+                $lockedOrder = Order::query()->lockForUpdate()->findOrFail($order->id);
+
+                if ($lockedOrder->payment_status !== 'paid') {
+                    $lockedOrder->update(['payment_status' => 'paid', 'status' => 'processing']);
+                }
+            });
 
             return redirect()->route('orders.show', $order)->with('status', 'Payment successful! Your order is confirmed.');
         }
@@ -174,11 +215,43 @@ class CheckoutController extends Controller
         return redirect()->route('orders.show', $order)->with('error', 'Payment was not completed.');
     }
 
-    public function stripeCancel(Request $request, Order $order): RedirectResponse
+    public function stripeCancel(Request $request, Order $order, OrderInventoryService $inventory): RedirectResponse
     {
         abort_unless($order->user_id === $request->user()->id, 403);
 
-        return redirect()->route('orders.show', $order)->with('error', 'Payment was cancelled. You can try again from this order.');
+        if ($order->stripe_session_id) {
+            try {
+                (new StripeClient(config('services.stripe.secret')))->checkout->sessions->expire($order->stripe_session_id);
+            } catch (\Throwable $exception) {
+                report($exception);
+
+                // If Stripe already expired the session, it is still safe to
+                // release. For an open/unknown session we keep the reservation
+                // so a real payment can never be discarded.
+                try {
+                    $session = (new StripeClient(config('services.stripe.secret')))->checkout->sessions->retrieve($order->stripe_session_id);
+                } catch (\Throwable) {
+                    return redirect()->route('orders.show', $order)->with('error', 'We could not confirm cancellation yet. Please try again shortly.');
+                }
+
+                if ($session->payment_status === 'paid') {
+                    DB::transaction(function () use ($order, $inventory) {
+                        $lockedOrder = Order::query()->lockForUpdate()->findOrFail($order->id);
+                        $lockedOrder->update(['payment_status' => 'paid', 'status' => 'processing']);
+                    });
+
+                    return redirect()->route('orders.show', $order)->with('status', 'Payment was already successful. Your order is confirmed.');
+                }
+
+                if ($session->status === 'open') {
+                    return redirect()->route('orders.show', $order)->with('error', 'We could not cancel the secure payment session yet. Please try again shortly.');
+                }
+            }
+        }
+
+        $this->releaseFailedOrder($order, $inventory);
+
+        return redirect()->route('orders.show', $order)->with('error', 'Payment was cancelled. No payment was taken and reserved stock has been returned.');
     }
 
     private function createStripeSession(Order $order): StripeSession
@@ -188,6 +261,17 @@ class CheckoutController extends Controller
         $session = $stripe->checkout->sessions->create([
             'mode' => 'payment',
             'customer_email' => $order->user->email,
+            'client_reference_id' => (string) $order->id,
+            'metadata' => [
+                'order_id' => (string) $order->id,
+                'order_number' => $order->order_number,
+            ],
+            'payment_intent_data' => [
+                'metadata' => [
+                    'order_id' => (string) $order->id,
+                    'order_number' => $order->order_number,
+                ],
+            ],
             'line_items' => [[
                 'quantity' => 1,
                 'price_data' => [
@@ -205,6 +289,24 @@ class CheckoutController extends Controller
         $order->update(['stripe_session_id' => $session->id]);
 
         return $session;
+    }
+    private function releaseFailedOrder(Order $order, OrderInventoryService $inventory): void
+    {
+        DB::transaction(function () use ($order, $inventory) {
+            $lockedOrder = Order::query()->with('coupon')->lockForUpdate()->findOrFail($order->id);
+
+            if ($lockedOrder->payment_status === 'paid') {
+                return;
+            }
+
+            $stockReleased = $inventory->release($lockedOrder);
+
+            if ($stockReleased && $lockedOrder->coupon) {
+                $lockedOrder->coupon()->decrement('used_count');
+            }
+
+            $lockedOrder->update(['payment_status' => 'failed', 'status' => 'cancelled']);
+        });
     }
 
     private function sessionCoupon(Request $request): ?Coupon
