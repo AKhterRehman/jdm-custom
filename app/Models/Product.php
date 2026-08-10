@@ -38,6 +38,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class)->orderBy('sort_order');
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class)->latest();
+    }
+
     public function specifications(): HasMany
     {
         return $this->hasMany(ProductSpecification::class)->orderBy('sort_order');

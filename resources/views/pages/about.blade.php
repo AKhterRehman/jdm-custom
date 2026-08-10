@@ -12,7 +12,7 @@
     </section>
 
     <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="grid md:grid-cols-2 gap-16 items-start">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-600 mb-3">Who We Are</p>
                 <h2 class="font-heading text-2xl sm:text-3xl font-bold text-ink-900 mb-4">Bringing your ideas to life in wood</h2>
@@ -22,26 +22,26 @@
                     shop, but the approach hasn't changed. Every piece is still made to order, by hand.
                 </p>
                 <p class="text-gray-600 leading-relaxed">
-                    We work across engraving, CNC-cut art, shadow boxes, jewelry boxes, epoxy signage, layered
+                    We work across engraving, CNC cut art, shadow boxes, jewelry boxes, epoxy signage, layered
                     3D CNC models, murals, and custom board games. Bamboo is our go-to material for its strength
                     and grain, but we work in hardwoods and plywood too, depending on what a piece calls for.
                 </p>
             </div>
 
             <div class="grid grid-cols-2 gap-6">
-                <div class="rounded-xl border border-gray-200 p-6">
+                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
                     <p class="font-heading text-3xl font-bold text-red-600">9</p>
                     <p class="text-sm text-gray-500 mt-1">Craft Categories</p>
                 </div>
-                <div class="rounded-xl border border-gray-200 p-6">
+                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
                     <p class="font-heading text-3xl font-bold text-red-600">100%</p>
                     <p class="text-sm text-gray-500 mt-1">Made to Order</p>
                 </div>
-                <div class="rounded-xl border border-gray-200 p-6">
+                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
                     <p class="font-heading text-3xl font-bold text-red-600">CNC</p>
                     <p class="text-sm text-gray-500 mt-1">Precision Cut</p>
                 </div>
-                <div class="rounded-xl border border-gray-200 p-6">
+                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
                     <p class="font-heading text-3xl font-bold text-red-600">Hand</p>
                     <p class="text-sm text-gray-500 mt-1">Finished Every Piece</p>
                 </div>

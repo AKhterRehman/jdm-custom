@@ -31,6 +31,7 @@
                 border-color: #d1d5db;
                 border-radius: 0.625rem;
                 box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+                transition: border-color 150ms ease, box-shadow 150ms ease;
             }
 
             .auth-premium-input:focus {
@@ -72,6 +73,26 @@
                 outline-offset: 2px;
             }
 
+            /* Hero column background */
+            .auth-hero-panel {
+                background-image:
+                    linear-gradient(180deg, rgba(15, 15, 15, 0.55) 0%, rgba(15, 15, 15, 0.35) 45%, rgba(15, 15, 15, 0.8) 100%),
+                    url('{{ asset('images/hero-wood-bg.jpg') }}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .auth-hero-card {
+                backdrop-filter: blur(6px);
+                background: rgba(15, 15, 15, 0.35);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .auth-form-card {
+                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -12px rgba(15, 23, 42, 0.12);
+            }
+
             @media (max-width: 640px) {
                 .auth-account-link {
                     display: inline-block;
@@ -90,26 +111,34 @@
     </head>
     <body class="font-sans text-ink-900 antialiased">
         <div class="min-h-screen grid lg:h-screen lg:grid-cols-2">
-            <div class="hidden lg:flex flex-col justify-between bg-ink-900 text-white p-12 relative overflow-hidden">
-                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.2),_transparent_60%)]"></div>
+            {{-- Hero / brand column --}}
+            <div class="hidden lg:flex flex-col justify-between text-white p-12 relative overflow-hidden auth-hero-panel">
+                {{-- subtle red radial accent, kept from original --}}
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.25),_transparent_60%)]"></div>
+
                 <a href="/" class="relative inline-flex items-center justify-center" aria-label="JDM Custom Creations home">
-                    <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 7rem; width: auto;">
+                    <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain drop-shadow-lg" style="height: 7rem; width: auto;">
                 </a>
-                <div class="relative">
-                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
+
+                <div class="relative auth-hero-card rounded-2xl p-8">
+                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-400 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
                     <h1 class="font-heading text-4xl font-bold leading-tight">Wood Art, Handcrafted for You</h1>
-                    <p class="mt-4 text-gray-300 max-w-sm">Custom engravings, CNC art, shadow boxes, and jewelry boxes, shaped with precision and finished by hand.</p>
+                    <p class="mt-4 text-gray-200 max-w-sm">Custom engravings, CNC art, shadow boxes, and jewelry boxes — shaped with precision and finished by hand.</p>
                 </div>
-                <p class="relative text-xs text-gray-500">&copy; {{ date('Y') }} JDM Custom Creations</p>
+
+                <p class="relative text-xs text-gray-300">&copy; {{ date('Y') }} JDM Custom Creations</p>
             </div>
 
-            <div class="flex flex-col justify-start items-center px-6 py-10 lg:items-start lg:overflow-y-auto lg:pl-12 lg:pr-12 lg:py-10 bg-slate-50">
+            {{-- Form column --}}
+            <div class="flex flex-col justify-center items-center px-6 py-10 lg:items-center lg:overflow-y-auto lg:pl-12 lg:pr-12 lg:py-10 bg-slate-50">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom Creations home">
                         <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
-                    {{ $slot }}
+                    <div class="auth-form-card bg-white rounded-2xl p-8 sm:p-10">
+                        {{ $slot }}
+                    </div>
                 </div>
             </div>
         </div>
