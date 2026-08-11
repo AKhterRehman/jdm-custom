@@ -220,10 +220,6 @@
                         <button type="button" data-open-review-modal class="inline-flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">
                             Write a Review
                         </button>
-                    @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">
-                            Sign In to Review
-                        </a>
                     @endauth
                 </div>
             </div>

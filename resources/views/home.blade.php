@@ -127,13 +127,13 @@
     </section>
 
     @if ($featuredProducts->isNotEmpty())
-        <section id="featured" class="relative overflow-hidden bg-ink-900 text-white">
+        <section id="featured" class="relative overflow-hidden">
             <!-- <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.16),_transparent_55%)]"></div> -->
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div class="flex items-end justify-between mb-14" data-reveal>
                     <div>
-                        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-400 mb-3">Handpicked</p>
-                        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Featured Products</h2>
+                        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-600 mb-3">Handpicked</p>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-ink-900">Featured Products</h2>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
