@@ -28,7 +28,8 @@
                     <th class="px-4 py-3">Name</th>
                     <th class="px-4 py-3">Category</th>
                     <th class="px-4 py-3">Price</th>
-                    <th class="px-4 py-3">Stock</th>
+                    <th class="px-4 py-3">Total Stock</th>
+                    <th class="px-4 py-3">Available Stock</th>
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3"></th>
                 </tr>
@@ -39,7 +40,8 @@
                         <td class="px-4 py-3 font-medium">{{ $product->name }}</td>
                         <td class="px-4 py-3 text-gray-500">{{ $product->category->name }}</td>
                         <td class="px-4 py-3">${{ number_format($product->sale_price ?? $product->price, 2) }}</td>
-                        <td class="px-4 py-3 {{ $product->stock_quantity <= 5 ? 'text-red-600 font-semibold' : '' }}">{{ $product->stock_quantity }}</td>
+                        <td class="px-4 py-3">{{ $product->total_stock_quantity }}</td>
+                        <td class="px-4 py-3 {{ $product->available_stock_quantity <= 5 ? 'text-red-600 font-semibold' : '' }}">{{ $product->available_stock_quantity }}</td>
                         <td class="px-4 py-3">
                             <span class="rounded-full px-2 py-1 text-xs font-medium {{ $product->is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500' }}">
                                 {{ $product->is_active ? 'Active' : 'Hidden' }}
@@ -55,7 +57,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="px-4 py-6 text-center text-gray-500">No products found.</td></tr>
+                    <tr><td colspan="7" class="px-4 py-6 text-center text-gray-500">No products found.</td></tr>
                 @endforelse
             </tbody>
         </table>

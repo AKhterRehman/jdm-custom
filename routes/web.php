@@ -11,6 +11,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,11 +19,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
+Route::post('/product/{product:slug}/review', [ProductController::class, 'submitReview'])->middleware('auth')->name('product.review');
 
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'submitContact'])->name('pages.contact.submit');
 Route::post('/newsletter/subscribe', [PageController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])->name('stripe.webhook');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('pages.privacy');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('pages.terms');
 
@@ -39,7 +42,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/quick-add', [CartController::class, 'quickAdd'])->name('cart.quick-add');
+    Route::post('/buy-now', [CartController::class, 'buyNow'])->name('cart.buy-now');
+    Route::patch('/cart/{cartItem}/increment', [CartController::class, 'increment'])->name('cart.increment');
+    Route::patch('/cart/{cartItem}/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart', [CartController::class, 'destroySelected'])->name('cart.destroy-selected');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
 
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');

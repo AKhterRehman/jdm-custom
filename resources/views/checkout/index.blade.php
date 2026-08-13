@@ -16,14 +16,20 @@
             @csrf
 
             <div class="lg:col-span-2 space-y-10">
-                <section>
+                @php
+                    $selectedAddressId = old('address_id', $addresses->first()?->id);
+                    $hasNewAddressInput = old('new_address.full_name') !== null;
+                    $useNewAddress = $addresses->isEmpty() || old('address_id') === '' || ($hasNewAddressInput && old('address_id') === null);
+                @endphp
+
+                <section x-data="{ useNewAddress: @js($useNewAddress) }">
                     <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Shipping Address</h2>
 
                     @if ($addresses->isNotEmpty())
                         <div class="space-y-3 mb-4">
                             @foreach ($addresses as $address)
                                 <label class="flex items-start gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600">
-                                    <input type="radio" name="address_id" value="{{ $address->id }}" data-shipping-address {{ $loop->first ? 'checked' : '' }} class="mt-1">
+                                    <input type="radio" name="address_id" value="{{ $address->id }}" data-shipping-address @change="useNewAddress = false" @checked((string) $selectedAddressId === (string) $address->id) class="mt-1">
                                     <span class="text-sm">
                                         <span class="block font-medium text-gray-900">{{ $address->full_name }} &middot; {{ $address->phone }}</span>
                                         <span class="block text-gray-500">{{ $address->fullAddress() }}</span>
@@ -33,18 +39,23 @@
                         </div>
                     @endif
 
-                    <details class="rounded-md border border-gray-200 p-4" id="new-address-details" {{ $addresses->isEmpty() ? 'open' : '' }}>
+                    <details class="rounded-md border border-gray-200 p-4" x-bind:open="useNewAddress">
                         <summary class="cursor-pointer text-sm font-medium text-gray-700">Add a new address</summary>
+                        <label class="mt-4 flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 cursor-pointer has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
+                            <input type="radio" name="address_id" value="" @change="useNewAddress = true" @checked($useNewAddress)>
+                            <span class="text-sm font-medium text-gray-900">Use this new address for this order</span>
+                        </label>
                         <div class="mt-4 grid sm:grid-cols-2 gap-4">
-                            <input type="text" name="new_address[full_name]" placeholder="Full name" class="rounded-md border-gray-300 text-sm" data-new-address-field>
-                            <input type="text" name="new_address[phone]" placeholder="Phone" class="rounded-md border-gray-300 text-sm" data-new-address-field>
-                            <input type="text" name="new_address[address_line1]" placeholder="Address line 1" class="rounded-md border-gray-300 text-sm sm:col-span-2" data-new-address-field>
-                            <input type="text" name="new_address[address_line2]" placeholder="Address line 2 (optional)" class="rounded-md border-gray-300 text-sm sm:col-span-2" data-new-address-field>
-                            <input type="text" name="new_address[city]" placeholder="City" class="rounded-md border-gray-300 text-sm" data-new-address-field>
-                            <input type="text" name="new_address[state]" placeholder="State / Province" class="rounded-md border-gray-300 text-sm" data-new-address-field>
-                            <input type="text" name="new_address[postal_code]" placeholder="Postal code" class="rounded-md border-gray-300 text-sm" data-new-address-field>
-                            <input type="text" name="new_address[country]" placeholder="Country" value="US" class="rounded-md border-gray-300 text-sm" data-new-address-field>
+                            <input type="text" name="new_address[full_name]" value="{{ old('new_address.full_name') }}" placeholder="Full name" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[phone]" value="{{ old('new_address.phone') }}" placeholder="Phone" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[address_line1]" value="{{ old('new_address.address_line1') }}" placeholder="Address line 1" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm sm:col-span-2 disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[address_line2]" value="{{ old('new_address.address_line2') }}" placeholder="Address line 2 (optional)" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm sm:col-span-2 disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[city]" value="{{ old('new_address.city') }}" placeholder="City" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[state]" value="{{ old('new_address.state') }}" placeholder="State / Province" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[postal_code]" value="{{ old('new_address.postal_code') }}" placeholder="Postal code" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
+                            <input type="text" name="new_address[country]" value="{{ old('new_address.country', 'US') }}" placeholder="Country" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
                         </div>
+                        <p class="mt-3 text-xs text-gray-500">Your new address is saved to your account when you place this order.</p>
                         <button type="button" id="calculate-shipping-btn" class="mt-3 rounded-md border border-gray-300 px-4 py-2 text-sm hover:border-red-600">Calculate Shipping</button>
                     </details>
                 </section>
@@ -88,15 +99,6 @@
                             <span class="text-sm font-medium text-gray-500">PayPal <span class="text-xs">(coming soon)</span></span>
                         </label>
 
-                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
-                            <input type="radio" disabled>
-                            <span class="text-sm font-medium text-gray-500">JazzCash <span class="text-xs">(coming soon)</span></span>
-                        </label>
-
-                        <label class="flex items-center gap-3 rounded-md border border-gray-100 bg-gray-50 p-4 cursor-not-allowed opacity-60">
-                            <input type="radio" disabled>
-                            <span class="text-sm font-medium text-gray-500">EasyPaisa <span class="text-xs">(coming soon)</span></span>
-                        </label>
                     </div>
                     <p class="mt-2 text-xs text-gray-400">Stripe is in test mode — use card number 4242 4242 4242 4242, any future expiry, and any CVC.</p>
                 </section>

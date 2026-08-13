@@ -53,7 +53,7 @@
                 @forelse ($lowStockProducts as $product)
                     <a href="{{ route('admin.products.edit', $product) }}" class="flex items-center justify-between px-4 py-3 text-sm hover:bg-gray-50">
                         <p class="font-medium">{{ $product->name }}</p>
-                        <span class="text-red-600 font-semibold">{{ $product->stock_quantity }} left</span>
+                        <span class="text-red-600 font-semibold">{{ $product->available_stock_quantity }} left</span>
                     </a>
                 @empty
                     <p class="px-4 py-3 text-sm text-gray-500">All products well stocked.</p>

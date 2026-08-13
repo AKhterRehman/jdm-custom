@@ -56,8 +56,8 @@
     </div>
 
     <div>
-        <label class="text-sm font-medium text-gray-700">Stock Quantity</label>
-        <input type="number" name="stock_quantity" value="{{ old('stock_quantity', $product->stock_quantity ?? 0) }}" required class="mt-1 w-full rounded-md border-gray-300 text-sm">
+        <label class="text-sm font-medium text-gray-700">Total Stock Quantity</label>
+        <input type="number" name="total_stock_quantity" value="{{ old('total_stock_quantity', $product->total_stock_quantity ?? 0) }}" min="0" required class="mt-1 w-full rounded-md border-gray-300 text-sm">
     </div>
 
     <label class="flex items-center gap-2 text-sm">

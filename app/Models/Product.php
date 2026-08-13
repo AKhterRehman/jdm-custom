@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
     'category_id', 'name', 'slug', 'short_description', 'description',
-    'price', 'sale_price', 'sku', 'stock_quantity', 'is_active', 'is_featured',
+    'price', 'sale_price', 'sku', 'total_stock_quantity', 'available_stock_quantity', 'is_active', 'is_featured',
     'weight_lbs', 'length_in', 'width_in', 'height_in', 'shipping_size_preset',
 ])]
 class Product extends Model
@@ -57,6 +57,11 @@ class Product extends Model
     public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class)->orderBy('sort_order');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class)->latest();
     }
 
     public function specifications(): HasMany
