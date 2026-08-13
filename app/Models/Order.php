@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
     'order_number', 'user_id', 'address_id', 'shipping_option_id', 'coupon_id',
     'status', 'payment_method', 'payment_status', 'stripe_session_id', 'subtotal',
     'discount_amount', 'shipping_amount', 'tax_amount', 'total', 'notes',
+    'carrier', 'service_level', 'shippo_shipment_id', 'shippo_rate_id',
+    'shippo_transaction_id', 'tracking_number', 'tracking_url', 'label_url',
 ])]
 class Order extends Model
 {

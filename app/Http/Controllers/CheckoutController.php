@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\ShippingOption;
 use App\Models\TaxRate;
+use App\Services\ShippoService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Stripe\Checkout\Session as StripeSession;
 use Stripe\StripeClient;
 
 class CheckoutController extends Controller
 {
+    public function __construct(private readonly ShippoService $shippo)
+    {
+    }
+
     public function index(Request $request): View|RedirectResponse
     {
         $cart = $request->user()->activeCart();
@@ -25,12 +33,31 @@ class CheckoutController extends Controller
         }
 
         $addresses = $request->user()->addresses()->latest()->get();
-        $shippingOptions = ShippingOption::where('is_active', true)->get();
         $coupon = $this->sessionCoupon($request);
 
-        $totals = $this->calculateTotals($cart->subtotal(), $coupon, $shippingOptions->first());
+        $defaultAddress = $addresses->firstWhere('is_default', true) ?? $addresses->first();
+        $shipping = $defaultAddress ? $this->quoteShipping($defaultAddress, $cart->items) : ['amount' => 0.0, 'carrier' => null, 'service_level' => null];
 
-        return view('checkout.index', compact('cart', 'addresses', 'shippingOptions', 'coupon', 'totals'));
+        $totals = $this->calculateTotals($cart->subtotal(), $coupon, $shipping['amount']);
+
+        return view('checkout.index', compact('cart', 'addresses', 'coupon', 'totals', 'shipping'));
+    }
+
+    /**
+     * Live shipping quote, called via fetch() when the customer picks/edits an address on the
+     * checkout page. Purely for display, the authoritative price is recomputed in store().
+     */
+    public function shippingRate(Request $request): JsonResponse
+    {
+        $cart = $request->user()->activeCart();
+        $cart->load(['items.product', 'items.variation']);
+
+        $address = $this->resolveAddress($request, persist: false);
+        $shipping = $this->quoteShipping($address, $cart->items);
+        $coupon = $this->sessionCoupon($request);
+        $totals = $this->calculateTotals($cart->subtotal(), $coupon, $shipping['amount']);
+
+        return response()->json(['shipping' => $shipping, 'totals' => $totals]);
     }
 
     public function applyCoupon(Request $request): RedirectResponse
@@ -60,15 +87,14 @@ class CheckoutController extends Controller
     {
         $validated = $request->validate([
             'address_id' => ['nullable', 'exists:addresses,id'],
-            'new_address.full_name' => ['required_without:address_id', 'string', 'max:255'],
-            'new_address.phone' => ['required_without:address_id', 'string', 'max:50'],
-            'new_address.address_line1' => ['required_without:address_id', 'string', 'max:255'],
+            'new_address.full_name' => ['nullable', 'required_without:address_id', 'string', 'max:255'],
+            'new_address.phone' => ['nullable', 'required_without:address_id', 'string', 'max:50'],
+            'new_address.address_line1' => ['nullable', 'required_without:address_id', 'string', 'max:255'],
             'new_address.address_line2' => ['nullable', 'string', 'max:255'],
-            'new_address.city' => ['required_without:address_id', 'string', 'max:255'],
+            'new_address.city' => ['nullable', 'required_without:address_id', 'string', 'max:255'],
             'new_address.state' => ['nullable', 'string', 'max:255'],
             'new_address.postal_code' => ['nullable', 'string', 'max:50'],
-            'new_address.country' => ['required_without:address_id', 'string', 'max:255'],
-            'shipping_option_id' => ['required', 'exists:shipping_options,id'],
+            'new_address.country' => ['nullable', 'required_without:address_id', 'string', 'max:255'],
             'payment_method' => ['required', 'in:cod,stripe'],
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
@@ -84,16 +110,17 @@ class CheckoutController extends Controller
             ? $request->user()->addresses()->findOrFail($validated['address_id'])
             : $request->user()->addresses()->create($validated['new_address']);
 
-        $shippingOption = ShippingOption::findOrFail($validated['shipping_option_id']);
+        // Recomputed here rather than trusted from the client, so the charged amount can
+        // never be manipulated via the page's hidden fields.
+        $shipping = $this->quoteShipping($address, $cart->items);
         $coupon = $this->sessionCoupon($request);
         $subtotal = $cart->subtotal();
-        $totals = $this->calculateTotals($subtotal, $coupon, $shippingOption);
+        $totals = $this->calculateTotals($subtotal, $coupon, $shipping['amount']);
 
-        $order = DB::transaction(function () use ($request, $cart, $address, $shippingOption, $coupon, $totals, $validated) {
+        $order = DB::transaction(function () use ($request, $cart, $address, $shipping, $coupon, $totals, $validated) {
             $order = Order::create([
                 'user_id' => $request->user()->id,
                 'address_id' => $address->id,
-                'shipping_option_id' => $shippingOption->id,
                 'coupon_id' => $coupon?->id,
                 'status' => 'pending',
                 'payment_method' => $validated['payment_method'],
@@ -104,6 +131,10 @@ class CheckoutController extends Controller
                 'tax_amount' => $totals['tax'],
                 'total' => $totals['total'],
                 'notes' => $validated['notes'] ?? null,
+                'carrier' => $shipping['carrier'],
+                'service_level' => $shipping['service_level'],
+                'shippo_shipment_id' => $shipping['shipment_id'] ?? null,
+                'shippo_rate_id' => $shipping['rate_id'] ?? null,
             ]);
 
             foreach ($cart->items as $item) {
@@ -212,15 +243,66 @@ class CheckoutController extends Controller
         return $code ? Coupon::where('code', $code)->first() : null;
     }
 
-    private function calculateTotals(float $subtotal, ?Coupon $coupon, ?ShippingOption $shippingOption): array
+    private function calculateTotals(float $subtotal, ?Coupon $coupon, float $shipping): array
     {
         $discount = ($coupon && $coupon->isValidFor($subtotal)) ? $coupon->discountFor($subtotal) : 0.0;
-        $shipping = $shippingOption ? (float) $shippingOption->cost : 0.0;
         $taxRate = TaxRate::where('is_active', true)->first();
         $taxable = max($subtotal - $discount, 0);
         $tax = $taxRate ? round($taxable * ((float) $taxRate->rate_percent / 100), 2) : 0.0;
         $total = round($taxable + $shipping + $tax, 2);
 
         return compact('subtotal', 'discount', 'shipping', 'tax', 'total');
+    }
+
+    /**
+     * Live rate via Shippo, comparing UPS/USPS/FedEx and auto-picking the cheapest standard
+     * service. Falls back to the cheapest active flat rate if Shippo is unreachable, unconfigured,
+     * or the address can't be rated, so checkout never breaks.
+     */
+    private function quoteShipping(Address $address, $cartItems): array
+    {
+        try {
+            if (! config('services.shippo.api_key')) {
+                throw new \RuntimeException('Shippo is not configured yet.');
+            }
+
+            return $this->shippo->quoteForCart($address, $cartItems);
+        } catch (\Throwable $e) {
+            Log::warning('Shippo rate quote failed, using flat-rate fallback: '.$e->getMessage());
+
+            $fallback = ShippingOption::where('is_active', true)->orderBy('cost')->first();
+
+            return [
+                'amount' => $fallback ? (float) $fallback->cost : 0.0,
+                'carrier' => null,
+                'service_level' => $fallback ? $fallback->name.' (estimated)' : null,
+                'shipment_id' => null,
+                'rate_id' => null,
+            ];
+        }
+    }
+
+    private function resolveAddress(Request $request, bool $persist): Address
+    {
+        if ($request->filled('address_id')) {
+            return $request->user()->addresses()->findOrFail($request->input('address_id'));
+        }
+
+        $data = $request->validate([
+            'new_address.address_line1' => ['required', 'string', 'max:255'],
+            'new_address.address_line2' => ['nullable', 'string', 'max:255'],
+            'new_address.city' => ['required', 'string', 'max:255'],
+            'new_address.state' => ['nullable', 'string', 'max:255'],
+            'new_address.postal_code' => ['nullable', 'string', 'max:50'],
+            'new_address.country' => ['required', 'string', 'max:255'],
+            'new_address.full_name' => ['nullable', 'string', 'max:255'],
+            'new_address.phone' => ['nullable', 'string', 'max:50'],
+        ])['new_address'];
+
+        if ($persist) {
+            return $request->user()->addresses()->create($data);
+        }
+
+        return new Address($data);
     }
 }

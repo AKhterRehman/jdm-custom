@@ -160,6 +160,11 @@ class ProductController extends Controller
             'sale_price' => ['nullable', 'numeric', 'min:0', 'lt:price'],
             'sku' => ['nullable', 'string', 'max:255', 'unique:products,sku,'.($ignoreId ?? 'NULL').',id'],
             'stock_quantity' => ['required', 'integer', 'min:0'],
+            'weight_lbs' => ['nullable', 'numeric', 'min:0'],
+            'length_in' => ['nullable', 'numeric', 'min:0'],
+            'width_in' => ['nullable', 'numeric', 'min:0'],
+            'height_in' => ['nullable', 'numeric', 'min:0'],
+            'shipping_size_preset' => ['nullable', 'string', 'max:50'],
         ]);
     }
 }

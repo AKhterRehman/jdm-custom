@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable([
     'category_id', 'name', 'slug', 'short_description', 'description',
     'price', 'sale_price', 'sku', 'stock_quantity', 'is_active', 'is_featured',
+    'weight_lbs', 'length_in', 'width_in', 'height_in', 'shipping_size_preset',
 ])]
 class Product extends Model
 {
@@ -20,6 +21,26 @@ class Product extends Model
             'sale_price' => 'decimal:2',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'weight_lbs' => 'decimal:2',
+            'length_in' => 'decimal:2',
+            'width_in' => 'decimal:2',
+            'height_in' => 'decimal:2',
+        ];
+    }
+
+    /**
+     * Shipping weight/dimensions, falling back to the configured "estimate high" preset
+     * for any product that hasn't had its real package info set yet.
+     */
+    public function shippingParcel(): array
+    {
+        $fallback = config('shipping.presets.'.config('shipping.fallback_preset'));
+
+        return [
+            'weight_lbs' => (float) ($this->weight_lbs ?? $fallback['weight_lbs']),
+            'length_in' => (float) ($this->length_in ?? $fallback['length_in']),
+            'width_in' => (float) ($this->width_in ?? $fallback['width_in']),
+            'height_in' => (float) ($this->height_in ?? $fallback['height_in']),
         ];
     }
 

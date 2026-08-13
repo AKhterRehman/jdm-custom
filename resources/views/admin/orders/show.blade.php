@@ -71,11 +71,35 @@
             <div class="rounded-lg border border-gray-200 bg-white p-4">
                 <h2 class="font-semibold mb-2">Payment & Shipping</h2>
                 <p class="text-gray-600 uppercase">{{ $order->payment_method }}</p>
-                @if ($order->shippingOption)
-                    <p class="text-gray-600">{{ $order->shippingOption->name }}</p>
+                @if ($order->carrier)
+                    <p class="text-gray-600">{{ $order->carrier }} &middot; {{ $order->service_level }}</p>
+                @elseif ($order->service_level)
+                    <p class="text-gray-600">{{ $order->service_level }}</p>
                 @endif
                 @if ($order->coupon)
                     <p class="text-gray-600">Coupon: {{ $order->coupon->code }}</p>
+                @endif
+            </div>
+
+            <div class="rounded-lg border border-gray-200 bg-white p-4">
+                <h2 class="font-semibold mb-2">Shipping Label</h2>
+
+                @if ($order->label_url)
+                    <p class="text-gray-600 mb-1">Tracking: {{ $order->tracking_number }}</p>
+                    <div class="flex gap-3 mt-2">
+                        <a href="{{ $order->label_url }}" target="_blank" class="rounded-md border border-gray-300 bg-white px-3 py-1.5 hover:border-red-600">Download Label</a>
+                        @if ($order->tracking_url)
+                            <a href="{{ $order->tracking_url }}" target="_blank" class="rounded-md border border-gray-300 bg-white px-3 py-1.5 hover:border-red-600">Track Package</a>
+                        @endif
+                    </div>
+                @elseif ($order->shippo_rate_id)
+                    <p class="text-gray-500 mb-3">No label generated yet.</p>
+                    <form action="{{ route('admin.orders.generate-label', $order) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full rounded-md bg-ink-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">Generate Label</button>
+                    </form>
+                @else
+                    <p class="text-gray-500">No live shipping rate was captured for this order. Buy the label directly through Shippo or Pirate Ship for this one.</p>
                 @endif
             </div>
 

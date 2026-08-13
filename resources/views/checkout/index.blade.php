@@ -23,7 +23,7 @@
                         <div class="space-y-3 mb-4">
                             @foreach ($addresses as $address)
                                 <label class="flex items-start gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600">
-                                    <input type="radio" name="address_id" value="{{ $address->id }}" {{ $loop->first ? 'checked' : '' }} class="mt-1">
+                                    <input type="radio" name="address_id" value="{{ $address->id }}" data-shipping-address {{ $loop->first ? 'checked' : '' }} class="mt-1">
                                     <span class="text-sm">
                                         <span class="block font-medium text-gray-900">{{ $address->full_name }} &middot; {{ $address->phone }}</span>
                                         <span class="block text-gray-500">{{ $address->fullAddress() }}</span>
@@ -33,36 +33,40 @@
                         </div>
                     @endif
 
-                    <details class="rounded-md border border-gray-200 p-4" {{ $addresses->isEmpty() ? 'open' : '' }}>
+                    <details class="rounded-md border border-gray-200 p-4" id="new-address-details" {{ $addresses->isEmpty() ? 'open' : '' }}>
                         <summary class="cursor-pointer text-sm font-medium text-gray-700">Add a new address</summary>
                         <div class="mt-4 grid sm:grid-cols-2 gap-4">
-                            <input type="text" name="new_address[full_name]" placeholder="Full name" class="rounded-md border-gray-300 text-sm">
-                            <input type="text" name="new_address[phone]" placeholder="Phone" class="rounded-md border-gray-300 text-sm">
-                            <input type="text" name="new_address[address_line1]" placeholder="Address line 1" class="rounded-md border-gray-300 text-sm sm:col-span-2">
-                            <input type="text" name="new_address[address_line2]" placeholder="Address line 2 (optional)" class="rounded-md border-gray-300 text-sm sm:col-span-2">
-                            <input type="text" name="new_address[city]" placeholder="City" class="rounded-md border-gray-300 text-sm">
-                            <input type="text" name="new_address[state]" placeholder="State / Province" class="rounded-md border-gray-300 text-sm">
-                            <input type="text" name="new_address[postal_code]" placeholder="Postal code" class="rounded-md border-gray-300 text-sm">
-                            <input type="text" name="new_address[country]" placeholder="Country" class="rounded-md border-gray-300 text-sm">
+                            <input type="text" name="new_address[full_name]" placeholder="Full name" class="rounded-md border-gray-300 text-sm" data-new-address-field>
+                            <input type="text" name="new_address[phone]" placeholder="Phone" class="rounded-md border-gray-300 text-sm" data-new-address-field>
+                            <input type="text" name="new_address[address_line1]" placeholder="Address line 1" class="rounded-md border-gray-300 text-sm sm:col-span-2" data-new-address-field>
+                            <input type="text" name="new_address[address_line2]" placeholder="Address line 2 (optional)" class="rounded-md border-gray-300 text-sm sm:col-span-2" data-new-address-field>
+                            <input type="text" name="new_address[city]" placeholder="City" class="rounded-md border-gray-300 text-sm" data-new-address-field>
+                            <input type="text" name="new_address[state]" placeholder="State / Province" class="rounded-md border-gray-300 text-sm" data-new-address-field>
+                            <input type="text" name="new_address[postal_code]" placeholder="Postal code" class="rounded-md border-gray-300 text-sm" data-new-address-field>
+                            <input type="text" name="new_address[country]" placeholder="Country" value="US" class="rounded-md border-gray-300 text-sm" data-new-address-field>
                         </div>
+                        <button type="button" id="calculate-shipping-btn" class="mt-3 rounded-md border border-gray-300 px-4 py-2 text-sm hover:border-red-600">Calculate Shipping</button>
                     </details>
                 </section>
 
                 <section>
-                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Shipping Method</h2>
-                    <div class="space-y-3">
-                        @foreach ($shippingOptions as $option)
-                            <label class="flex items-center justify-between gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600">
-                                <span class="flex items-center gap-3 text-sm">
-                                    <input type="radio" name="shipping_option_id" value="{{ $option->id }}" {{ $loop->first ? 'checked' : '' }}>
-                                    <span>
-                                        <span class="block font-medium text-gray-900">{{ $option->name }}</span>
-                                        <span class="block text-gray-500">{{ $option->description }}</span>
-                                    </span>
-                                </span>
-                                <span class="font-semibold">${{ number_format($option->cost, 2) }}</span>
-                            </label>
-                        @endforeach
+                    <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Shipping</h2>
+                    <div class="rounded-md border border-gray-200 p-4 text-sm">
+                        <p class="text-gray-500">
+                            Calculated automatically from your address and package size, comparing UPS, USPS, and FedEx.
+                        </p>
+                        <p class="mt-2">
+                            <span id="shipping-carrier-label" class="font-medium text-gray-900">
+                                @if ($shipping['carrier'])
+                                    {{ $shipping['carrier'] }} &middot; {{ $shipping['service_level'] }}
+                                @elseif ($shipping['service_level'])
+                                    {{ $shipping['service_level'] }}
+                                @else
+                                    Enter your address to calculate shipping
+                                @endif
+                            </span>
+                            <span id="shipping-loading" class="hidden text-gray-400">Calculating&hellip;</span>
+                        </p>
                     </div>
                 </section>
 
@@ -132,23 +136,23 @@
                         <dl class="space-y-2 text-sm">
                             <div class="flex justify-between">
                                 <dt class="text-gray-500">Subtotal</dt>
-                                <dd>${{ number_format($totals['subtotal'], 2) }}</dd>
+                                <dd id="totals-subtotal">${{ number_format($totals['subtotal'], 2) }}</dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-gray-500">Discount</dt>
-                                <dd class="text-green-600">-${{ number_format($totals['discount'], 2) }}</dd>
+                                <dd id="totals-discount" class="text-green-600">-${{ number_format($totals['discount'], 2) }}</dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-gray-500">Shipping</dt>
-                                <dd>${{ number_format($totals['shipping'], 2) }}</dd>
+                                <dd id="totals-shipping">${{ number_format($totals['shipping'], 2) }}</dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-gray-500">Tax</dt>
-                                <dd>${{ number_format($totals['tax'], 2) }}</dd>
+                                <dd id="totals-tax">${{ number_format($totals['tax'], 2) }}</dd>
                             </div>
                             <div class="flex justify-between text-base font-bold border-t border-gray-100 pt-2">
                                 <dt>Total</dt>
-                                <dd>${{ number_format($totals['total'], 2) }}</dd>
+                                <dd id="totals-total">${{ number_format($totals['total'], 2) }}</dd>
                             </div>
                         </dl>
                     </div>
@@ -168,4 +172,71 @@
             @method('DELETE')
         </form>
     </div>
+
+    <script>
+        (function () {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            const loadingEl = document.getElementById('shipping-loading');
+            const carrierLabelEl = document.getElementById('shipping-carrier-label');
+
+            const money = (value) => '$' + Number(value).toFixed(2);
+
+            const updateTotals = (totals) => {
+                document.getElementById('totals-subtotal').textContent = money(totals.subtotal);
+                document.getElementById('totals-discount').textContent = '-' + money(totals.discount);
+                document.getElementById('totals-shipping').textContent = money(totals.shipping);
+                document.getElementById('totals-tax').textContent = money(totals.tax);
+                document.getElementById('totals-total').textContent = money(totals.total);
+            };
+
+            const updateShippingLabel = (shipping) => {
+                if (shipping.carrier) {
+                    carrierLabelEl.textContent = shipping.carrier + ' · ' + (shipping.service_level || 'Standard');
+                } else if (shipping.service_level) {
+                    carrierLabelEl.textContent = shipping.service_level;
+                } else {
+                    carrierLabelEl.textContent = 'Enter your address to calculate shipping';
+                }
+            };
+
+            const requestRate = (payload) => {
+                loadingEl.classList.remove('hidden');
+
+                fetch("{{ route('checkout.shipping-rate') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        Accept: 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        updateShippingLabel(data.shipping);
+                        updateTotals(data.totals);
+                    })
+                    .catch(() => {
+                        carrierLabelEl.textContent = 'Could not calculate shipping, it will be estimated at checkout.';
+                    })
+                    .finally(() => loadingEl.classList.add('hidden'));
+            };
+
+            document.querySelectorAll('[data-shipping-address]').forEach((radio) => {
+                radio.addEventListener('change', () => requestRate({ address_id: radio.value }));
+            });
+
+            const calculateBtn = document.getElementById('calculate-shipping-btn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', () => {
+                    const newAddress = {};
+                    document.querySelectorAll('[data-new-address-field]').forEach((field) => {
+                        const key = field.name.match(/\[(.+)\]/)[1];
+                        newAddress[key] = field.value;
+                    });
+                    requestRate({ new_address: newAddress });
+                });
+            }
+        })();
+    </script>
 </x-layouts.storefront>

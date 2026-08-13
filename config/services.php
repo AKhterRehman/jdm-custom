@@ -40,4 +40,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'shippo' => [
+        'api_key' => env('SHIPPO_API_KEY'),
+    ],
+
 ];
