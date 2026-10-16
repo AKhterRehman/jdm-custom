@@ -54,12 +54,14 @@
                 {{ __('Sign in') }}
             </x-primary-button>
 
-            <p class="pt-1 text-center text-sm text-gray-600">
-                Don&rsquo;t have an account?
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="auth-account-link font-semibold text-red-600 transition hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 rounded">Click here to sign up.</a>
-                @endif
-            </p>
+            @if (Route::has('register'))
+                <div class="pt-1 text-center">
+                    <p class="mb-3 text-sm text-gray-600">Don&rsquo;t have an account?</p>
+                    <a href="{{ route('register') }}" class="auth-account-link flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition hover:border-red-600 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+                        {{ __('Create account') }}
+                    </a>
+                </div>
+            @endif
         </form>
     </div>
 </x-guest-layout>

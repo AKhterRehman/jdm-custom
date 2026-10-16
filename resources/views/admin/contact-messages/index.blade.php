@@ -12,7 +12,7 @@
                     <th class="px-4 py-3">Inquiry Type</th>
                     <th class="px-4 py-3">Received</th>
                     <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3"></th>
+                    <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">

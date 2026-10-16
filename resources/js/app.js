@@ -25,7 +25,8 @@ const animateCounter = (el) => {
     const target = parseFloat(el.dataset.value);
     const decimals = parseInt(el.dataset.decimals || '0', 10);
     const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
+    // Trim dataset values so encoded/trailing spaces never appear after % or +.
+    const suffix = (el.dataset.suffix || '').trim();
     const duration = 1400;
     const start = performance.now();
 

@@ -14,7 +14,7 @@
                     <th class="px-4 py-3">Parent</th>
                     <th class="px-4 py-3">Products</th>
                     <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3"></th>
+                    <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">

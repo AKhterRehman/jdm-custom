@@ -1,0 +1,4 @@
+@php
+    $tones = ['red' => 'bg-red-50 text-red-600', 'blue' => 'bg-blue-50 text-blue-600', 'amber' => 'bg-amber-50 text-amber-600', 'violet' => 'bg-violet-50 text-violet-600', 'emerald' => 'bg-emerald-50 text-emerald-600', 'orange' => 'bg-orange-50 text-orange-600'];
+@endphp
+<div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"><div class="flex items-start justify-between"><div><p class="text-sm font-medium text-gray-500">{{ $label }}</p><p class="mt-2 font-heading text-2xl font-bold text-ink-900">{{ $value }}</p><p class="mt-1 text-xs text-gray-400">{{ $note }}</p></div><span class="{{ $tones[$tone] ?? $tones['red'] }} flex h-10 w-10 items-center justify-center rounded-lg"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-3 3 3 3-3"/></svg></span></div></div>

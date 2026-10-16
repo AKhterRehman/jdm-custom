@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Ngrok terminates TLS before forwarding requests to Laravel. Trust its
+        // forwarded protocol so asset URLs are generated with https externally.
+        $middleware->trustProxies(at: '*');
+
         $middleware->validateCsrfTokens(except: [
             'stripe/webhook',
         ]);

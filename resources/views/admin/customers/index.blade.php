@@ -15,6 +15,7 @@
                     <th class="px-4 py-3">Orders</th>
                     <th class="px-4 py-3">Joined</th>
                     <th class="px-4 py-3">Role</th>
+                    <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -31,9 +32,10 @@
                                 <span class="text-gray-400">Customer</span>
                             @endif
                         </td>
+                        <td class="px-4 py-3 text-right"><a href="{{ route('admin.customers.show', $customer) }}" title="View customer" aria-label="View customer" class="admin-action"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12s3.5-6.75 9.75-6.75S21.75 12 21.75 12 18.25 18.75 12 18.75 2.25 12 2.25 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></a></td>
                     </tr>
                 @empty
-                    <tr><td colspan="5" class="px-4 py-6 text-center text-gray-500">No customers found.</td></tr>
+                    <tr><td colspan="6" class="px-4 py-6 text-center text-gray-500">No customers found.</td></tr>
                 @endforelse
             </tbody>
         </table>

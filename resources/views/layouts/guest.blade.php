@@ -110,7 +110,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-ink-900 antialiased">
-        <div class="min-h-screen grid lg:h-screen lg:grid-cols-2">
+        <div class="grid min-h-screen lg:grid-cols-2">
             {{-- Hero / brand column --}}
             <div class="hidden lg:flex flex-col justify-between text-white p-12 relative overflow-hidden auth-hero-panel">
                 {{-- subtle red radial accent, kept from original --}}
@@ -130,13 +130,13 @@
             </div>
 
             {{-- Form column --}}
-            <div class="flex flex-col justify-center items-center px-6 py-10 lg:items-center lg:overflow-y-auto lg:pl-12 lg:pr-12 lg:py-10 bg-slate-50">
+            <div class="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom Creations home">
                         <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
-                    <div class="auth-form-card bg-white rounded-2xl p-8 sm:p-10">
+                    <div class="auth-form-card rounded-2xl bg-white p-6 sm:p-10">
                         {{ $slot }}
                     </div>
                 </div>

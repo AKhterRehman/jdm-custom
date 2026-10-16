@@ -22,6 +22,7 @@
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Payment</th>
                     <th class="px-4 py-3">Total</th>
+                    <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -33,9 +34,10 @@
                         <td class="px-4 py-3"><span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium capitalize">{{ $order->status }}</span></td>
                         <td class="px-4 py-3 capitalize">{{ $order->payment_status }}</td>
                         <td class="px-4 py-3 font-semibold">${{ number_format($order->total, 2) }}</td>
+                        <td class="px-4 py-3 text-right"><a href="{{ route('admin.orders.show', $order) }}" title="View order" aria-label="View order" class="admin-action"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12s3.5-6.75 9.75-6.75S21.75 12 21.75 12 18.25 18.75 12 18.75 2.25 12 2.25 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></a></td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="px-4 py-6 text-center text-gray-500">No orders found.</td></tr>
+                    <tr><td colspan="7" class="px-4 py-6 text-center text-gray-500">No orders found.</td></tr>
                 @endforelse
             </tbody>
         </table>

@@ -28,6 +28,28 @@ class DashboardController extends Controller
             ->take(8)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recentOrders', 'lowStockProducts'));
+        $months = collect(range(5, 0))->map(function (int $monthsAgo) {
+            $date = now()->startOfMonth()->subMonths($monthsAgo);
+
+            return [
+                'label' => $date->format('M'),
+                'start' => $date->copy(),
+                'end' => $date->copy()->endOfMonth(),
+            ];
+        });
+
+        $salesTrend = $months->map(function (array $month) {
+            return [
+                'label' => $month['label'],
+                'revenue' => (float) Order::where('payment_status', 'paid')->whereBetween('created_at', [$month['start'], $month['end']])->sum('total'),
+                'orders' => Order::whereBetween('created_at', [$month['start'], $month['end']])->count(),
+            ];
+        });
+
+        $orderStatuses = collect(['pending', 'processing', 'shipped', 'delivered', 'cancelled'])
+            ->mapWithKeys(fn (string $status) => [$status => Order::where('status', $status)->count()]);
+        $categoryBreakdown = Product::with('category')->get()->groupBy(fn ($product) => $product->category?->name ?? 'Uncategorised')->map->count()->sortDesc()->take(6);
+
+        return view('admin.dashboard', compact('stats', 'recentOrders', 'lowStockProducts', 'salesTrend', 'orderStatuses', 'categoryBreakdown'));
     }
 }

@@ -1,64 +1,28 @@
 <x-layouts.admin title="Dashboard">
-    <h1 class="font-heading text-2xl font-bold text-ink-900 mb-8">Dashboard</h1>
+    @php
+        $maxRevenue = max(1, $salesTrend->max('revenue'));
+        $maxOrders = max(1, $salesTrend->max('orders'));
+        $statusColors = ['pending' => '#f59e0b', 'processing' => '#3b82f6', 'shipped' => '#8b5cf6', 'delivered' => '#10b981', 'cancelled' => '#ef4444'];
+    @endphp
 
-    <div class="grid sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
-        <div class="rounded-xl border border-gray-200 border-l-4 border-l-red-600 bg-white p-5">
-            <p class="font-heading text-2xl font-bold text-ink-900">${{ number_format($stats['total_revenue'], 2) }}</p>
-            <p class="text-sm text-gray-500">Revenue (Paid)</p>
-        </div>
-        <div class="rounded-xl border border-gray-200 bg-white p-5">
-            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['total_orders'] }}</p>
-            <p class="text-sm text-gray-500">Total Orders</p>
-        </div>
-        <div class="rounded-xl border border-gray-200 bg-white p-5">
-            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['pending_orders'] }}</p>
-            <p class="text-sm text-gray-500">Pending Orders</p>
-        </div>
-        <div class="rounded-xl border border-gray-200 bg-white p-5">
-            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['total_customers'] }}</p>
-            <p class="text-sm text-gray-500">Customers</p>
-        </div>
-        <div class="rounded-xl border border-gray-200 bg-white p-5">
-            <p class="font-heading text-2xl font-bold text-ink-900">{{ $stats['total_products'] }}</p>
-            <p class="text-sm text-gray-500">Products</p>
-        </div>
-        <div class="rounded-xl border border-gray-200 bg-white p-5">
-            <p class="font-heading text-2xl font-bold text-red-600">{{ $stats['low_stock_products'] }}</p>
-            <p class="text-sm text-gray-500">Low Stock</p>
-        </div>
+    <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div><p class="mb-1 text-xs font-bold uppercase tracking-[.22em] text-red-600">Overview</p><h1 class="font-heading text-3xl font-bold text-ink-900">Good morning, {{ auth()->user()->name }}</h1><p class="mt-2 text-sm text-gray-500">Here is what is happening across your store.</p></div>
+        <a href="{{ route('home') }}" class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-red-200 hover:text-red-600">View storefront</a>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-8">
-        <div>
-            <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Recent Orders</h2>
-            <div class="rounded-lg border border-gray-200 bg-white divide-y divide-gray-100">
-                @forelse ($recentOrders as $order)
-                    <a href="{{ route('admin.orders.show', $order) }}" class="flex items-center justify-between px-4 py-3 text-sm hover:bg-gray-50">
-                        <div>
-                            <p class="font-medium">{{ $order->order_number }}</p>
-                            <p class="text-gray-500">{{ $order->user->name }}</p>
-                        </div>
-                        <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium capitalize">{{ $order->status }}</span>
-                        <p class="font-semibold">${{ number_format($order->total, 2) }}</p>
-                    </a>
-                @empty
-                    <p class="px-4 py-3 text-sm text-gray-500">No orders yet.</p>
-                @endforelse
-            </div>
-        </div>
-
-        <div>
-            <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Low Stock Products</h2>
-            <div class="rounded-lg border border-gray-200 bg-white divide-y divide-gray-100">
-                @forelse ($lowStockProducts as $product)
-                    <a href="{{ route('admin.products.edit', $product) }}" class="flex items-center justify-between px-4 py-3 text-sm hover:bg-gray-50">
-                        <p class="font-medium">{{ $product->name }}</p>
-                        <span class="text-red-600 font-semibold">{{ $product->available_stock_quantity }} left</span>
-                    </a>
-                @empty
-                    <p class="px-4 py-3 text-sm text-gray-500">All products well stocked.</p>
-                @endforelse
-            </div>
-        </div>
+    <div class="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <x-admin.metric label="Revenue" :value="'$'.number_format($stats['total_revenue'], 2)" note="Paid orders" tone="red" />
+        <x-admin.metric label="Orders" :value="$stats['total_orders']" note="All orders" tone="blue" />
+        <x-admin.metric label="Pending" :value="$stats['pending_orders']" note="Need attention" tone="amber" />
+        <x-admin.metric label="Customers" :value="$stats['total_customers']" note="Registered buyers" tone="violet" />
+        <x-admin.metric label="Products" :value="$stats['total_products']" note="In catalogue" tone="emerald" />
+        <x-admin.metric label="Low stock" :value="$stats['low_stock_products']" note="Five or fewer left" tone="orange" />
     </div>
+
+    <div class="mb-8 grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+        <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"><div class="mb-5 flex items-center justify-between"><div><h2 class="font-heading text-lg font-bold">Sales overview</h2><p class="text-sm text-gray-500">Revenue and orders over the last six months</p></div><span class="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Live data</span></div><div class="flex h-56 items-end gap-3 sm:gap-6">@foreach ($salesTrend as $month)<div class="group relative flex flex-1 flex-col items-center gap-2"><div class="pointer-events-none absolute bottom-10 z-10 w-max translate-y-2 rounded-lg bg-ink-900 px-3 py-2 text-left text-xs text-white opacity-0 shadow-xl transition duration-150 group-hover:translate-y-0 group-hover:opacity-100"><p class="font-semibold">{{ $month['label'] }}</p><p class="mt-1 text-red-300">Revenue: ${{ number_format($month['revenue'], 2) }}</p><p class="text-gray-300">Orders: {{ $month['orders'] }}</p></div><div class="flex h-44 w-full items-end justify-center gap-1"><div class="w-3 rounded-t bg-red-500 transition hover:bg-red-600 sm:w-5" style="height: {{ max(5, ($month['revenue'] / $maxRevenue) * 100) }}%"></div><div class="w-3 rounded-t bg-red-200 transition hover:bg-red-300 sm:w-5" style="height: {{ max(5, ($month['orders'] / $maxOrders) * 100) }}%"></div></div><span class="text-xs font-medium text-gray-400">{{ $month['label'] }}</span></div>@endforeach</div><div class="mt-3 flex justify-center gap-5 text-xs text-gray-500"><span><i class="mr-1 inline-block h-2 w-2 rounded-full bg-red-500"></i>Revenue</span><span><i class="mr-1 inline-block h-2 w-2 rounded-full bg-red-200"></i>Orders</span></div></section>
+        <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"><h2 class="font-heading text-lg font-bold">Order status</h2><p class="mb-5 text-sm text-gray-500">Current fulfilment pipeline</p><div class="space-y-4">@foreach ($orderStatuses as $status => $count)<div><div class="mb-1 flex justify-between text-sm"><span class="capitalize text-gray-600">{{ $status }}</span><strong>{{ $count }}</strong></div><div class="h-2 overflow-hidden rounded-full bg-gray-100"><div class="h-full rounded-full" style="width: {{ $stats['total_orders'] ? ($count / $stats['total_orders']) * 100 : 0 }}%; background: {{ $statusColors[$status] }}"></div></div></div>@endforeach</div></section>
+    </div>
+
+    <div class="grid gap-6 xl:grid-cols-[1.3fr_1fr]"><section><div class="mb-4 flex items-center justify-between"><div><h2 class="font-heading text-lg font-bold">Recent orders</h2><p class="text-sm text-gray-500">Latest customer activity</p></div><a href="{{ route('admin.orders.index') }}" class="text-sm font-semibold text-red-600 hover:text-red-700">View all</a></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Order</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead><tbody>@forelse ($recentOrders as $order)<tr><td><a class="font-semibold text-ink-900 hover:text-red-600" href="{{ route('admin.orders.show', $order) }}">{{ $order->order_number }}</a><p class="text-xs text-gray-400">{{ $order->created_at->format('M d, Y') }}</p></td><td>{{ $order->user->name }}</td><td><span class="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium capitalize">{{ $order->status }}</span></td><td class="font-semibold">${{ number_format($order->total, 2) }}</td></tr>@empty<tr><td colspan="4" class="text-center text-gray-500">No orders yet.</td></tr>@endforelse</tbody></table></div></section><section><div class="mb-4 flex items-center justify-between"><div><h2 class="font-heading text-lg font-bold">Low stock alert</h2><p class="text-sm text-gray-500">Products that need restocking</p></div><a href="{{ route('admin.products.index', ['low_stock' => 1]) }}" class="text-sm font-semibold text-red-600 hover:text-red-700">Manage</a></div><div class="rounded-xl border border-gray-200 bg-white shadow-sm">@forelse ($lowStockProducts as $product)<a href="{{ route('admin.products.edit', $product) }}" class="flex items-center justify-between border-b border-gray-100 px-4 py-3 last:border-0 hover:bg-red-50/40"><span class="truncate pr-3 text-sm font-medium">{{ $product->name }}</span><span class="shrink-0 text-sm font-bold text-red-600">{{ $product->available_stock_quantity }} left</span></a>@empty<p class="p-5 text-sm text-gray-500">All products are well stocked.</p>@endforelse</div></section></div>
 </x-layouts.admin>

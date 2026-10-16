@@ -58,39 +58,39 @@
         </svg>
 
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-20 text-center">
-            <div class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5 mb-6" data-reveal>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-3.5 w-3.5 text-red-400">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 text-center">
+            <div class="mx-auto mb-6 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-2 sm:px-4 sm:py-1.5" data-reveal>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-4 w-4 shrink-0 text-red-400">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.526c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.526c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.425-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 </svg>
-                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-400">Handcrafted &middot; Custom &middot; Made Your Way</p>
+                <p class="text-[10px] font-semibold uppercase leading-tight tracking-[0.16em] text-red-400 sm:text-xs sm:tracking-[0.3em]">Handcrafted &middot; Custom &middot; Made Your Way</p>
             </div>
-            <h1 class="font-heading text-5xl sm:text-7xl xsm:text-4xl font-bold tracking-tight leading-[1.05]">
+            <h1 class="mx-auto max-w-4xl font-heading text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
                 Wood Art, <span class="text-gradient-animate">Handcrafted</span> for You
             </h1>
-            <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-gray-300 sm:mt-6 sm:text-lg">
                 From intricate engravings to CNC art, shadow boxes, and jewelry boxes, custom wooden
                 creations shaped with precision and finished by hand.
             </p>
-            <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <a href="#featured" class="shine-btn rounded-md bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-500 transition">Shop Now</a>
-                <a href="#categories" class="rounded-md border border-white/20 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:border-white/50 transition">Browse Categories</a>
+            <div class="mx-auto mt-8 flex w-full max-w-md flex-col items-stretch justify-center gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
+                <a href="#featured" class="shine-btn rounded-md bg-red-600 px-6 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500 sm:px-8">Shop Now</a>
+                <a href="#categories" class="rounded-md border border-white/20 px-6 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:border-white/50 sm:px-8">Browse Categories</a>
             </div>
 
             {{-- Precision stats strip — real, database-driven numbers rather than stock marketing copy. --}}
-            <div class="mt-16 grid grid-cols-3 gap-y-8 gap-x-4 max-w-2xl mx-auto border-t border-white/10 pt-10" data-reveal>
+            <div class="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-x-2 gap-y-6 border-t border-white/10 pt-8 sm:mt-16 sm:gap-x-4 sm:gap-y-8 sm:pt-10" data-reveal>
                 <div>
-                    <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="{{ $totalProducts }}" data-suffix="+">0+</p>
-                    <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">Pieces Crafted</p>
+                    <p class="font-heading text-2xl font-bold text-white sm:text-4xl" data-counter data-value="{{ $totalProducts }}" data-suffix="+">0+</p>
+                    <p class="mt-1 text-[9px] uppercase leading-tight tracking-[0.12em] text-gray-400 sm:text-[11px] sm:tracking-widest">Products</p>
                 </div>
                 <div>
-                    <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="{{ $categories->count() }}">0</p>
-                    <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">Craft Categories</p>
+                    <p class="font-heading text-2xl font-bold text-white sm:text-4xl" data-counter data-value="{{ $categories->count() }}">0</p>
+                    <p class="mt-1 text-[9px] uppercase leading-tight tracking-[0.12em] text-gray-400 sm:text-[11px] sm:tracking-widest">Categories</p>
                 </div>
                 <div>
-                    <p class="font-heading text-3xl sm:text-4xl font-bold text-white" data-counter data-value="100" data-suffix="%">0%</p>
-                    <p class="mt-1 text-[11px] uppercase tracking-widest text-gray-400">Handfinished</p>
+                    <p class="whitespace-nowrap font-heading text-2xl font-bold text-white sm:text-4xl" data-counter data-value="100" data-suffix="%">0%</p>
+                    <p class="mt-1 text-[9px] uppercase leading-tight tracking-[0.12em] text-gray-400 sm:text-[11px] sm:tracking-widest">Handfinished</p>
                 </div>
             </div>
         </div>

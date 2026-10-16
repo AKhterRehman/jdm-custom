@@ -38,6 +38,7 @@
                     </button>
                 </div>
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <p class="mt-2 text-xs leading-5 text-gray-500">Use at least 8 characters with a mix of letters, numbers, and symbols.</p>
             </div>
 
             <!-- Confirm Password -->
