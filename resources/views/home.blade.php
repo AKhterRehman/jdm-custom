@@ -11,6 +11,20 @@
         .category-tile:hover .category-tile__icon, .category-tile:focus-visible .category-tile__icon { transform: scale(1.15) rotate(-6deg); }
         .category-tile__name { position: relative; z-index: 1; color: #b91c1c; font-family: Lexend, sans-serif; font-weight: 700; transition: color 220ms ease, transform 220ms ease; }
         .category-tile:hover .category-tile__name, .category-tile:focus-visible .category-tile__name { color: #111827; transform: translateY(-2px); }
+        .story-image { transition: transform 900ms cubic-bezier(.16,1,.3,1), filter 700ms ease; }
+        .story-card { isolation: isolate; position: relative; transition: transform 500ms cubic-bezier(.16,1,.3,1), box-shadow 500ms ease, border-color 500ms ease; }
+        .story-card::before { display: none; }
+        .story-card:hover { transform: translateY(-10px) rotateX(1deg); border-color: rgba(220,38,38,.35); box-shadow: 0 28px 65px rgba(15, 23, 42, .18); }
+        .story-card:hover .story-image { transform: scale(1.035) translateY(-4px); filter: saturate(1.12) contrast(1.03); }
+        .story-media { background: #09090b; }
+        .story-media::after { position: absolute; inset: 0; z-index: 2; border: 1px solid rgba(255,255,255,.14); content: ''; pointer-events: none; transition: border-color 500ms ease; }
+        .story-card:hover .story-media::after { border-color: rgba(248,113,113,.7); }
+        .story-float { animation: story-float 6s ease-in-out infinite; transform-origin: center center; }
+        .story-card:nth-child(2) .story-float { animation-delay: -2s; }
+        .story-card:nth-child(3) .story-float { animation-delay: -4s; }
+        @keyframes story-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(.35deg); } }
+        @media (prefers-reduced-motion: reduce) { .story-float { animation: none; } .story-card, .story-image { transition: none; } }
+        .story-line { background: linear-gradient(90deg, #dc2626, #f59e0b); }
     </style>
 
     @php
@@ -108,6 +122,38 @@
             @endfor
         </div>
     </div>
+
+    <section id="our-story" class="relative overflow-hidden bg-stone-50 py-24 sm:py-32">
+        <div class="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full bg-red-100/50 blur-3xl"></div>
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-14 max-w-3xl" data-reveal>
+                <p class="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-red-600">The JDM story</p>
+                <h2 class="font-heading text-3xl font-bold leading-tight text-ink-900 sm:text-5xl">Woodwork with a <span class="text-gradient-animate">story to tell.</span></h2>
+                <div class="story-line mt-6 h-1 w-20 rounded-full"></div>
+            </div>
+
+            <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
+                <div data-reveal>
+                    <p class="text-lg leading-8 text-gray-600">At JDM Custom Creations, we are passionate artisans dedicated to bringing your ideas to life through the timeless beauty of handcrafted woodwork. Our journey began with a simple mission: to create unique, custom-made pieces that reflect the individuality and vision of our customers.</p>
+                    <p class="mt-5 leading-7 text-gray-600">Today, we blend traditional craftsmanship with modern innovation to deliver exceptional wooden creations. Every piece is meticulously crafted with attention to detail—whether it is a cherished keepsake, a decorative statement, or a personalized gift.</p>
+                    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                        <div class="rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-red-200 hover:shadow-md"><p class="font-heading text-lg font-bold text-ink-900">Built with purpose</p><p class="mt-2 text-sm leading-6 text-gray-500">Functional, meaningful pieces made to last.</p></div>
+                        <div class="rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-red-200 hover:shadow-md"><p class="font-heading text-lg font-bold text-ink-900">Made your way</p><p class="mt-2 text-sm leading-6 text-gray-500">Your vision guides every cut, curve, and finish.</p></div>
+                    </div>
+                </div>
+                <div class="story-card relative overflow-hidden rounded-2xl bg-ink-900 shadow-xl" data-reveal>
+                    <div class="story-media relative flex min-h-[27rem] items-center justify-center overflow-hidden sm:min-h-[34rem]"><img src="{{ asset('images/jdm-custom-creations-3.webp') }}" alt="Customers holding handcrafted JDM Custom Creations signs" class="story-image story-float relative z-[1] h-full w-full object-cover object-center" loading="lazy"></div>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6 pt-24"><p class="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">Made for real moments</p><p class="mt-2 font-heading text-xl font-bold text-white">From our hands to your home.</p></div>
+                </div>
+            </div>
+
+            <div class="mt-20 grid gap-6 lg:grid-cols-3">
+                <article class="story-card overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm" data-reveal><div class="story-media relative flex h-64 items-center justify-center overflow-hidden"><img src="{{ asset('images/jdm-custom-creations-2-2.webp') }}" alt="Close-up of a JDM Custom Creations sign" class="story-image story-float relative z-[1] h-full w-full object-cover object-center" loading="lazy"></div><div class="p-7"><p class="text-xs font-bold uppercase tracking-[0.25em] text-red-600">Our mission</p><h3 class="mt-3 font-heading text-2xl font-bold text-ink-900">Your vision, beautifully made.</h3><p class="mt-3 leading-7 text-gray-600">To bring your vision to life through exceptional craftsmanship, innovative design, and unmatched attention to detail.</p></div></article>
+                <article class="story-card overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm" data-reveal><div class="story-media relative flex h-64 items-center justify-center overflow-hidden"><img src="{{ asset('images/df211347-0d1d-4047-9ded-30cdf48ee89555.webp') }}" alt="Artisan carefully crafting a wooden piece" class="story-image story-float relative z-[1] h-full w-full object-cover object-center" loading="lazy"></div><div class="p-7"><p class="text-xs font-bold uppercase tracking-[0.25em] text-red-600">What we do</p><h3 class="mt-3 font-heading text-2xl font-bold text-ink-900">Craft, technology, and heart.</h3><p class="mt-3 leading-7 text-gray-600">From engravings and CNC shadowboxes to jewelry boxes, epoxy signs, 3D models, murals, and personalized signs—every piece is a labor of love.</p></div></article>
+                <article class="flex flex-col justify-between rounded-2xl bg-ink-900 p-7 text-white shadow-xl" data-reveal><div><p class="text-xs font-bold uppercase tracking-[0.25em] text-red-400">Our commitment</p><h3 class="mt-3 font-heading text-2xl font-bold">More than products. Memories.</h3><p class="mt-4 leading-7 text-gray-300">We proudly serve individuals, families, and businesses with one-of-a-kind creations that stand the test of time.</p></div><a href="#categories" class="mt-8 inline-flex w-fit items-center rounded-md bg-red-600 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">Explore our work <span class="ml-2">→</span></a></article>
+            </div>
+        </div>
+    </section>
 
     <section id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div class="text-center mb-14" data-reveal>
