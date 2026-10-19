@@ -20,6 +20,41 @@ if ('IntersectionObserver' in window) {
     document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
 }
 
+// Accessible hero slider: dots select a slide, autoplay pauses while hovered.
+const heroSlider = document.querySelector('.hero-slider');
+const heroDots = document.querySelectorAll('[data-hero-dots] .hero-dot');
+
+if (heroSlider && heroDots.length) {
+    const heroSlides = heroSlider.querySelectorAll('.hero-slide');
+    let activeSlide = 0;
+    let heroTimer;
+
+    const showHeroSlide = (index) => {
+        activeSlide = (index + heroSlides.length) % heroSlides.length;
+        heroSlider.classList.add('is-manual');
+        heroSlides.forEach((slide, slideIndex) => slide.classList.toggle('is-active', slideIndex === activeSlide));
+        heroDots.forEach((dot, dotIndex) => {
+            const isActive = dotIndex === activeSlide;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+    };
+
+    const startHeroTimer = () => {
+        window.clearInterval(heroTimer);
+        heroTimer = window.setInterval(() => showHeroSlide(activeSlide + 1), 6000);
+    };
+
+    heroDots.forEach((dot) => dot.addEventListener('click', () => {
+        showHeroSlide(Number(dot.dataset.slide));
+        startHeroTimer();
+    }));
+    heroSlider.addEventListener('mouseenter', () => window.clearInterval(heroTimer));
+    heroSlider.addEventListener('mouseleave', startHeroTimer);
+    showHeroSlide(0);
+    startHeroTimer();
+}
+
 // Count up [data-counter] numbers (hero stats strip) from 0 to their target once visible.
 const animateCounter = (el) => {
     const target = parseFloat(el.dataset.value);

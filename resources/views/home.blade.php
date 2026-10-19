@@ -25,6 +25,25 @@
         @keyframes story-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(.35deg); } }
         @media (prefers-reduced-motion: reduce) { .story-float { animation: none; } .story-card, .story-image { transition: none; } }
         .story-line { background: linear-gradient(90deg, #dc2626, #f59e0b); }
+        .hero-slider { position: absolute; inset: 0; overflow: hidden; }
+        .hero-slide { position: absolute; inset: -2%; background-position: center; background-size: cover; opacity: 0; animation: hero-crossfade 36s ease-in-out infinite, hero-drift 36s ease-in-out infinite; }
+        .hero-slide:nth-child(1) { opacity: 1; animation-delay: 0s; }
+        .hero-slide:nth-child(2) { animation-delay: 6s; }
+        .hero-slide:nth-child(3) { animation-delay: 12s; }
+        .hero-slide:nth-child(4) { animation-delay: 18s; }
+        .hero-slide:nth-child(5) { animation-delay: 24s; }
+        .hero-slide:nth-child(6) { animation-delay: 30s; }
+        .hero-progress { animation: hero-progress 36s linear infinite; transform-origin: left; }
+        .hero-dots { display: flex; align-items: center; gap: .4rem; }
+        .hero-dot { height: .45rem; width: .45rem; border: 0; border-radius: 999px; background: rgba(255,255,255,.45); cursor: pointer; transition: width 350ms ease, background-color 350ms ease, transform 350ms ease; }
+        .hero-dot:hover { background: rgba(255,255,255,.85); transform: scale(1.18); }
+        .hero-dot.is-active { width: 2.25rem; background: #ef4444; }
+        .hero-slider.is-manual .hero-slide { animation: none; opacity: 0; transition: opacity 850ms ease, transform 8s ease; }
+        .hero-slider.is-manual .hero-slide.is-active { opacity: 1; transform: scale(1.06); }
+        @keyframes hero-crossfade { 0%, 28% { opacity: 1; } 34%, 94% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes hero-drift { 0%, 100% { transform: scale(1.02); } 50% { transform: scale(1.08); } }
+        @keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @media (prefers-reduced-motion: reduce) { .hero-slide { animation: none; } .hero-slide:nth-child(1) { opacity: 1; } .hero-slide:nth-child(n+2) { opacity: 0; } .hero-progress { animation: none; transform: scaleX(1); } }
     </style>
 
     @php
@@ -55,7 +74,14 @@
     <section class="relative overflow-hidden bg-ink-900 text-white">
         {{-- Real walnut wood-grain photograph as the hero background, with a warm top-right
              highlight and a dark gradient layered on top so the white headline stays readable. --}}
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}');"></div>
+        <div class="hero-slider" aria-label="JDM Custom Creations highlights">
+            <div class="hero-slide" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}');"></div>
+            <div class="hero-slide" style="background-image: url('{{ asset('images/hero-gallery.webp') }}');"></div>
+            <div class="hero-slide" style="background-image: url('{{ asset('images/hero-cnc-carving.png') }}'); background-position: center 42%;"></div>
+            <div class="hero-slide" style="background-image: url('{{ asset('images/hero-craftsmanship.jpg') }}'); background-position: center 58%;"></div>
+            <div class="hero-slide" style="background-image: url('{{ asset('images/hero-stag-engraving.png') }}'); background-position: center;"></div>
+            <div class="hero-slide" style="background-image: url('{{ asset('images/hero-river-table.png') }}'); background-position: center;"></div>
+        </div>
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_110%_80%_at_85%_-10%,_rgba(255,196,120,0.35),_transparent_55%)] mix-blend-soft-light"></div>
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.15),_transparent_60%)]"></div>
         <div class="absolute inset-0 bg-[linear-gradient(200deg,_rgba(0,0,0,0.35)_0%,_rgba(0,0,0,0.55)_55%,_rgba(0,0,0,0.75)_100%)]"></div>
@@ -70,6 +96,8 @@
             </defs>
             <rect width="100%" height="100%" fill="url(#blueprint-grid)" />
         </svg>
+
+        <div class="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-black/35 px-3 py-2 backdrop-blur-sm" data-hero-dots><div class="hero-dots" role="tablist" aria-label="Hero slides"><button type="button" class="hero-dot is-active" data-slide="0" role="tab" aria-label="Show slide 1" aria-selected="true"></button><button type="button" class="hero-dot" data-slide="1" role="tab" aria-label="Show slide 2" aria-selected="false"></button><button type="button" class="hero-dot" data-slide="2" role="tab" aria-label="Show slide 3" aria-selected="false"></button><button type="button" class="hero-dot" data-slide="3" role="tab" aria-label="Show slide 4" aria-selected="false"></button><button type="button" class="hero-dot" data-slide="4" role="tab" aria-label="Show slide 5" aria-selected="false"></button><button type="button" class="hero-dot" data-slide="5" role="tab" aria-label="Show slide 6" aria-selected="false"></button></div></div>
 
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 text-center">
