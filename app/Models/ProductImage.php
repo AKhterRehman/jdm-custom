@@ -18,7 +18,7 @@ class ProductImage extends Model
 
     public function url(): string
     {
-        return Str::startsWith($this->path, ['http://', 'https://'])
+        return Str::startsWith($this->path, ['/', 'http://', 'https://'])
             ? $this->path
             : Storage::url($this->path);
     }

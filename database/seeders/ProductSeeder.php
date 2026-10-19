@@ -26,22 +26,22 @@ class ProductSeeder extends Seeder
             ],
             'CNC Creations' => [
                 [
-                    'name' => 'Alabama Frame', 'price' => 150.00, 'sale_price' => null,
-                    'description' => 'A layered wooden state-pride frame, CNC-cut and hand-finished for a bold, dimensional look on any wall.',
+                    'name' => 'Alabama Frame', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/alabama-frame.jpg',
+                    'description' => 'Show your Crimson Tide pride with the Alabama Frame. Crafted from premium wood, this frame features detailed engravings of Alabama’s iconic spirit, making it a perfect addition to your home, office, or fan collection.',
                     'specs' => ['Material' => 'Baltic Birch Plywood', 'Finish' => 'Matte Sealant', 'Dimensions' => '16in x 16in'],
                 ],
                 [
-                    'name' => 'Custom Firefighter Maltese Cross', 'price' => 150.00, 'sale_price' => null,
-                    'description' => 'A tribute piece for first responders — a Maltese cross CNC-carved with fine detail and a durable protective finish.',
+                    'name' => 'Custom Firefighter maltese cross', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/custom-firefighter-maltese-cross.jpg',
+                    'description' => 'Celebrate your connection to Richardson with the Richardson Frame. Crafted from premium wood, this frame features intricate detailing, making it a beautiful addition to any home, office, or collection.',
                     'specs' => ['Material' => 'Baltic Birch Plywood', 'Finish' => 'Satin Sealant', 'Dimensions' => '18in x 18in'],
                 ],
                 [
-                    'name' => 'Steelers Frame', 'price' => 130.00, 'sale_price' => null,
+                    'name' => 'Steelers Frame', 'price' => 130.00, 'sale_price' => null, 'image' => '/images/catalog/steelers-frame.jpg',
                     'description' => 'Show your team pride with this layered CNC-cut team frame, built to hang and last.',
                     'specs' => ['Material' => 'Baltic Birch Plywood', 'Finish' => 'Matte Sealant', 'Dimensions' => '14in x 14in'],
                 ],
                 [
-                    'name' => 'Kansas City Chiefs Rounded', 'price' => 35.00, 'sale_price' => null,
+                    'name' => 'Kansas City Chiefs Rounded', 'price' => 35.00, 'sale_price' => null, 'image' => '/images/catalog/kansas-city-chiefs-rounded.jpg',
                     'description' => 'A compact rounded team-pride piece, perfect for a shelf, office desk, or man cave wall.',
                     'specs' => ['Material' => 'Birch Plywood', 'Finish' => 'Matte Sealant', 'Dimensions' => '6in diameter'],
                     'variations' => [
@@ -50,10 +50,25 @@ class ProductSeeder extends Seeder
                     ],
                 ],
                 [
-                    'name' => 'Custom Band Cover Art', 'price' => 85.00, 'sale_price' => null,
+                    'name' => 'Pink Floyd', 'price' => 85.00, 'sale_price' => null, 'image' => '/images/catalog/pink-floyd.jpg',
                     'description' => 'A favorite album cover reimagined as layered wood wall art — a striking piece for any music lover.',
                     'specs' => ['Material' => 'Baltic Birch Plywood', 'Finish' => 'Matte Sealant', 'Dimensions' => '12in x 12in'],
                 ],
+                ...array_map(fn (array $item) => $item + [
+                    'description' => 'A handcrafted CNC wooden creation made with precision cutting and a durable finish.',
+                    'specs' => ['Material' => 'Baltic Birch Plywood', 'Finish' => 'Matte Sealant', 'Dimensions' => '18in x 18in'],
+                ], [
+                    ['name' => 'Broncos Country Frame', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/broncos-country-frame.jpg'],
+                    ['name' => 'Champions Frame', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/champions-frame.jpg'],
+                    ['name' => 'Custom Animal Wooden Frame', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/custom-animal-wooden-frame.jpg'],
+                    ['name' => 'Custom Sign', 'price' => 100.00, 'sale_price' => null, 'image' => '/images/catalog/custom-sign.jpg'],
+                    ['name' => 'Elkhorn Frame', 'price' => 300.00, 'sale_price' => null, 'image' => '/images/catalog/elkhorn-frame.jpg'],
+                    ['name' => 'Led zeppelin Ramble On Cover', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/led-zeppelin-ramble-on-cover.jpg'],
+                    ['name' => 'Omaha Beef CNC Creations', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/omaha-beef-cnc-creations.jpg'],
+                    ['name' => 'Omaha Fire Frame', 'price' => 200.00, 'sale_price' => null, 'image' => '/images/catalog/omaha-fire-frame.jpg'],
+                    ['name' => 'Raiders', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/raiders.jpg'],
+                    ['name' => 'SF CNC Creations', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/sf-cnc-creations.jpg'],
+                ]),
             ],
             'Shadow Boxes' => [
                 [
@@ -69,23 +84,38 @@ class ProductSeeder extends Seeder
             ],
             'Jewelry Boxes' => [
                 [
-                    'name' => 'Classic Wooden Jewelry Box', 'price' => 120.00, 'sale_price' => null,
+                    'name' => 'Classic Wooden Jewelry Box', 'price' => 120.00, 'sale_price' => null, 'image' => '/images/catalog/classic-wooden-jewelry-box.jpeg',
                     'description' => 'A multi-compartment jewelry box crafted from premium wood with a soft interior lining to protect your collection.',
                     'specs' => ['Material' => 'Solid Cherry Wood', 'Finish' => 'Hand-Rubbed Oil', 'Dimensions' => '10in x 7in x 4in'],
                 ],
                 [
-                    'name' => 'Elegant Mirror Jewelry Box', 'price' => 160.00, 'sale_price' => 145.00,
+                    'name' => 'Elegant Mirror Jewelry Box', 'price' => 160.00, 'sale_price' => 145.00, 'image' => '/images/catalog/elegant-mirror-jewelry-box.jpeg',
                     'description' => 'A jewelry box with a built-in mirrored lid, felt-lined trays, and a timeless design that suits any bedroom decor.',
                     'specs' => ['Material' => 'Solid Maple', 'Finish' => 'Satin Lacquer', 'Dimensions' => '11in x 8in x 5in'],
                 ],
                 [
-                    'name' => 'Personalized Jewelry Box', 'price' => 150.00, 'sale_price' => null,
+                    'name' => 'Personalized Jewelry Box', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/personalized-jewelry-box.jpeg',
                     'description' => 'A custom-engraved jewelry box made to order — a name, date, or short message engraved on the lid.',
                     'specs' => ['Material' => 'Solid Walnut', 'Finish' => 'Hand-Rubbed Oil', 'Dimensions' => '9in x 6in x 4in'],
                     'variations' => [
                         ['attribute_name' => 'Size', 'attribute_value' => 'Small', 'price_adjustment' => 0],
                         ['attribute_name' => 'Size', 'attribute_value' => 'Large', 'price_adjustment' => 40],
                     ],
+                ],
+                [
+                    'name' => 'Custom Jewelry Box', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/custom-jewelry-box.jpeg',
+                    'description' => 'A custom jewelry box designed to protect and present treasured pieces with a handcrafted finish.',
+                    'specs' => ['Material' => 'Solid Hardwood', 'Finish' => 'Hand-Rubbed Oil', 'Dimensions' => '10in x 7in x 4in'],
+                ],
+                [
+                    'name' => 'examples of urn or keepsake', 'price' => 180.00, 'sale_price' => null, 'image' => '/images/catalog/examples-of-urn-or-keepsake.jpeg',
+                    'description' => 'A meaningful handcrafted keepsake design made for memories, mementos, and treasured belongings.',
+                    'specs' => ['Material' => 'Solid Hardwood', 'Finish' => 'Natural Wood Finish', 'Dimensions' => 'Custom'],
+                ],
+                [
+                    'name' => 'Jewelery Box', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/jewelery-box.jpeg',
+                    'description' => 'An elegant wooden jewelry box with a timeless handcrafted look and practical storage compartments.',
+                    'specs' => ['Material' => 'Solid Hardwood', 'Finish' => 'Satin Finish', 'Dimensions' => 'Custom'],
                 ],
             ],
             'Custom Epoxy Signs' => [
@@ -102,19 +132,58 @@ class ProductSeeder extends Seeder
             ],
             '3D CNC Models' => [
                 [
+                    'name' => 'Abstract 3D CNC Model', 'price' => 250.00, 'sale_price' => null,
+                    'description' => 'Unleash creativity with the Abstract 3D CNC Model. Featuring bold and unconventional patterns, it’s perfect for unique decor, artistic panels, or furniture accents.',
+                    'image' => '/images/catalog/abstract-3d-cnc-model.jpeg',
+                    'specs' => ['Material' => 'Hardwood', 'Finish' => 'Hand-Finished', 'Dimensions' => '24in x 24in'],
+                ],
+                [
+                    'name' => 'ashholes o.g 3d butcher block', 'price' => 250.00, 'sale_price' => null,
+                    'description' => 'Create stunning borders and accents with the Ornamental Frame 3D CNC Model. Perfect for mirrors, picture frames, and architectural details.',
+                    'image' => '/images/catalog/ashholes-og-3d-butcher-block.jpeg',
+                    'specs' => ['Material' => 'Solid Hardwood', 'Finish' => 'Clear Protective Finish', 'Dimensions' => '24in x 18in'],
+                ],
+                [
                     'name' => 'Classic Scroll 3D CNC Model', 'price' => 270.00, 'sale_price' => null,
-                    'description' => 'Intricate scrolling patterns carved for decorative furniture accents, architectural trim, or ornamental wall panels.',
+                    'description' => 'Elevate your designs with the timeless elegance of the Classic Scroll 3D CNC Model. Perfect for furniture accents, architectural trim, or decorative panels.',
+                    'image' => '/images/catalog/classic-scroll-3d-cnc-model.jpeg',
                     'specs' => ['Material' => 'MDF / Hardwood', 'Finish' => 'Ready to Paint or Stain', 'Dimensions' => '24in x 24in'],
                 ],
                 [
-                    'name' => 'Geometric 3D CNC Model', 'price' => 250.00, 'sale_price' => null,
-                    'description' => 'A layered geometric relief carving with crisp dimensional lines, suited to modern interiors.',
-                    'specs' => ['Material' => 'MDF / Hardwood', 'Finish' => 'Ready to Paint or Stain', 'Dimensions' => '20in x 20in'],
+                    'name' => 'Croc 3D Model', 'price' => 300.00, 'sale_price' => null,
+                    'description' => 'A dramatic crocodile relief carved into a solid wood panel for distinctive wall and display art.',
+                    'image' => '/images/catalog/croc-3d-model.jpeg',
+                    'specs' => ['Material' => 'Solid Hardwood', 'Finish' => 'Satin Wood Finish', 'Dimensions' => '36in x 12in'],
+                ],
+                [
+                    'name' => 'Crocodile Relief 3D CNC Model', 'price' => 300.00, 'sale_price' => null,
+                    'description' => 'A highly detailed carved crocodile relief, precision-cut and finished to highlight the natural wood grain.',
+                    'image' => '/images/catalog/crocodile-relief-3d-cnc-model.jpeg',
+                    'specs' => ['Material' => 'Walnut Hardwood', 'Finish' => 'Gloss Protective Finish', 'Dimensions' => '36in x 14in'],
+                ],
+                [
+                    'name' => 'Crocodile Wall Art 3D CNC Model', 'price' => 350.00, 'sale_price' => null,
+                    'description' => 'A statement-scale crocodile wall artwork designed for collectors, businesses, and bold interiors.',
+                    'image' => '/images/catalog/crocodile-wall-art-3d-cnc-model.jpeg',
+                    'specs' => ['Material' => 'Walnut Hardwood', 'Finish' => 'Hand-Polished', 'Dimensions' => '48in x 16in'],
+                ],
+                [
+                    'name' => 'Decorative 3D CNC Model Each', 'price' => 300.00, 'sale_price' => null,
+                    'description' => 'A custom decorative 3D relief made to bring depth, character, and handcrafted warmth to a room.',
+                    'image' => '/images/catalog/decorative-3d-cnc-model-each.jpeg',
+                    'specs' => ['Material' => 'Hardwood', 'Finish' => 'Natural Oil Finish', 'Dimensions' => '24in x 18in'],
                 ],
                 [
                     'name' => 'Decorative Floral 3D CNC Model', 'price' => 300.00, 'sale_price' => 270.00,
                     'description' => 'A botanical relief design with deep dimensional carving, ideal as a statement wall piece.',
+                    'image' => '/images/catalog/decorative-floral-3d-cnc-model.jpeg',
                     'specs' => ['Material' => 'MDF / Hardwood', 'Finish' => 'Ready to Paint or Stain', 'Dimensions' => '26in x 26in'],
+                ],
+                [
+                    'name' => 'Geometric 3D CNC Model', 'price' => 250.00, 'sale_price' => null,
+                    'description' => 'A layered geometric relief carving with crisp dimensional lines, suited to modern interiors.',
+                    'image' => '/images/catalog/geometric-3d-cnc-model.jpeg',
+                    'specs' => ['Material' => 'MDF / Hardwood', 'Finish' => 'Ready to Paint or Stain', 'Dimensions' => '20in x 20in'],
                 ],
             ],
             'Custom Murals' => [
@@ -143,59 +212,104 @@ class ProductSeeder extends Seeder
             ],
             'Custom Board Games' => [
                 [
-                    'name' => 'Build-Your-Own Game Kit', 'price' => 220.00, 'sale_price' => null,
+                    'name' => 'Build-Your-Own Game Kit', 'price' => 220.00, 'sale_price' => null, 'image' => '/images/catalog/build-your-own-game-kit.jpg',
                     'description' => 'A fully custom wooden board game built to your own rules and layout — a one-of-a-kind piece for family game night.',
                     'specs' => ['Material' => 'Hardwood Board & Pieces', 'Finish' => 'Satin Lacquer', 'Dimensions' => '20in x 20in'],
                 ],
                 [
-                    'name' => 'Custom Game Pieces Set', 'price' => 150.00, 'sale_price' => null,
+                    'name' => 'Custom Game Pieces Set', 'price' => 150.00, 'sale_price' => null, 'image' => '/images/catalog/custom-game-pieces-set.jpg',
                     'description' => 'A hand-turned set of wooden game pieces, custom-shaped and finished to match your favorite game.',
                     'specs' => ['Material' => 'Hardwood', 'Finish' => 'Satin Lacquer', 'Dimensions' => 'Set of 32 pieces'],
                 ],
                 [
-                    'name' => 'Personalized Game Board', 'price' => 220.00, 'sale_price' => 195.00,
+                    'name' => 'Personalized Game Board', 'price' => 220.00, 'sale_price' => 195.00, 'image' => '/images/catalog/personalized-game-board.jpg',
                     'description' => 'A classic game board engraved with a family name and date, built to become a keepsake as much as a game.',
                     'specs' => ['Material' => 'Solid Maple', 'Finish' => 'Satin Lacquer', 'Dimensions' => '18in x 18in'],
                 ],
             ],
         ];
 
-        $skuCounter = 1000;
+        // Keep the category records available, but mirror the live store where these
+        // categories currently have no published products.
+        foreach (['Engraving', 'Shadow Boxes', 'Custom Epoxy Signs', 'Custom Murals', 'Custom Signs'] as $emptyCategory) {
+            $catalog[$emptyCategory] = [];
+        }
+
+        // Product copy synced from the client's live product pages.
+        $liveDescriptions = [
+            'alabama-frame' => 'Show your Crimson Tide pride with the Alabama Frame. Crafted from premium wood, this frame features detailed engravings of Alabama’s iconic spirit, making it a perfect addition to your home, office, or fan collection.',
+            'broncos-country-frame' => 'Show your Broncos pride with the Broncos Country Frame. Crafted from premium wood, this frame features intricate detailing of the iconic Broncos logo, making it a must-have for any fan’s home, office, or fan cave.',
+            'champions-frame' => 'Celebrate victory with the Champions Frame! Crafted from premium wood, this beautifully designed frame highlights your winning spirit with intricate detailing, making it a perfect addition to any home, office, or trophy display.',
+            'custom-animal-wooden-frame' => 'Showcase your love for wildlife with this custom animal wooden frame. Made from premium wood, this frame is intricately designed to highlight your favorite animal in a beautiful, timeless way. Perfect for any nature enthusiast.',
+            'custom-firefighter-maltese-cross' => 'Celebrate your connection to Richardson with the Richardson Frame. Crafted from premium wood, this frame features intricate detailing, making it a beautiful addition to any home, office, or collection.',
+            'custom-sign' => 'Create your perfect custom sign with our expertly crafted designs. Made from premium materials, each sign is tailored to your specifications, combining durability with a personal touch to elevate your home, business, or event decor.',
+            'elkhorn-frame' => 'Celebrate your connection to Elkhorn with this beautifully crafted Elkhorn Frame. Made from premium wood, it features intricate detailing that adds a timeless and personal touch to any home or office decor.',
+            'kansas-city-chiefs-rounded' => 'Showcase your Kansas City Chiefs pride with the Kansas City Chiefs Rounded frame. Expertly crafted from premium wood, this frame features a sleek, rounded design with precise detailing of the iconic Chiefs logo—perfect for any fan’s home, office, or collection.',
+            'led-zeppelin-ramble-on-cover' => 'Showcase your Ramdlc pride with the Ramdlc On Frame. Expertly crafted from premium wood, this frame features intricate detailing that highlights the Ramdlc logo, making it a standout addition to any fan’s home, office, or collection.',
+            'omaha-beef-cnc-creations' => 'Show your Omaha Beef pride with the Omaha Beef CNC Creation. Expertly crafted from high-quality wood, this frame features a detailed engraving of the Omaha Beef logo, making it a perfect display piece for any fan’s home, office, or collection.',
+            'omaha-fire-frame' => 'Ignite your passion for Omaha Fire with the Omaha Fire Frame. Expertly crafted from premium wood, this frame features intricate detailing of the Omaha Fire logo, making it a striking addition to your home, office, or fan collection.',
+            'pink-floyd' => 'Celebrate the legendary Pink Floyd with this stunning frame. Crafted from premium wood, this frame features intricate detailing that highlights the iconic Pink Floyd logo, making it a must-have for any fan’s collection.',
+            'raiders' => 'Show your Raiders pride with this CNC wooden frame. Crafted from premium wood, it features detailed engraving of the iconic logo, perfect for displaying in your home, office, or fan cave. A timeless keepsake for any true fan.',
+            'sf-cnc-creations' => 'Show off your San Francisco pride with the SF CNC Creation. Expertly crafted from premium wood, this frame features a detailed, precise engraving of the iconic SF logo, making it a perfect addition to any fan’s home, office, or collection.',
+            'steelers-frame' => 'Show your Steelers pride with the Steelers Frame. Expertly crafted from premium wood, this frame features detailed engravings of the iconic Steelers logo, making it the perfect addition to any fan’s home, office, or collection.',
+            'abstract-3d-cnc-model' => 'Unleash creativity with the Abstract 3D CNC Model. Featuring bold and unconventional patterns, it’s perfect for unique decor, artistic panels, or furniture accents.',
+            'ashholes-o-g-3d-butcher-block' => 'Create stunning borders and accents with the Ornamental Frame 3D CNC Model. Perfect for mirrors, picture frames, and architectural details.',
+            'classic-scroll-3d-cnc-model' => 'Elevate your designs with the timeless elegance of the Classic Scroll 3D CNC Model. Perfect for furniture accents, architectural trim, or decorative panels.',
+            'croc-3d-model' => 'Bring wildlife to life with the Animal-Themed 3D CNC Model. Featuring detailed animal designs, it’s perfect for sculptures, decorative panels, or custom art projects.',
+            'crocodile-relief-3d-cnc-model' => 'Bring the crocodile to life with the Crocodile Relief 3D CNC Model. Perfect for sculptures, plaques, or nature-themed art projects.',
+            'crocodile-wall-art-3d-cnc-model' => 'Showcase the fierce beauty of nature with the Crocodile Wall Art 3D CNC Model. Featuring intricate details, it’s perfect for creating standout decor or custom projects.',
+            'decorative-3d-cnc-model-each' => 'Add elegance to your projects with the Decorative Corner 3D CNC Model. Perfect for enhancing furniture, cabinetry, or architectural details.',
+            'decorative-floral-3d-cnc-model' => 'Enhance your projects with this Decorative Floral 3D CNC Model. Featuring intricate floral patterns, it’s perfect for furniture, wall panels, or custom decor.',
+            'geometric-3d-cnc-model' => 'Add a modern touch to your designs with the Geometric 3D CNC Model. Featuring bold, precise patterns, it’s ideal for architectural details, furniture, or statement pieces.',
+            'classic-wooden-jewelry-box' => 'Store your treasures in timeless elegance with the Classic Wooden Jewelry Box. Made from premium wood, it features multiple compartments and a smooth finish for organized and stylish storage.',
+            'custom-jewelry-box' => 'Take your jewelry on the go with the Travel Jewelry Box. Compact, lightweight, and stylish, it features secure compartments to protect your accessories wherever you are.',
+            'elegant-mirror-jewelry-box' => 'Add a touch of glamour with the Elegant Mirror Jewelry Box. Featuring a sleek mirrored exterior and spacious compartments, it’s a stunning way to keep your jewelry safe and organized.',
+            'examples-of-urn-or-keepsake' => 'Store your treasures in the soft elegance of the Luxurious Velvet Jewelry Box. This plush design features compartments for all your favorite pieces, keeping them secure and beautifully displayed.',
+            'jewelery-box' => 'Store your treasures in style with this beautifully crafted Jewelry Box. Made from premium materials, it features an elegant design with compartments to keep your jewelry organized and protected.',
+            'personalized-jewelry-box' => 'Create a meaningful keepsake with the Personalized Jewelry Box. Crafted with care and customizable with names or initials, it’s the perfect way to store and cherish your jewelry.',
+            'build-your-own-game-kit' => 'Unleash your imagination with the Build-Your-Own Game Kit. Includes everything you need to design, create, and play your very own board game.',
+            'custom-game-pieces-set' => 'Enhance your board game with a Custom Game Pieces Set. Tailored to your design, these pieces add a personal and creative touch to your gaming experience.',
+            'personalized-game-board' => 'Bring your creativity to life with a Personalized Game Board. Fully customizable, it’s perfect for creating unique board games tailored to your family, friends, or special events.',
+        ];
 
         foreach ($catalog as $categoryName => $products) {
-            $category = Category::where('name', $categoryName)->firstOrFail();
+            $category = Category::updateOrCreate(
+                ['slug' => Str::slug($categoryName)],
+                [
+                    'name' => $categoryName,
+                    'description' => 'Handcrafted '.$categoryName.' made with precision, care, and a premium finish.',
+                    'is_active' => true,
+                ],
+            );
 
             foreach ($products as $index => $data) {
                 $slug = Str::slug($data['name']);
+                $description = $liveDescriptions[$slug] ?? $data['description'];
 
-                $product = Product::firstOrCreate(['slug' => $slug], [
+                $stockQuantity = 12;
+                $product = Product::updateOrCreate(['slug' => $slug], [
                     'category_id' => $category->id,
                     'name' => $data['name'],
                     'slug' => $slug,
-                    'short_description' => Str::limit($data['description'], 100),
-                    'description' => $data['description'],
+                    'short_description' => Str::substr($description, 0, 255),
+                    'description' => $description,
                     'price' => $data['price'],
                     'sale_price' => $data['sale_price'],
-                    'sku' => 'JDM-'.$skuCounter++,
-                    'total_stock_quantity' => $stockQuantity = fake()->numberBetween(0, 25),
+                    'sku' => 'JDM-'.Str::upper(Str::substr(md5($slug), 0, 8)),
+                    'total_stock_quantity' => $stockQuantity,
                     'available_stock_quantity' => $stockQuantity,
                     'is_active' => true,
                     'is_featured' => $index === 0,
                 ]);
 
-                if (! $product->wasRecentlyCreated) {
-                    continue;
-                }
-
-                $product->images()->create([
-                    'path' => 'https://placehold.co/600x600?text='.urlencode($data['name']),
+                $product->images()->updateOrCreate(['sort_order' => 0], [
+                    'path' => $data['image'] ?? 'https://placehold.co/600x600?text='.urlencode($data['name']),
                     'alt_text' => $data['name'],
-                    'sort_order' => 0,
                 ]);
 
                 $sortOrder = 0;
                 foreach ($data['specs'] as $key => $value) {
-                    $product->specifications()->create([
+                    $product->specifications()->updateOrCreate(['spec_key' => $key], [
                         'spec_key' => $key,
                         'spec_value' => $value,
                         'sort_order' => $sortOrder++,
@@ -204,9 +318,12 @@ class ProductSeeder extends Seeder
 
                 if (! empty($data['variations'])) {
                     foreach ($data['variations'] as $variation) {
-                        $product->variations()->create($variation + [
+                        $product->variations()->updateOrCreate([
+                            'attribute_name' => $variation['attribute_name'],
+                            'attribute_value' => $variation['attribute_value'],
+                        ], $variation + [
                             'sku' => $product->sku.'-'.Str::slug($variation['attribute_value']),
-                            'stock_quantity' => fake()->numberBetween(0, 15),
+                            'stock_quantity' => 12,
                         ]);
                     }
                 }

@@ -42,7 +42,7 @@
                             x-transition:leave="transition ease-in duration-700"
                             x-transition:leave-start="opacity-100"
                             x-transition:leave-end="opacity-0"
-                            class="absolute inset-0 h-full w-full object-cover"
+                            class="absolute inset-0 h-full w-full object-contain p-2"
                         >
                     </template>
                 </div>
@@ -55,7 +55,7 @@
                             class="aspect-square overflow-hidden rounded-md bg-gray-100 ring-offset-1 transition"
                             :class="active === index ? 'ring-2 ring-red-600' : 'ring-1 ring-gray-200 hover:ring-red-300'"
                         >
-                            <img :src="image.url" :alt="image.alt" class="h-full w-full object-cover">
+                            <img :src="image.url" :alt="image.alt" class="h-full w-full object-contain p-1">
                         </button>
                     </template>
                 </div>
