@@ -256,7 +256,7 @@ class ProductSeeder extends Seeder
 
         // Keep the category records available, but mirror the live store where these
         // categories currently have no published products.
-        foreach (['Engraving', 'Shadow Boxes', 'Custom Murals'] as $emptyCategory) {
+        foreach (['Engraving', 'Shadow Boxes', 'Custom Murals', 'Custom Signs'] as $emptyCategory) {
             $catalog[$emptyCategory] = [];
         }
 
@@ -355,6 +355,49 @@ class ProductSeeder extends Seeder
             }
         }
         $this->syncVerifiedWebsiteProducts();
+        $this->syncVerifiedEtsyProducts();
+    }
+
+    private function syncVerifiedEtsyProducts(): void
+    {
+        $items = collect(json_decode(file_get_contents(__DIR__.'/data/etsy-products.json'), true, 512, JSON_THROW_ON_ERROR))->keyBy('id');
+        foreach ($items as $item) {
+            $category = Category::updateOrCreate(['slug' => Str::slug($item['category'])], [
+                'name' => $item['category'], 'is_active' => true,
+            ]);
+            $description = $item['description'] ?? $items[$item['description_from']]['description'];
+            $sku = 'ETSY-'.$item['id'];
+            $product = Product::where('sku', $sku)->first()
+                ?? Product::where('slug', Str::slug($item['legacy']))->first()
+                ?? new Product;
+            $newProduct = ! $product->exists;
+            $product->fill([
+                'category_id' => $category->id, 'name' => $item['name'],
+                'slug' => $product->slug ?: 'etsy-'.$item['id'].'-'.Str::slug($item['legacy']),
+                'sku' => $sku, 'price' => $item['price'], 'sale_price' => null,
+                'short_description' => Str::substr($description, 0, 255),
+                'description' => $description, 'is_active' => true,
+            ]);
+            if ($newProduct) {
+                $product->total_stock_quantity = 1;
+                $product->available_stock_quantity = 1;
+            }
+            $product->save();
+            $path = '/images/catalog/etsy-'.$item['id'].'.jpg';
+            if (! is_file(public_path($path))) {
+                throw new \RuntimeException('Missing Etsy asset: '.$path);
+            }
+            $product->images()->updateOrCreate(['sort_order' => 0], [
+                'path' => $path, 'alt_text' => $item['name'],
+            ]);
+            // Earlier Etsy entries contained guessed specifications. Remove only
+            // those imported specs; retain product records and order references.
+            $product->specifications()->delete();
+        }
+        // Preserve the obsolete imported record for existing references, while
+        // excluding it from the current 16-listing storefront.
+        Product::where('name', 'Nürburgring F1 Resin Wall Art')->update(['is_active' => false]);
+        Category::where('slug', 'etsy-collection')->whereDoesntHave('products')->update(['is_active' => false]);
     }
 
     private function syncVerifiedWebsiteProducts(): void
