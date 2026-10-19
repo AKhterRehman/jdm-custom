@@ -118,18 +118,6 @@ class ProductSeeder extends Seeder
                     'specs' => ['Material' => 'Solid Hardwood', 'Finish' => 'Satin Finish', 'Dimensions' => 'Custom'],
                 ],
             ],
-            'Custom Epoxy Signs' => [
-                [
-                    'name' => 'River Epoxy House Sign', 'price' => 190.00, 'sale_price' => null,
-                    'description' => 'A house address sign with a hand-poured epoxy river running through hand-carved numbers and wood grain.',
-                    'specs' => ['Material' => 'Pine & Epoxy Resin', 'Finish' => 'UV-Resistant Gloss', 'Dimensions' => '18in x 10in'],
-                ],
-                [
-                    'name' => 'Ocean Wave Epoxy Wall Art', 'price' => 240.00, 'sale_price' => 210.00,
-                    'description' => 'A wave-patterned epoxy pour over shaped wood, capturing ocean-blue tones for a striking statement piece.',
-                    'specs' => ['Material' => 'Birch & Epoxy Resin', 'Finish' => 'High-Gloss Sealant', 'Dimensions' => '30in x 12in'],
-                ],
-            ],
             '3D CNC Models' => [
                 [
                     'name' => 'Abstract 3D CNC Model', 'price' => 250.00, 'sale_price' => null,
@@ -198,18 +186,6 @@ class ProductSeeder extends Seeder
                     'specs' => ['Material' => 'Plywood Panels', 'Finish' => 'Matte Sealant', 'Dimensions' => '60in x 30in'],
                 ],
             ],
-            'Custom Signs' => [
-                [
-                    'name' => 'Custom Business Sign', 'price' => 100.00, 'sale_price' => null,
-                    'description' => 'A hand-carved wooden sign for a storefront, office, or home business, finished for indoor or outdoor use.',
-                    'specs' => ['Material' => 'Cedar', 'Finish' => 'Weather-Resistant Sealant', 'Dimensions' => '24in x 12in'],
-                ],
-                [
-                    'name' => 'Custom Address Sign', 'price' => 95.00, 'sale_price' => null,
-                    'description' => 'A carved house-number sign built to hold up outdoors while adding a handcrafted touch to your entryway.',
-                    'specs' => ['Material' => 'Cedar', 'Finish' => 'Weather-Resistant Sealant', 'Dimensions' => '16in x 8in'],
-                ],
-            ],
             'Custom Board Games' => [
                 [
                     'name' => 'Build-Your-Own Game Kit', 'price' => 220.00, 'sale_price' => null, 'image' => '/images/catalog/build-your-own-game-kit.jpg',
@@ -227,11 +203,60 @@ class ProductSeeder extends Seeder
                     'specs' => ['Material' => 'Solid Maple', 'Finish' => 'Satin Lacquer', 'Dimensions' => '18in x 18in'],
                 ],
             ],
+            'Custom Signs' => [
+                [
+                    'name' => 'BMW M Logo Wall Art', 'price' => 350.00, 'sale_price' => null,
+                    'image' => 'https://i.etsystatic.com/65284121/r/il/636ec9/7984663665/il_794xN.7984663665_6u8g.jpg',
+                    'description' => 'Bring performance-inspired style to your space with this handcrafted BMW M-inspired wall art. Premium wood and high-gloss epoxy resin create a bold modern design for a garage, office, or man cave.',
+                    'specs' => ['Material' => 'Premium Wood & Epoxy Resin', 'Finish' => 'High-Gloss Resin', 'Dimensions' => '24in x 11in x 1in'],
+                ],
+                [
+                    'name' => 'Bentley Inspired Resin Wall Art', 'price' => 350.00, 'sale_price' => null,
+                    'description' => 'Add a touch of luxury with handcrafted Bentley-inspired resin wall art. Premium epoxy resin, metallic detailing, and a natural wood border make every piece unique.',
+                    'specs' => ['Material' => 'Wood & Epoxy Resin', 'Finish' => 'Metallic Gloss', 'Dimensions' => '24in x 12in x 1.25in'],
+                ],
+                [
+                    'name' => 'Rolex Inspired Wall Art', 'price' => 400.00, 'sale_price' => null,
+                    'description' => 'A handcrafted luxury resin wall piece inspired by classic watch design, made for offices, garages, man caves, and watch lovers.',
+                    'specs' => ['Material' => 'Wood & Epoxy Resin', 'Finish' => 'High-Gloss Finish', 'Dimensions' => 'Custom'],
+                ],
+                [
+                    'name' => 'Custom AMG Affalterbach Wall Art', 'price' => 350.00, 'sale_price' => null,
+                    'description' => 'A handmade round wooden AMG-inspired sign with premium layered detailing, designed for luxury garages, offices, and automotive collections.',
+                    'specs' => ['Material' => 'Wood & Epoxy Resin', 'Finish' => 'Gloss Protective Finish', 'Dimensions' => 'Custom'],
+                ],
+                [
+                    'name' => 'Lamborghini Shield Wall Art', 'price' => 400.00, 'sale_price' => null,
+                    'image' => 'https://i.etsystatic.com/65284121/r/il/2692d9/8222862663/il_794xN.8222862663_lnpq.jpg',
+                    'description' => 'Showcase automotive passion with this bold Lamborghini-inspired shield wall art. A premium textured finish, metallic accents, and layered construction create a standout display.',
+                    'specs' => ['Material' => '3D Printed Composite & Wood', 'Finish' => 'Textured Gloss Finish', 'Dimensions' => '22in x 24in x 1.25in'],
+                ],
+                [
+                    'name' => 'Handmade Motorcycle Shield Wall Art', 'price' => 350.00, 'sale_price' => null,
+                    'description' => 'Layered wood and epoxy biker wall art made for garages, workshops, and motorcycle enthusiasts who want a distinctive handmade display.',
+                    'specs' => ['Material' => 'Layered Wood & Epoxy Resin', 'Finish' => 'Protective Gloss Finish', 'Dimensions' => 'Custom'],
+                ],
+                [
+                    'name' => 'Personalized Aston Martin Inspired Wall Art', 'price' => 350.00, 'sale_price' => null,
+                    'description' => 'Personalized Aston Martin-inspired resin wall art with custom name options, made as a premium automotive decoration or racing garage gift.',
+                    'specs' => ['Material' => 'Wood & Epoxy Resin', 'Finish' => 'High-Gloss Finish', 'Dimensions' => 'Custom'],
+                ],
+                [
+                    'name' => 'Nürburgring F1 Resin Wall Art', 'price' => 350.00, 'sale_price' => null,
+                    'description' => 'Handmade wood and resin motorsport track sign inspired by Nürburgring and Formula 1, perfect for a garage, office, or racing collection.',
+                    'specs' => ['Material' => 'Wood & Epoxy Resin', 'Finish' => 'Gloss Protective Finish', 'Dimensions' => 'Custom'],
+                ],
+                [
+                    'name' => 'Bunny Ear Napkin Rings Set of 6', 'price' => 45.00, 'sale_price' => null,
+                    'description' => 'A set of six modern bunny ear napkin rings designed for Easter tables, seasonal entertaining, and minimalist place settings.',
+                    'specs' => ['Material' => 'Handcrafted Wood', 'Finish' => 'Smooth Protective Finish', 'Dimensions' => 'Set of 6'],
+                ],
+            ],
         ];
 
         // Keep the category records available, but mirror the live store where these
         // categories currently have no published products.
-        foreach (['Engraving', 'Shadow Boxes', 'Custom Epoxy Signs', 'Custom Murals', 'Custom Signs'] as $emptyCategory) {
+        foreach (['Engraving', 'Shadow Boxes', 'Custom Murals'] as $emptyCategory) {
             $catalog[$emptyCategory] = [];
         }
 
@@ -327,6 +352,41 @@ class ProductSeeder extends Seeder
                         ]);
                     }
                 }
+            }
+        }
+        $this->syncVerifiedWebsiteProducts();
+    }
+
+    private function syncVerifiedWebsiteProducts(): void
+    {
+        $items = json_decode(file_get_contents(__DIR__.'/data/jdm-products.json'), true, 512, JSON_THROW_ON_ERROR);
+        foreach ($items as $item) {
+            $name = html_entity_decode(trim($item['name']), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $product = Product::where('slug', Str::slug($name))->firstOrFail();
+            $categoryData = $item['categories'][0];
+            $category = Category::updateOrCreate(['slug' => $categoryData['slug']], [
+                'name' => html_entity_decode($categoryData['name'], ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+                'is_active' => true,
+            ]);
+            $plainText = static function (string $html): string {
+                $html = preg_replace('/<\/(p|li|h[1-6])>|<br\s*\/?\s*>/i', "\n", $html);
+                return trim(html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            };
+            $divisor = 10 ** $item['prices']['currency_minor_unit'];
+            $product->update([
+                'name' => $name,
+                'category_id' => $category->id,
+                'short_description' => Str::substr($plainText($item['short_description']), 0, 255),
+                'description' => $plainText($item['description']),
+                'price' => (float) $item['prices']['regular_price'] / $divisor,
+                'sale_price' => $item['on_sale'] ? (float) $item['prices']['sale_price'] / $divisor : null,
+            ]);
+            foreach ($item['images'] as $order => $image) {
+                $localPath = '/images/catalog/source-'.$item['id'].'-'.$order.'.jpg';
+                $product->images()->updateOrCreate(['sort_order' => $order], [
+                    'path' => is_file(public_path($localPath)) ? $localPath : $image['src'],
+                    'alt_text' => $image['alt'] ?: $name,
+                ]);
             }
         }
     }
