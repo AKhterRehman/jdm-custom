@@ -375,7 +375,7 @@ class ProductSeeder extends Seeder
                 'category_id' => $category->id, 'name' => $item['name'],
                 'slug' => $product->slug ?: 'etsy-'.$item['id'].'-'.Str::slug($item['legacy']),
                 'sku' => $sku, 'price' => $item['price'], 'sale_price' => null,
-                'short_description' => Str::substr($description, 0, 255),
+                'short_description' => '',
                 'description' => $description, 'is_active' => true,
             ]);
             if ($newProduct) {
@@ -419,7 +419,7 @@ class ProductSeeder extends Seeder
             $product->update([
                 'name' => $name,
                 'category_id' => $category->id,
-                'short_description' => Str::substr($plainText($item['short_description']), 0, 255),
+                'short_description' => $plainText($item['short_description']),
                 'description' => $plainText($item['description']),
                 'price' => (float) $item['prices']['regular_price'] / $divisor,
                 'sale_price' => $item['on_sale'] ? (float) $item['prices']['sale_price'] / $divisor : null,

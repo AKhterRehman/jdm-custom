@@ -64,7 +64,7 @@
             <div>
                 <p class="text-xs font-semibold uppercase tracking-widest text-red-600 mb-2">{{ $product->category->name }}</p>
                 <h1 class="font-heading text-3xl sm:text-4xl font-bold text-ink-900">{{ $product->name }}</h1>
-                <p class="mt-3 text-gray-600 leading-relaxed">{{ $product->short_description }}</p>
+                <p class="mt-3 text-gray-600 leading-relaxed whitespace-pre-line">{{ $product->short_description }}</p>
 
                 <div class="mt-6">
                     @if ($product->sale_price)
@@ -149,7 +149,7 @@
                 @if ($product->description)
                     <div class="mt-10 border-t border-gray-100 pt-6">
                         <h2 class="font-heading font-semibold text-ink-900 mb-2">Description</h2>
-                        <p class="text-gray-600 leading-relaxed">{{ $product->description }}</p>
+                        <p class="text-gray-600 leading-relaxed whitespace-pre-line">{{ $product->description }}</p>
                     </div>
                 @endif
 

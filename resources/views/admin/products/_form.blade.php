@@ -32,7 +32,7 @@
 
     <div class="sm:col-span-2">
         <label class="text-sm font-medium text-gray-700">Short Description</label>
-        <input type="text" name="short_description" value="{{ old('short_description', $product->short_description ?? '') }}" class="mt-1 w-full rounded-md border-gray-300 text-sm">
+        <textarea name="short_description" rows="4" class="mt-1 w-full rounded-md border-gray-300 text-sm">{{ old('short_description', $product->short_description ?? '') }}</textarea>
     </div>
 
     <div class="sm:col-span-2">
