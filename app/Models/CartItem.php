@@ -29,7 +29,9 @@ class CartItem extends Model
         $price = (float) ($this->product->sale_price ?? $this->product->price);
 
         if ($this->variation) {
-            $price += (float) $this->variation->price_adjustment;
+            $price = $this->variation->price !== null
+                ? (float) $this->variation->price
+                : $price + (float) $this->variation->price_adjustment;
         }
 
         return $price;

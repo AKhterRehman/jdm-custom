@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable([
     'category_id', 'name', 'slug', 'short_description', 'description',
     'price', 'sale_price', 'sku', 'total_stock_quantity', 'available_stock_quantity', 'is_active', 'is_featured',
-    'weight_lbs', 'length_in', 'width_in', 'height_in', 'shipping_size_preset',
+    'weight_lbs', 'length_in', 'width_in', 'height_in', 'shipping_size_preset', 'uses_standard_size_pricing', 'stock_quantity',
 ])]
 class Product extends Model
 {

@@ -66,7 +66,7 @@
             <ul class="space-y-2 mb-4 text-sm">
                 @forelse ($product->variations as $variation)
                     <li class="flex items-center justify-between gap-2 rounded-md border border-gray-200 px-3 py-2">
-                        <span class="truncate">{{ $variation->attribute_name }}: {{ $variation->attribute_value }} (+${{ number_format($variation->price_adjustment, 2) }}, {{ $variation->stock_quantity }} in stock)</span>
+                        <span class="truncate">{{ $variation->attribute_name }}: {{ $variation->attribute_value }} ({{ $variation->price !== null ? '$'.number_format($variation->price, 2) : '+$'.number_format($variation->price_adjustment, 2) }}, {{ $variation->stock_quantity }} in stock)</span>
                         <form action="{{ route('admin.products.variations.destroy', [$product, $variation]) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -82,6 +82,7 @@
                 <input type="text" name="attribute_name" placeholder="Attribute (e.g. Size)" required class="w-full rounded-md border-gray-300 text-sm">
                 <input type="text" name="attribute_value" placeholder="Value (e.g. 18-inch)" required class="w-full rounded-md border-gray-300 text-sm">
                 <input type="number" step="0.01" name="price_adjustment" value="0" placeholder="Price adjustment" class="w-full rounded-md border-gray-300 text-sm">
+                <input type="number" step="0.01" min="0" name="price" placeholder="Absolute price (optional)" class="w-full rounded-md border-gray-300 text-sm">
                 <input type="number" name="stock_quantity" value="0" placeholder="Stock quantity" class="w-full rounded-md border-gray-300 text-sm">
                 <button type="submit" class="w-full rounded-md border border-gray-300 py-2 text-sm hover:border-red-600">Add Variation</button>
             </form>

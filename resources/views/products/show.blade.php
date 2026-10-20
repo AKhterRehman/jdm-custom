@@ -66,12 +66,19 @@
                 <h1 class="font-heading text-3xl sm:text-4xl font-bold text-ink-900">{{ $product->name }}</h1>
                 <p class="mt-3 text-gray-600 leading-relaxed whitespace-pre-line">{{ $product->short_description }}</p>
 
+                <div class="mt-5 rounded-xl border border-red-100 bg-red-50/60 p-4 text-sm text-gray-700">
+                    <p class="font-semibold text-ink-900">Handcrafted and made to order</p>
+                    <p class="mt-1 leading-6">Standard sizes and pricing are shown where applicable. Custom dimensions, logos, designs, and color combinations are available. Shipping is an additional charge.</p>
+                    <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="mt-2 inline-flex font-semibold text-red-600 hover:text-red-700">Request a custom quote &rarr;</a>
+                </div>
+
+                <div x-data="{ quantity: 1, available: {{ max(0, (int) $product->available_stock_quantity) }}, selectedPrice: {{ (float) ($product->sale_price ?? $product->price) }} }">
                 <div class="mt-6">
                     @if ($product->sale_price)
-                        <span class="text-3xl font-bold text-red-600">${{ number_format($product->sale_price, 2) }}</span>
+                        <span class="text-3xl font-bold text-red-600" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->sale_price, 2) }}</span>
                         <span class="ml-2 text-lg text-gray-400 line-through">${{ number_format($product->price, 2) }}</span>
                     @else
-                        <span class="text-3xl font-bold text-ink-900">${{ number_format($product->price, 2) }}</span>
+                        <span class="text-3xl font-bold text-ink-900" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->price, 2) }}</span>
                     @endif
                 </div>
 
@@ -79,7 +86,6 @@
                     {{ $product->available_stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}
                 </p>
 
-                <div x-data="{ quantity: 1, available: {{ max(0, (int) $product->available_stock_quantity) }} }">
                 @if (auth()->check() && auth()->user()->is_admin)
                     <div class="mt-5 grid grid-cols-2 gap-3">
                         <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
@@ -110,9 +116,11 @@
                                         @foreach ($options as $option)
                                             <label class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium cursor-pointer transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50 has-[:checked]:text-red-600">
                                                 <input type="radio" name="product_variation_id" value="{{ $option->id }}" required class="sr-only"
-                                                    x-on:change="available = Math.min({{ max(0, (int) $product->available_stock_quantity) }}, {{ max(0, (int) $option->stock_quantity) }}); if (quantity > available) quantity = available">
+                                                    x-on:change="available = Math.min({{ max(0, (int) $product->available_stock_quantity) }}, {{ max(0, (int) $option->stock_quantity) }}); selectedPrice = {{ $option->price !== null ? (float) $option->price : (float) ($product->sale_price ?? $product->price) + (float) $option->price_adjustment }}; if (quantity > available) quantity = available">
                                                 {{ $option->attribute_value }}
-                                                @if ($option->price_adjustment > 0)
+                                                @if ($option->price !== null)
+                                                    <span class="text-gray-400">(${{ number_format($option->price, 2) }})</span>
+                                                @elseif ($option->price_adjustment > 0)
                                                     <span class="text-gray-400">(+${{ number_format($option->price_adjustment, 2) }})</span>
                                                 @endif
                                             </label>

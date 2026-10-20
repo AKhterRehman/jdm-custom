@@ -41,6 +41,7 @@ class ProductController extends Controller
         $validated['slug'] = $validated['slug'] ?: Str::slug($validated['name']);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['uses_standard_size_pricing'] = $request->boolean('uses_standard_size_pricing');
         $validated['available_stock_quantity'] = $validated['total_stock_quantity'];
 
         $product = Product::create($validated);
@@ -62,6 +63,7 @@ class ProductController extends Controller
         $validated['slug'] = $validated['slug'] ?: Str::slug($validated['name']);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['uses_standard_size_pricing'] = $request->boolean('uses_standard_size_pricing');
         $soldQuantity = max(0, $product->total_stock_quantity - $product->available_stock_quantity);
         $validated['available_stock_quantity'] = max(0, $validated['total_stock_quantity'] - $soldQuantity);
 
@@ -133,6 +135,7 @@ class ProductController extends Controller
             'attribute_name' => ['required', 'string', 'max:255'],
             'attribute_value' => ['required', 'string', 'max:255'],
             'price_adjustment' => ['nullable', 'numeric'],
+            'price' => ['nullable', 'numeric', 'min:0'],
             'stock_quantity' => ['nullable', 'integer', 'min:0'],
         ]);
 
@@ -168,6 +171,7 @@ class ProductController extends Controller
             'width_in' => ['nullable', 'numeric', 'min:0'],
             'height_in' => ['nullable', 'numeric', 'min:0'],
             'shipping_size_preset' => ['nullable', 'string', 'max:50'],
+            'uses_standard_size_pricing' => ['nullable', 'boolean'],
         ]);
     }
 }

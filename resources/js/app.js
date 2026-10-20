@@ -92,3 +92,11 @@ if ('IntersectionObserver' in window) {
 } else {
     document.querySelectorAll('[data-counter]').forEach((el) => animateCounter(el));
 }
+
+// Some browser/layout combinations do not fire IntersectionObserver for the
+// initially visible stats strip. Start those counters as a safe fallback.
+window.setTimeout(() => {
+    document.querySelectorAll('[data-counter]').forEach((el) => {
+        if (/^0(?:\.0+)?(?:[^0-9]*)$/.test(el.textContent.trim())) animateCounter(el);
+    });
+}, 250);

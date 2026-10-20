@@ -85,6 +85,10 @@
             @endforeach
         </select>
         <input type="hidden" name="shipping_size_preset" id="shipping-preset-value" value="{{ old('shipping_size_preset', $product->shipping_size_preset ?? '') }}">
+    <label class="mt-4 flex items-center gap-3 text-sm font-medium text-gray-700">
+        <input type="checkbox" name="uses_standard_size_pricing" value="1" @checked(old('uses_standard_size_pricing', $product->uses_standard_size_pricing ?? false)) class="rounded border-gray-300 text-red-600">
+        Use standard size pricing (24&quot; $400, 30&quot; $600, 36&quot; $800, 46&quot; $1,200)
+    </label>
     </div>
 
     <div>

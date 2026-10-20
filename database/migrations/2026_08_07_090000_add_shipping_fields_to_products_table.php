@@ -9,18 +9,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->decimal('weight_lbs', 6, 2)->nullable()->after('stock_quantity');
-            $table->decimal('length_in', 6, 2)->nullable()->after('weight_lbs');
-            $table->decimal('width_in', 6, 2)->nullable()->after('length_in');
-            $table->decimal('height_in', 6, 2)->nullable()->after('width_in');
-            $table->string('shipping_size_preset')->nullable()->after('height_in');
+            if (! Schema::hasColumn('products', 'weight_lbs')) $table->decimal('weight_lbs', 6, 2)->nullable();
+            if (! Schema::hasColumn('products', 'length_in')) $table->decimal('length_in', 6, 2)->nullable();
+            if (! Schema::hasColumn('products', 'width_in')) $table->decimal('width_in', 6, 2)->nullable();
+            if (! Schema::hasColumn('products', 'height_in')) $table->decimal('height_in', 6, 2)->nullable();
+            if (! Schema::hasColumn('products', 'shipping_size_preset')) $table->string('shipping_size_preset')->nullable();
         });
     }
 
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['weight_lbs', 'length_in', 'width_in', 'height_in', 'shipping_size_preset']);
-        });
+        $columns = ['weight_lbs', 'length_in', 'width_in', 'height_in', 'shipping_size_preset'];
+        foreach ($columns as $column) {
+            if (Schema::hasColumn('products', $column)) Schema::table('products', fn (Blueprint $table) => $table->dropColumn($column));
+        }
     }
 };

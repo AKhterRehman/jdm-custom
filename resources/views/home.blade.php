@@ -183,6 +183,30 @@
         </div>
     </section>
 
+    <section id="pricing" class="relative overflow-hidden bg-stone-50 py-20 sm:py-28">
+        <div class="pointer-events-none absolute -left-24 top-12 h-64 w-64 rounded-full bg-red-100/60 blur-3xl"></div>
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-3xl text-center" data-reveal>
+                <p class="text-xs font-bold uppercase tracking-[0.3em] text-red-600">Standard pricing</p>
+                <h2 class="mt-3 font-heading text-3xl font-bold text-ink-900 sm:text-5xl">Choose your size. Make it yours.</h2>
+                <p class="mt-5 leading-7 text-gray-600">These are our standard sizes and starting prices. Every piece is handcrafted and made to order. Shipping is calculated separately.</p>
+            </div>
+            <div class="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4" data-reveal>
+                @foreach ([['24"', '$400'], ['30"', '$600'], ['36"', '$800'], ['46"', '$1,200']] as [$size, $price])
+                    <div class="rounded-2xl border border-stone-200 bg-white p-5 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl">
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Standard size</p>
+                        <p class="mt-3 font-heading text-3xl font-bold text-ink-900">{{ $size }}</p>
+                        <p class="mt-2 text-2xl font-bold text-red-600">{{ $price }}</p>
+                    </div>
+                @endforeach
+            </div>
+            <div class="mx-auto mt-8 flex max-w-3xl flex-col items-center justify-between gap-4 rounded-2xl bg-ink-900 px-6 py-5 text-center text-white sm:flex-row sm:text-left" data-reveal>
+                <div><p class="font-semibold">Need a different size, logo, design, or color?</p><p class="mt-1 text-sm text-gray-300">We create completely custom pieces and offer special pricing for multiple pieces.</p></div>
+                <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="shrink-0 rounded-md bg-red-600 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-red-500">Request a Custom Quote</a>
+            </div>
+        </div>
+    </section>
+
     <section id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div class="text-center mb-14" data-reveal>
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-600 mb-3">Our Expertise</p>

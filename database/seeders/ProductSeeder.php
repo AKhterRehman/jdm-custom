@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -356,6 +357,38 @@ class ProductSeeder extends Seeder
         }
         $this->syncVerifiedWebsiteProducts();
         $this->syncVerifiedEtsyProducts();
+        $this->syncStandardSizePricing();
+    }
+
+    private function syncStandardSizePricing(): void
+    {
+        $sizes = [
+            '24 inches' => 400.00,
+            '30 inches' => 600.00,
+            '36 inches' => 800.00,
+            '46 inches' => 1200.00,
+        ];
+        $terms = ['wall', 'sign', 'cnc', 'shadow', 'mural', 'engraving'];
+
+        Product::with('category')->whereHas('category', function ($query) use ($terms) {
+            $query->where(function ($query) use ($terms) {
+                foreach ($terms as $term) $query->orWhere('name', 'like', "%{$term}%");
+            });
+        })->each(function (Product $product) use ($sizes) {
+            $product->update(['uses_standard_size_pricing' => true]);
+            foreach ($sizes as $label => $price) {
+                ProductVariation::updateOrCreate([
+                    'product_id' => $product->id,
+                    'attribute_name' => 'Size',
+                    'attribute_value' => $label,
+                ], [
+                    'sku' => $product->sku.'-'.Str::slug($label),
+                    'price_adjustment' => 0,
+                    'price' => $price,
+                    'stock_quantity' => 999,
+                ]);
+            }
+        });
     }
 
     private function syncVerifiedEtsyProducts(): void

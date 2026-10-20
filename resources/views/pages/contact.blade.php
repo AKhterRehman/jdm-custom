@@ -30,7 +30,7 @@
                 @endif
 
                 <h2 class="font-heading text-xl font-semibold text-ink-900 mb-2">Tell us about your enquiry</h2>
-                <p class="mb-6 text-sm text-gray-500">Fields marked with <span class="text-red-600">*</span> are required. The more detail you share, the better we can help.</p>
+                <p class="mb-6 text-sm text-gray-500">Fields marked with <span class="text-red-600">*</span> are required. Share your preferred dimensions, design, logo, colors, and quantity for a faster custom quote.</p>
 
                 <form action="{{ route('pages.contact.submit') }}" method="POST" class="space-y-4">
                     @csrf
@@ -59,7 +59,7 @@
                         <select id="inquiry_type" name="inquiry_type" class="w-full rounded-md border-gray-300 text-sm">
                             <option value="">Select an enquiry type</option>
                             @foreach (['general' => 'General enquiry', 'custom-order' => 'Custom order', 'existing-order' => 'Existing order', 'product-question' => 'Product question', 'wholesale' => 'Wholesale or trade', 'other' => 'Other'] as $value => $label)
-                                <option value="{{ $value }}" @selected(old('inquiry_type') === $value)>{{ $label }}</option>
+                                <option value="{{ $value }}" @selected((old('inquiry_type', request('inquiry_type')) === $value))>{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>

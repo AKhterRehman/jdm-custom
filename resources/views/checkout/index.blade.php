@@ -64,7 +64,7 @@
                     <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Shipping</h2>
                     <div class="rounded-md border border-gray-200 p-4 text-sm">
                         <p class="text-gray-500">
-                            Calculated automatically from your address and package size, comparing UPS, USPS, and FedEx.
+                            Shipping is an additional charge and is calculated automatically from your address and package size, comparing UPS, USPS, and FedEx.
                         </p>
                         <p class="mt-2">
                             <span id="shipping-carrier-label" class="font-medium text-gray-900">
