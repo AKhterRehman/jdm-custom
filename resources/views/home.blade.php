@@ -34,7 +34,7 @@
 
             @if ($featuredCount)
                 <div class="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9" data-reveal style="transition-delay: 120ms">
-                    <div class="mx-auto w-full max-w-[26rem] lg:max-w-none">
+                    <div class="mx-auto w-full max-w-[26rem] lg:max-w-none" data-hero-slider>
                         <div class="plate-mat aspect-[4/5]">
                             <div class="relative h-full w-full overflow-hidden">
                                 @foreach ($featured as $i => $piece)

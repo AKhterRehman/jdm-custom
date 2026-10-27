@@ -209,7 +209,8 @@
 .hero-progress { position: relative; height: 1px; background: rgba(255, 255, 255, 0.16); }
 .hero-progress__bar { position: absolute; inset: 0; background: #b89b5e; transform: scaleX(0); transform-origin: left; }
 .hero-progress.is-running .hero-progress__bar { animation: hero-progress var(--hero-interval, 3500ms) linear forwards; }
-[data-hero]:hover .hero-progress__bar, [data-hero]:focus-within .hero-progress__bar { animation-play-state: paused; }
+/* Only the slider itself pauses the rotation, not the rest of the hero. */
+[data-hero-slider]:hover .hero-progress__bar, [data-hero-slider]:focus-within .hero-progress__bar { animation-play-state: paused; }
 @keyframes hero-progress { to { transform: scaleX(1); } }
 
 /* Collection index: a typographic list that drives a large image. */
