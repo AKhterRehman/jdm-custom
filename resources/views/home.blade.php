@@ -8,9 +8,9 @@
 
     {{-- HERO --}}
     <section class="relative isolate overflow-hidden bg-ink-900 text-[#ece7da]" data-hero>
-        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-50" aria-hidden="true">
-        <div class="absolute inset-0 -z-10 bg-[linear-gradient(95deg,rgba(11,11,13,0.97)_0%,rgba(11,11,13,0.82)_42%,rgba(11,11,13,0.55)_100%)]"></div>
-        <div class="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-ink-900 to-transparent"></div>
+        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" aria-hidden="true">
+        <div class="absolute inset-0 -z-10 bg-[linear-gradient(95deg,rgba(11,11,13,0.9)_0%,rgba(11,11,13,0.55)_38%,rgba(11,11,13,0.12)_100%)]"></div>
+        <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink-900 to-transparent"></div>
 
         <div class="mx-auto grid min-h-[100svh] max-w-[88rem] items-center gap-14 px-5 pb-20 pt-36 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-16 lg:pt-32">
             <div class="lg:col-span-6 xl:col-span-6" data-reveal>
