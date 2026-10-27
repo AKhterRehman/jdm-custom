@@ -352,11 +352,14 @@ html.js [data-stagger="boxes"].is-settled .size-box:hover { transform: perspecti
 
 .footer-secure { white-space: nowrap; display: flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #7d818a; }
 .footer-secure svg { color: #b89b5e; }
-.footer-pay { display: inline-flex; align-items: center; gap: 0.45rem; height: 2rem; padding: 0 0.8rem; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.03); transition: border-color 300ms ease, transform 400ms cubic-bezier(.2, .7, .2, 1); }
+.footer-pay { display: inline-flex; align-items: center; gap: 0.45rem; height: 2rem; padding: 0 0.9rem; transition: transform 400ms cubic-bezier(.2, .7, .2, 1), opacity 300ms ease; }
 .footer-pay__word { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.82rem; font-weight: 700; line-height: 1; }
-.footer-pay:hover { border-color: rgba(184, 155, 94, 0.7); transform: translateY(-2px); }
-.footer-social { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.03); color: #a8aab0; transition: border-color 300ms ease, color 300ms ease, transform 400ms cubic-bezier(.2, .7, .2, 1); }
-.footer-social:hover { border-color: #b89b5e; color: #d1b370; transform: translateY(-3px); }
+.footer-pay:hover { transform: translateY(-2px); }
+.footer-social { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; color: #a8aab0; transition: color 300ms ease, transform 400ms cubic-bezier(.2, .7, .2, 1); }
+.footer-social:hover { color: #d1b370; transform: translateY(-3px); }
+.footer-social svg { width: 1.2rem; height: 1.2rem; flex: none; }
+.footer-social--arrow svg { width: 0.8rem; height: 0.95rem; }
+.footer-pay svg { flex: none; }
 
 /* ---------- Design 2: every dark page ---------- */
 
