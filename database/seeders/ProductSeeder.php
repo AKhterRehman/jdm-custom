@@ -357,7 +357,42 @@ class ProductSeeder extends Seeder
         }
         $this->syncVerifiedWebsiteProducts();
         $this->syncVerifiedEtsyProducts();
+        $this->syncPlaceholderProducts();
         $this->syncStandardSizePricing();
+    }
+
+    /**
+     * PLACEHOLDER: the client has no Porsche piece listed yet, but Porsche is the first marque he
+     * named. This keeps a Porsche crest in the collection using a free licence (Unsplash) photo of a
+     * real Porsche emblem. Replace the image with the client's own photo, or deactivate the product,
+     * before launch. The SKU below is how the homepage finds it.
+     */
+    private function syncPlaceholderProducts(): void
+    {
+        $category = Category::updateOrCreate(['slug' => 'automotive-art'], ['name' => 'Automotive Art', 'is_active' => true]);
+
+        $product = Product::firstOrNew(['sku' => 'JDM-PORSCHE-PLACEHOLDER']);
+        $newProduct = ! $product->exists;
+        $product->fill([
+            'category_id' => $category->id,
+            'name' => 'Porsche Crest Wall Art',
+            'slug' => 'porsche-crest-wall-art',
+            'short_description' => 'A hand finished Porsche crest in hardwood and epoxy, made to order.',
+            'description' => "A Porsche crest for the collector's garage, hand finished in hardwood and epoxy and made to order in the size you choose.",
+            'price' => 400,
+            'sale_price' => null,
+            'is_active' => true,
+        ]);
+        if ($newProduct) {
+            $product->total_stock_quantity = 1;
+            $product->available_stock_quantity = 1;
+        }
+        $product->save();
+
+        $product->images()->updateOrCreate(['sort_order' => 0], [
+            'path' => '/images/catalog/placeholder-porsche-crest.jpg',
+            'alt_text' => 'Porsche crest (placeholder photo)',
+        ]);
     }
 
     private function syncStandardSizePricing(): void

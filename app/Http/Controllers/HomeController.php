@@ -9,7 +9,10 @@ use Illuminate\View\View;
 class HomeController extends Controller
 {
     // Etsy listing ids of the pieces shown large in the hero, in display order.
-    private const HERO_SKUS = ['ETSY-4527500804', 'ETSY-4509718241', 'ETSY-4557513997'];
+    private const HERO_SKUS = ['ETSY-4527500804', 'ETSY-4509718241', 'JDM-PORSCHE-PLACEHOLDER'];
+
+    // Pieces that lead the collection grid, in this order, before everything else.
+    private const LEAD_SKUS = ['JDM-PORSCHE-PLACEHOLDER', 'ETSY-4509718241', 'ETSY-4527500804'];
 
     // Categories surfaced as the quiet "from the workshop" row under the automotive collection.
     private const WORKSHOP_CATEGORIES = ['custom-epoxy-signs', 'cnc-creations', '3d-cnc-models', 'jewelry-boxes'];
@@ -27,6 +30,7 @@ class HomeController extends Controller
                 ->get()
                 // Two near-identical AMG listings exist; show one on the homepage.
                 ->reject(fn (Product $product) => $product->sku === 'ETSY-4557588163')
+                ->sortBy(fn (Product $product) => array_search($product->sku, self::LEAD_SKUS, true) === false ? 99 : array_search($product->sku, self::LEAD_SKUS, true))
                 ->values()
             : collect();
 
