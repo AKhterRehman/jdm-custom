@@ -78,7 +78,7 @@
             /* Hero column background */
             .auth-hero-panel {
                 background-image:
-                    linear-gradient(180deg, rgba(11, 11, 13, 0.7) 0%, rgba(11, 11, 13, 0.5) 45%, rgba(11, 11, 13, 0.92) 100%),
+                    linear-gradient(180deg, rgba(11, 11, 13, 0.35) 0%, rgba(11, 11, 13, 0.2) 45%, rgba(11, 11, 13, 0.88) 100%),
                     url('{{ asset('images/luxury-garage-hero.jpg') }}');
                 background-size: cover;
                 background-position: center;

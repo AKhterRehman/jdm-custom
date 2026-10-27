@@ -1,8 +1,6 @@
 <x-layouts.storefront :dark="true" title="Contact Us">
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
-        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-80 brightness-105" aria-hidden="true">
-        <div class="absolute inset-0 -z-10 bg-[linear-gradient(95deg,rgba(11,11,13,0.94)_0%,rgba(11,11,13,0.65)_50%,rgba(11,11,13,0.3)_100%)]"></div>
-        <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-ink-900 to-transparent"></div>
+        <x-page-bg image="luxury-garage-commission.jpg" />
         <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
             <div class="flex items-center gap-4">
                 <span class="rule-gold"></span>
