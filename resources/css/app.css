@@ -204,11 +204,11 @@
 .plate-mat { background: #111113; border: 1px solid rgba(255, 255, 255, 0.09); padding: clamp(0.8rem, 4%, 1.5rem); box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.95); }
 
 /* Hero: pieces crossfade slowly with a barely visible settle. */
-.hero-plate__img { position: absolute; inset: 0; display: block; opacity: 0; transform: scale(1.04); transition: opacity 1400ms ease, transform 8000ms cubic-bezier(.2, .6, .2, 1); }
+.hero-plate__img { position: absolute; inset: 0; display: block; opacity: 0; transform: scale(1.04); transition: opacity 900ms ease, transform 4200ms cubic-bezier(.2, .6, .2, 1); }
 .hero-plate__img.is-active { opacity: 1; transform: scale(1); }
 .hero-progress { position: relative; height: 1px; background: rgba(255, 255, 255, 0.16); }
 .hero-progress__bar { position: absolute; inset: 0; background: #b89b5e; transform: scaleX(0); transform-origin: left; }
-.hero-progress.is-running .hero-progress__bar { animation: hero-progress var(--hero-interval, 6500ms) linear forwards; }
+.hero-progress.is-running .hero-progress__bar { animation: hero-progress var(--hero-interval, 3500ms) linear forwards; }
 [data-hero]:hover .hero-progress__bar, [data-hero]:focus-within .hero-progress__bar { animation-play-state: paused; }
 @keyframes hero-progress { to { transform: scaleX(1); } }
 
