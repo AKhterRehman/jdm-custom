@@ -345,6 +345,19 @@ html.js [data-stagger="boxes"].is-settled .size-box:hover { transform: perspecti
 .site-footer .footer-input, body.is-dark .site-footer .footer-input { min-width: 0; flex: 1; padding: 0.95rem 0; border: 0; border-radius: 0; background: transparent !important; box-shadow: none; color: #fff; font-size: 1rem; font-weight: 300; outline: none; }
 .site-footer .footer-input:focus, body.is-dark .site-footer .footer-input:focus { border: 0; box-shadow: none; outline: none; background: transparent !important; }
 .site-footer .footer-input::placeholder { color: #6e727a; }
+/* Browser autofill paints its own pale blue; keep the field transparent with light text instead. */
+.site-footer .footer-input:-webkit-autofill,
+.site-footer .footer-input:-webkit-autofill:hover,
+.site-footer .footer-input:-webkit-autofill:focus,
+.site-footer .footer-input:-webkit-autofill:active,
+body.is-dark .site-footer .footer-input:-webkit-autofill {
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+    -webkit-box-shadow: 0 0 0 1000px #0b0b0d inset;
+    box-shadow: 0 0 0 1000px #0b0b0d inset;
+    transition: background-color 9999s ease-in-out 0s;
+}
+.site-footer .footer-input:autofill { box-shadow: 0 0 0 1000px #0b0b0d inset; -webkit-text-fill-color: #fff; }
 .footer-join { display: inline-flex; align-items: center; gap: 0.8rem; padding: 0 0 0 1.2rem; background: none; border: 0; color: #ece7da; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer; transition: color 300ms ease; }
 .footer-join svg { transition: transform 450ms cubic-bezier(.2, .7, .2, 1); }
 .footer-join:hover { color: #d1b370; }
