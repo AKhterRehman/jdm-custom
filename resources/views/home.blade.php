@@ -165,6 +165,25 @@
         </div>
     </section>
 
+    {{-- OUR STORY: a short introduction, the full story lives on its own page. --}}
+    <section class="bg-ink-900 py-28 sm:py-36">
+        <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
+            <div class="lg:col-span-5" data-reveal>
+                <div class="plate-mat mx-auto aspect-[4/5] max-w-[26rem] lg:max-w-none">
+                    <img src="{{ asset('images/df211347-0d1d-4047-9ded-30cdf48ee89555.webp') }}" alt="The maker carving a piece by hand" loading="lazy" class="h-full w-full object-cover">
+                </div>
+            </div>
+            <div class="lg:col-span-6 lg:col-start-7" data-reveal style="transition-delay: 120ms">
+                <p class="label text-gold-500">Our Story</p>
+                <h2 class="mt-5 font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Woodwork with a <em class="font-normal italic text-gold-300">story to tell.</em></h2>
+                <p class="mt-8 max-w-xl font-label text-[1.05rem] font-light leading-[1.85] text-[#b9b5ab]">At JDM Custom Creations, we are passionate artisans dedicated to bringing your ideas to life through the timeless beauty of handcrafted woodwork. Our journey began with a simple mission: to create unique, custom made pieces that reflect the individuality and vision of our customers.</p>
+                <div class="mt-10">
+                    <a href="{{ route('pages.about') }}" class="link-line">Read our story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- ALSO FROM THE WORKSHOP: a single quiet line. --}}
     @if ($workshop->isNotEmpty())
         <section class="border-t border-white/10 bg-ink-900 py-12">

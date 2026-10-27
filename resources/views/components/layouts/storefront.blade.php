@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('pages.about') }}" class="transition {{ request()->routeIs('pages.about') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">About</a>
+                        <a href="{{ route('pages.about') }}" class="transition {{ request()->routeIs('pages.about') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Our Story</a>
                         <a href="{{ route('pages.contact') }}" class="transition {{ request()->routeIs('pages.contact') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Contact Us</a>
                     </nav>
 
@@ -217,7 +217,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('pages.about') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.about') ? 'border-gold-500 text-gold-400' : 'border-transparent text-white hover:border-white/30' }}">About</a>
+                    <a href="{{ route('pages.about') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.about') ? 'border-gold-500 text-gold-400' : 'border-transparent text-white hover:border-white/30' }}">Our Story</a>
                     <a href="{{ route('pages.contact') }}" class="flex items-center py-3.5 border-l-2 pl-4 -ml-6 transition {{ request()->routeIs('pages.contact') ? 'border-gold-500 text-gold-400' : 'border-transparent text-white hover:border-white/30' }}">Contact Us</a>
 
                     @auth
@@ -295,7 +295,7 @@
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Company</p>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('pages.about') }}" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="{{ route('pages.about') }}" class="hover:text-white transition">Our Story</a></li>
                         <li><a href="{{ route('pages.contact') }}" class="hover:text-white transition">Contact Us</a></li>
                         <li><a href="{{ route('pages.privacy') }}" class="hover:text-white transition">Privacy Policy</a></li>
                         <li><a href="{{ route('pages.terms') }}" class="hover:text-white transition">Terms and Condition</a></li>

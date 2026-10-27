@@ -22,6 +22,7 @@ Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name(
 Route::post('/product/{product:slug}/review', [ProductController::class, 'submitReview'])->middleware('auth')->name('product.review');
 
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
+Route::redirect('/our-story', '/about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'submitContact'])->name('pages.contact.submit');
 Route::post('/newsletter/subscribe', [PageController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
