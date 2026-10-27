@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700&display=swap" rel="stylesheet" />
@@ -116,7 +116,7 @@
                 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(192,160,98,0.16),_transparent_60%)]"></div>
 
                 <a href="/" class="relative inline-flex items-center justify-center" aria-label="JDM Custom Creations home">
-                    <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain drop-shadow-lg" style="height: 7rem; width: auto;">
+                    <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain drop-shadow-lg" style="height: 7rem; width: auto;">
                 </a>
 
                 <div class="relative auth-hero-card rounded-2xl p-8">
@@ -132,7 +132,7 @@
             <div class="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom Creations home">
-                        <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
+                        <img src="{{ asset('images/jdm-custom-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
                     <div class="auth-form-card rounded-2xl bg-white p-6 sm:p-10">

@@ -42,7 +42,7 @@
     <table class="header">
         <tr>
             <td>
-                <img src="{{ asset('images/jdm-custom-logo.png') }}" alt="JDM Custom Creations" class="brand-logo">
+                <img src="{{ asset('images/jdm-custom-logo-gold.png') }}" alt="JDM Custom Creations" class="brand-logo">
                 <div class="muted mt-8">Handcrafted custom wood creations</div>
             </td>
             <td class="right">

@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($title) ? $title.' - ' : '' }}Admin - {{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
@@ -43,7 +43,7 @@
             <aside class="admin-sidebar w-60 shrink-0 bg-ink-900 text-gray-300 flex flex-col">
                 <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 border-b border-white/10" aria-label="JDM Custom Creations admin dashboard">
                     <span class="inline-flex items-center justify-center">
-                        <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.5rem; width: auto;">
+                        <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.5rem; width: auto;">
                     </span>
                 </a>
 

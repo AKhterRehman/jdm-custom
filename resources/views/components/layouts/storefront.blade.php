@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($title) ? $title.' - ' : '' }}{{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700&display=swap" rel="stylesheet" />
@@ -104,10 +104,10 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-24 items-center justify-between gap-8">
                     <a href="{{ route('home') }}" class="shrink-0 inline-flex items-center justify-center" aria-label="JDM Custom Creations home">
-                        <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
+                        <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
-                    <nav class="hidden lg:flex items-center gap-9 text-[0.72rem] font-semibold uppercase tracking-[0.22em]">
+                    <nav class="hidden lg:flex items-center gap-5 xl:gap-9 whitespace-nowrap text-[0.7rem] xl:text-[0.72rem] font-semibold uppercase tracking-[0.16em] xl:tracking-[0.22em]">
                         <a href="{{ route('home') }}" class="transition {{ request()->routeIs('home') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Home</a>
                         @if ($automotiveCategory)
                             <a href="{{ route('category.show', $automotiveCategory) }}" class="transition {{ request()->is('category/'.$automotiveCategory->slug) ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Automotive Art</a>
@@ -183,7 +183,7 @@
             >
                 <div class="flex items-center justify-between px-6 h-20 border-b border-white/10 shrink-0">
                     <span class="inline-flex items-center justify-center">
-                        <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.75rem; width: auto;">
+                        <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.75rem; width: auto;">
                     </span>
                     <button type="button" @click="mobileOpen = false" class="text-gray-400 hover:text-white transition" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6">
@@ -272,7 +272,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
                 <div>
                     <span class="inline-flex items-center justify-center">
-                        <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 4.5rem; width: auto;">
+                        <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 4.5rem; width: auto;">
                     </span>
                     <p class="mt-3 text-sm leading-relaxed">Luxury automotive art. Hand-finished in hardwood and epoxy, made to order for the collector's garage.</p>
                 </div>
