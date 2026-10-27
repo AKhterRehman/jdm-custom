@@ -14,85 +14,6 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700|bodoni-moda:400,500,600,400i,500i|jost:300,400,500&display=swap" rel="stylesheet" />
 
-        <style>
-            .payment-methods {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-
-            .payment-strip { border-bottom: 1px solid rgba(255,255,255,.08); background: #0e0e10; padding: 1.15rem 1rem; }
-            .payment-strip__inner { display: grid; max-width: 80rem; margin: 0 auto; grid-template-columns: minmax(11rem, 1fr) auto minmax(11rem, 1fr); align-items: center; gap: 1.5rem; }
-            .payment-strip__label { display: flex; align-items: center; gap: 0.55rem; color: #b4b8bf; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
-            .payment-strip__label svg { color: #c0a062; }
-
-            .footer-payment-actions {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: 1.25rem;
-            }
-
-            .footer-social-links {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                border-left: 1px solid rgba(255,255,255,.12);
-                padding-left: 1.25rem;
-                justify-self: end;
-            }
-
-            .footer-social-label { color: #8f949c; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-
-            @media (max-width: 640px) {
-                .footer-social-links { border-left: 0; padding-left: 0; }
-            }
-
-            @media (max-width: 900px) {
-                .payment-strip__inner { grid-template-columns: 1fr; justify-items: center; gap: 0.85rem; }
-                .payment-strip__label { justify-content: center; }
-                .footer-social-links { justify-self: center; border-left: 0; padding-left: 0; }
-            }
-
-            .payment-badge {
-                display: inline-flex;
-                min-width: 2.75rem;
-                height: 1.75rem;
-                align-items: center;
-                justify-content: center;
-                border: 1px solid #dbe1e8;
-                border-radius: 0.25rem;
-                background: #fff;
-                color: #172033;
-                font-size: 0.62rem;
-                font-weight: 800;
-                letter-spacing: -0.03em;
-                line-height: 1;
-                padding: 0 0.35rem;
-                transition: transform 150ms ease, box-shadow 150ms ease;
-            }
-
-            .payment-badge:hover { box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12); transform: translateY(-1px); }
-
-            .payment-badge--amex { background: #1674c7; border-color: #1674c7; color: #fff; }
-            .payment-badge--apple { background: #171717; border-color: #171717; color: #fff; }
-            .payment-badge--discover { color: #222; font-size: 0.54rem; }
-            .payment-badge--google { font-size: 0.58rem; }
-            .payment-badge--mastercard { background: #101010; border-color: #101010; color: #fff; }
-            .payment-badge--venmo { background: #008cff; border-color: #008cff; color: #fff; }
-            .payment-badge--usbank { background: #d71920; border-color: #d71920; color: #fff; }
-            .payment-badge--stripe { background: #635bff; border-color: #635bff; color: #fff; }
-            .payment-badge--shop { background: #5a31c9; border-color: #5a31c9; color: #fff; }
-            .payment-badge--visa { background: #1434cb; border-color: #1434cb; color: #fff; font-style: italic; }
-            .social-badge { display: inline-flex; width: 1.75rem; height: 1.75rem; align-items: center; justify-content: center; border-radius: 0.375rem; color: #fff; transition: transform 150ms ease, opacity 150ms ease; }
-            .social-badge:hover { transform: translateY(-1px); opacity: 0.9; }
-            .social-badge--facebook { background: #1877f2; }
-            .social-badge--instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
-        </style>
-
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased {{ $dark ? 'bg-ink-900 text-gray-300 is-dark' : 'bg-white text-ink-900' }}">
@@ -259,86 +180,104 @@
             {{ $slot }}
         </main>
 
-        <footer class="bg-ink-900 text-gray-400">
-            <div class="payment-strip">
-                <div class="payment-strip__inner">
-                    <p class="payment-strip__label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> Secure payments</p>
-                    <div class="payment-methods" aria-label="Accepted payment methods">
-                        <span class="payment-badge" title="PayPal" style="color:#003087">Pay<span style="color:#009cde">Pal</span></span>
-                        <span class="payment-badge payment-badge--venmo" title="Venmo">V venmo</span>
-                        <span class="payment-badge payment-badge--usbank" title="U.S. Bank">usbank</span>
-                        <span class="payment-badge payment-badge--stripe" title="Stripe">stripe</span>
-                    </div>
-                    <div class="footer-social-links" aria-label="Follow us on social media">
-                        <span class="footer-social-label">Follow us</span>
-                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social-badge social-badge--facebook" aria-label="Visit us on Facebook" title="Facebook">
-                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.75l.41-3.12H13.5V7.89c0-.9.25-1.52 1.55-1.52h1.66V3.58A22.3 22.3 0 0 0 14.29 3c-2.4 0-4.05 1.46-4.05 4.15v2.73H7.5V13h2.74v8h3.26Z" /></svg>
+        <footer class="site-footer">
+            <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+                {{-- Brand and newsletter --}}
+                <div class="grid gap-14 border-b border-white/10 py-16 sm:py-20 lg:grid-cols-12 lg:gap-10">
+                    <div class="lg:col-span-5">
+                        <a href="{{ route('home') }}" class="inline-block" aria-label="JDM Custom Creations home">
+                            <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                         </a>
-                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-badge social-badge--instagram" aria-label="Visit us on Instagram" title="Instagram">
-                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" fill="none" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
-                        </a>
+                        <p class="mt-7 max-w-sm font-label text-[0.98rem] font-light leading-relaxed text-[#9a9ea6]">Hand finished crests in hardwood and epoxy, made to order one at a time for the collector's garage.</p>
+                    </div>
+
+                    <div class="lg:col-span-6 lg:col-start-7">
+                        <h2 class="font-lux text-[clamp(1.9rem,3vw,2.6rem)] font-normal leading-[1.05] tracking-[-0.01em] text-white">Stay in the loop</h2>
+                        <p class="mt-3 font-lux text-[clamp(1.15rem,1.6vw,1.45rem)] italic leading-snug text-gold-300">New pieces and private releases, straight to your inbox.</p>
+
+                        @if (session('newsletter_status'))
+                            <p class="mt-5 font-label text-sm text-green-400">{{ session('newsletter_status') }}</p>
+                        @endif
+                        @error('email', 'newsletter')
+                            <p class="mt-5 font-label text-sm text-red-400">{{ $message }}</p>
+                        @enderror
+
+                        <form action="{{ route('newsletter.subscribe') }}" method="POST" class="footer-subscribe mt-8">
+                            @csrf
+                            <label for="footer-email" class="sr-only">Email address</label>
+                            <input id="footer-email" type="email" name="email" value="{{ old('email') }}" placeholder="Your email address" required autocomplete="email" class="footer-input">
+                            <button type="submit" class="footer-join">
+                                <span>Join</span>
+                                <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h16.5M12.5 1l4 4-4 4" /></svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
-                <div>
-                    <span class="inline-flex items-center justify-center">
-                        <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 4.5rem; width: auto;">
-                    </span>
-                    <p class="mt-3 text-sm leading-relaxed">Luxury automotive art. Hand-finished in hardwood and epoxy, made to order for the collector's garage.</p>
+
+                {{-- Links --}}
+                <div class="grid grid-cols-2 gap-x-8 gap-y-12 py-14 sm:py-16 lg:grid-cols-12 lg:gap-10">
+                    <nav class="lg:col-span-3" aria-label="Shop">
+                        <h3 class="footer-heading">Shop</h3>
+                        <ul class="mt-6 space-y-3.5">
+                            <li><a href="{{ route('shop.index') }}" class="footer-link">All Products</a></li>
+                            @foreach ($navCategories->take(5) as $navCategory)
+                                <li><a href="{{ route('category.show', $navCategory) }}" class="footer-link">{{ $navCategory->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </nav>
+
+                    <nav class="lg:col-span-3" aria-label="Company">
+                        <h3 class="footer-heading">Company</h3>
+                        <ul class="mt-6 space-y-3.5">
+                            <li><a href="{{ route('pages.about') }}" class="footer-link">Our Story</a></li>
+                            <li><a href="{{ route('pages.contact') }}" class="footer-link">Contact Us</a></li>
+                            <li><a href="{{ route('pages.privacy') }}" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="{{ route('pages.terms') }}" class="footer-link">Terms and Conditions</a></li>
+                        </ul>
+                    </nav>
+
+                    <nav class="lg:col-span-3" aria-label="Account">
+                        <h3 class="footer-heading">Account</h3>
+                        <ul class="mt-6 space-y-3.5">
+                            <li><a href="{{ auth()->check() ? route('account.index') : route('login') }}" class="footer-link">My Account</a></li>
+                            <li><a href="{{ auth()->check() ? route('orders.index') : route('login') }}" class="footer-link">Order History</a></li>
+                            <li><a href="{{ auth()->check() ? route('wishlist.index') : route('login') }}" class="footer-link">Wishlist</a></li>
+                            <li><a href="{{ route('cart.index') }}" class="footer-link">Cart</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="col-span-2 lg:col-span-3">
+                        <h3 class="footer-heading">Commissions</h3>
+                        <p class="mt-6 max-w-[16rem] font-label text-[0.95rem] font-light leading-relaxed text-[#9a9ea6]">Tell us the car. We design, carve and finish the piece.</p>
+                        <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="link-line mt-7">Commission a piece</a>
+                    </div>
                 </div>
 
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Shop</p>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('shop.index') }}" class="hover:text-white transition">All Products</a></li>
-                        @foreach ($navCategories->take(5) as $navCategory)
-                            <li><a href="{{ route('category.show', $navCategory) }}" class="hover:text-white transition">{{ $navCategory->name }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
+                {{-- Base --}}
+                <div class="flex flex-col items-center gap-7 border-t border-white/10 py-8 xl:flex-row xl:justify-between">
+                    <p class="font-label text-[0.8rem] font-light text-[#7d818a]">&copy; {{ date('Y') }} JDM Custom Creations. All rights reserved.</p>
 
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Company</p>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('pages.about') }}" class="hover:text-white transition">Our Story</a></li>
-                        <li><a href="{{ route('pages.contact') }}" class="hover:text-white transition">Contact Us</a></li>
-                        <li><a href="{{ route('pages.privacy') }}" class="hover:text-white transition">Privacy Policy</a></li>
-                        <li><a href="{{ route('pages.terms') }}" class="hover:text-white transition">Terms and Condition</a></li>
-                    </ul>
-                </div>
+                    <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
+                        <p class="footer-secure"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> Secure payments</p>
+                        <div class="flex flex-wrap items-center justify-center gap-2 sm:flex-nowrap" aria-label="Accepted payment methods">
+                            <span class="footer-pay">PayPal</span>
+                            <span class="footer-pay">Venmo</span>
+                            <span class="footer-pay">US Bank</span>
+                            <span class="footer-pay">Stripe</span>
+                        </div>
+                    </div>
 
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Account</p>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="{{ auth()->check() ? route('account.index') : route('login') }}" class="hover:text-white transition">My Account</a></li>
-                        <li><a href="{{ auth()->check() ? route('orders.index') : route('login') }}" class="hover:text-white transition">Order History</a></li>
-                        <li><a href="{{ auth()->check() ? route('wishlist.index') : route('login') }}" class="hover:text-white transition">Wishlist</a></li>
-                        <li><a href="{{ route('cart.index') }}" class="hover:text-white transition">Cart</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Stay in the loop</p>
-                    <p class="text-sm mb-3">New pieces and private releases, straight to your inbox.</p>
-                    @if (session('newsletter_status'))
-                        <p class="mb-3 text-sm text-green-400">{{ session('newsletter_status') }}</p>
-                    @endif
-                    @error('email', 'newsletter')
-                        <p class="mb-3 text-sm text-red-400">{{ $message }}</p>
-                    @enderror
-                    <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex gap-2">
-                        @csrf
-                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Email address" required autocomplete="email" class="min-w-0 flex-1 rounded-md border-white/10 bg-white/5 text-sm text-white placeholder:text-gray-500 focus:border-gold-500 focus:ring-gold-500">
-                        <button type="submit" class="bg-gold-500 px-4 text-xs font-bold uppercase tracking-[0.18em] text-ink-900 hover:bg-gold-400 transition">Join</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-                    <p>&copy; {{ date('Y') }} JDM Custom Creations. All rights reserved.</p>
-                    <p>Automotive art, made to order.</p>
+                    <div class="flex items-center gap-2" aria-label="Follow us on social media">
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Visit us on Facebook" title="Facebook">
+                            <svg viewBox="0 0 24 24" class="h-[1.05rem] w-[1.05rem]" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.75l.41-3.12H13.5V7.89c0-.9.25-1.52 1.55-1.52h1.66V3.58A22.3 22.3 0 0 0 14.29 3c-2.4 0-4.05 1.46-4.05 4.15v2.73H7.5V13h2.74v8h3.26Z" /></svg>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Visit us on Instagram" title="Instagram">
+                            <svg viewBox="0 0 24 24" class="h-[1.05rem] w-[1.05rem]" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+                        </a>
+                        <a href="#top" class="footer-social ml-2" aria-label="Back to the top" title="Back to the top">
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M6 14V1.5M1.5 6 6 1.5 10.5 6" /></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>
