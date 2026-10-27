@@ -101,23 +101,34 @@ window.setTimeout(() => {
     });
 }, 250);
 
-// Hero artwork slider: advances on its own and pauses while hovered or focused.
+// Hero artwork slider: advances on its own and pauses while hovered or focused. Each piece keeps
+// its element and glides to its next slot (see .art-piece in app.css).
 const artSlider = document.querySelector('[data-art-slider]');
 
 if (artSlider) {
-    const artSlides = Array.from(artSlider.querySelectorAll('.art-slide'));
+    const artPieces = Array.from(artSlider.querySelectorAll('[data-art-piece]'));
+    const count = artPieces.length;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let artIndex = 0;
+    let centre = 1;
     let artTimer;
 
-    const showArtSlide = (index) => {
-        artIndex = (index + artSlides.length) % artSlides.length;
+    const slotFor = (offset) => {
+        if (offset === -1) return 'left';
+        if (offset === 0) return 'center';
+        if (offset === 1) return 'right';
+        return offset < 0 ? 'out-left' : 'out-right';
+    };
 
-        artSlides.forEach((slide, i) => {
-            const active = i === artIndex;
-            slide.classList.toggle('is-active', active);
-            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
-            slide.querySelectorAll('a').forEach((link) => link.setAttribute('tabindex', active ? '0' : '-1'));
+    const arrange = () => {
+        artPieces.forEach((piece, i) => {
+            let offset = (((i - centre) % count) + count) % count;
+            if (offset >= count / 2) offset -= count;
+
+            const slot = slotFor(offset);
+            const visible = slot === 'left' || slot === 'center' || slot === 'right';
+            piece.dataset.slot = slot;
+            piece.setAttribute('aria-hidden', visible ? 'false' : 'true');
+            piece.setAttribute('tabindex', visible ? '0' : '-1');
         });
     };
 
@@ -125,7 +136,10 @@ if (artSlider) {
     const startArtTimer = () => {
         stopArtTimer();
         if (!prefersReducedMotion) {
-            artTimer = window.setInterval(() => showArtSlide(artIndex + 1), 5200);
+            artTimer = window.setInterval(() => {
+                centre = (centre + 1) % count;
+                arrange();
+            }, 4800);
         }
     };
 
@@ -134,6 +148,6 @@ if (artSlider) {
     artSlider.addEventListener('focusin', stopArtTimer);
     artSlider.addEventListener('focusout', startArtTimer);
 
-    showArtSlide(0);
+    arrange();
     startArtTimer();
 }

@@ -1,14 +1,23 @@
 <x-layouts.storefront :dark="true">
     @php
-        // Hero slider: every slide is the same overlapping composition. The centre piece changes
-        // each slide and its neighbours flank it, so every automotive piece gets its turn.
-        // [piece offset, left, top, width, floats on the delayed beat, stacking]
-        $slots = [
-            [1, '28%', '0%', '46%', false, 'z-20'],
-            [0, '0%', '30%', '33%', true, 'z-10'],
-            [2, '70%', '22%', '30%', true, 'z-10'],
-        ];
+        // Hero slider: each piece is rendered once and glides between slots (left, centre, right,
+        // plus off-screen waiting spots), so the pieces shift position instead of fading out together.
+        $startIndex = 1;
         $pieceCount = $sliderPieces->count();
+        $slotFor = function (int $i) use ($startIndex, $pieceCount): string {
+            $offset = (($i - $startIndex) % $pieceCount + $pieceCount) % $pieceCount;
+            if ($offset >= $pieceCount / 2) {
+                $offset -= $pieceCount;
+            }
+
+            return match (true) {
+                $offset === -1 => 'left',
+                $offset === 0 => 'center',
+                $offset === 1 => 'right',
+                $offset < 0 => 'out-left',
+                default => 'out-right',
+            };
+        };
 
         $marques = ['Porsche', 'Lamborghini', 'Mercedes AMG', 'Bentley', 'Rolls Royce', 'Aston Martin', 'BMW M', 'Shelby'];
     @endphp
@@ -41,24 +50,23 @@
                 @if ($pieceCount >= 3)
                     <div class="mx-auto w-full max-w-2xl" data-art-slider>
                         <div class="relative aspect-[6/5] w-full">
-                            @for ($k = 0; $k < $pieceCount; $k++)
-                                <div class="art-slide {{ $k === 0 ? 'is-active' : '' }}"
-                                     @if ($k !== 0) aria-hidden="true" @endif>
-                                    @foreach ($slots as $slotIndex => [$offset, $left, $top, $width, $delayed, $layer])
-                                        @php $piece = $sliderPieces[($k + $offset) % $pieceCount]; @endphp
-                                        <a href="{{ route('product.show', $piece) }}" tabindex="{{ $k === 0 ? '0' : '-1' }}"
-                                           class="art-card art-piece absolute block {{ $layer }}"
-                                           style="left: {{ $left }}; top: {{ $top }}; width: {{ $width }}; transition-delay: {{ $slotIndex * 90 }}ms;"
-                                           aria-label="{{ \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ') }}">
-                                            <div class="lux-float {{ $delayed ? 'lux-float-delay' : '' }}">
-                                                <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: {{ $piece->slider_aspect }};">
-                                                    <img src="{{ $piece->slider_src }}" alt="{{ \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ') }}" class="h-full w-full object-cover" decoding="async">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endfor
+                            @foreach ($sliderPieces as $i => $piece)
+                                @php
+                                    $slot = $slotFor($i);
+                                    $pieceName = \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ');
+                                    $visible = in_array($slot, ['left', 'center', 'right'], true);
+                                @endphp
+                                <a href="{{ route('product.show', $piece) }}" data-art-piece data-slot="{{ $slot }}"
+                                   class="art-card art-piece absolute block"
+                                   tabindex="{{ $visible ? '0' : '-1' }}" aria-hidden="{{ $visible ? 'false' : 'true' }}"
+                                   aria-label="{{ $pieceName }}">
+                                    <div class="lux-float {{ $i % 2 ? 'lux-float-delay' : '' }}">
+                                        <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: {{ $piece->slider_aspect }};">
+                                            <img src="{{ $piece->slider_src }}" alt="{{ $pieceName }}" class="h-full w-full object-cover" decoding="async">
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 @endif
