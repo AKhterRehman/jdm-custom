@@ -55,8 +55,8 @@
                         <button
                             type="button"
                             @click="select(index)"
-                            class="aspect-square overflow-hidden bg-[#111113] transition"
-                            :class="active === index ? 'ring-1 ring-gold-500' : 'ring-1 ring-white/10 hover:ring-white/30'"
+                            class="aspect-square overflow-hidden bg-[#111113] transition duration-300"
+                            :class="active === index ? 'opacity-100' : 'opacity-50 hover:opacity-90'"
                         >
                             <img :src="image.url" :alt="image.alt" class="h-full w-full object-cover">
                         </button>
@@ -285,8 +285,8 @@
                                             <button
                                                 type="button"
                                                 @click="selectedMedia = @js($media)"
-                                                :class="selectedMedia?.src === @js($media['src']) ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-white/10'"
-                                                class="h-24 w-24 overflow-hidden border bg-charcoal-600 text-left transition hover:border-gold-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
+                                                :class="selectedMedia?.src === @js($media['src']) ? 'opacity-100' : 'opacity-60'"
+                                                class="h-24 w-24 overflow-hidden bg-charcoal-600 text-left transition hover:opacity-100 focus:outline-none"
                                                 aria-label="{{ $media['type'] === 'image' ? 'Show customer uploaded product photo' : 'Show customer uploaded product video' }}"
                                             >
                                                 @if ($media['type'] === 'image')
