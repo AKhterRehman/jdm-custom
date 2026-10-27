@@ -1,8 +1,7 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-400">Welcome back</p>
-            <h2 class="mt-2 font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Sign in to your account</h2>
+            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Sign in to your account</h2>
             <p class="mt-2 text-sm leading-6 text-[#8f949c]">Enter your details below to continue to JDM Custom.</p>
         </div>
 

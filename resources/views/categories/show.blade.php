@@ -4,11 +4,7 @@
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-hero.jpg" />
         <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-            <div class="flex items-center gap-4">
-                <span class="rule-gold"></span>
-                <p class="label text-gold-500">{{ $isAutomotive ? 'The Collection' : 'Category' }}</p>
-            </div>
-            <h1 class="mt-8 font-lux text-[clamp(2.8rem,6vw,5.6rem)] font-normal leading-[1] tracking-[-0.015em]">{{ $category->name }}</h1>
+            <h1 class="font-lux text-[clamp(2.8rem,6vw,5.6rem)] font-normal leading-[1] tracking-[-0.015em]">{{ $category->name }}</h1>
             @if ($category->description)
                 <p class="mt-7 max-w-lg font-label text-[1.02rem] font-light leading-relaxed text-[#cfcabd]">{{ $category->description }}</p>
             @endif

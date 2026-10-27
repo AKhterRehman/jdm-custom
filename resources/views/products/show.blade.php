@@ -65,10 +65,8 @@
             </div>
 
             <div>
-                <p class="label text-gold-500 mb-3">{{ $product->category->name }}</p>
                 <h1 class="font-lux text-[clamp(2.4rem,4.4vw,4rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">{{ $displayName }}</h1>
-                <div class="rule-gold mt-7"></div>
-                <p class="mt-5 text-silver-300 leading-relaxed whitespace-pre-line">{{ $product->short_description }}</p>
+                <p class="text-silver-300 leading-relaxed whitespace-pre-line">{{ $product->short_description }}</p>
 
                 <div class="mt-8 border border-white/10 p-5 text-sm leading-relaxed text-[#b9b5ab]">
                     <p class="font-semibold text-white">Handcrafted and made to order</p>
@@ -218,7 +216,6 @@
         <section id="reviews" class="mt-24 border border-white/10 bg-charcoal-800 p-6 sm:p-8 lg:p-10">
             <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between mb-8">
                 <div>
-                    <p class="label text-gold-500 mb-3">Product Reviews</p>
                     <h2 class="font-lux text-3xl font-normal text-white sm:text-4xl">Reviews for {{ $displayName }}</h2>
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
@@ -335,7 +332,6 @@
             <div class="my-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-4 shadow-2xl sm:max-h-[88vh] sm:p-6">
                 <div class="flex items-start justify-between gap-4 border-b border-gray-100 pb-3">
                     <div>
-                        <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-600">Add Review</p>
                         <h3 class="font-heading text-lg font-bold text-ink-900">Share your thoughts</h3>
                     </div>
                     <button type="button" data-close-review-modal class="rounded-full border border-gray-200 p-1.5 text-gray-500 transition hover:border-gold-200 hover:text-gold-600">
@@ -487,7 +483,6 @@
 
         @if ($relatedProducts->isNotEmpty())
             <div class="mt-24 border-t border-white/10 pt-16">
-                <p class="label text-gold-500 mb-3">You Might Also Like</p>
                 <h2 class="mb-10 font-lux text-3xl font-normal text-white sm:text-4xl">Related Pieces</h2>
                 <div class="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4">
                     @foreach ($relatedProducts as $related)

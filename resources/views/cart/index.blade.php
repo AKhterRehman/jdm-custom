@@ -1,7 +1,6 @@
 <x-layouts.storefront :dark="true" title="Your Cart">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" x-data="{ selected: [], items: { @foreach ($cart->items as $item) {{ $item->id }}: {{ $item->lineTotal() }}{{ ! $loop->last ? ',' : '' }} @endforeach }, total() { return this.selected.reduce((sum, id) => sum + Number(this.items[id] || 0), 0) } }">
-        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">Shopping bag</p>
-        <h1 class="mt-2 font-lux font-normal text-[#ece7da] mb-10 text-[clamp(2.2rem,4vw,3.4rem)] leading-[1.05] tracking-[-0.01em]">Your Cart</h1>
+        <h1 class="font-lux font-normal text-[#ece7da] mb-10 text-[clamp(2.2rem,4vw,3.4rem)] leading-[1.05] tracking-[-0.01em]">Your Cart</h1>
 
         @if (session('status'))
             <div class="mb-6 rounded-none bg-green-500/10 border border-green-500/30 px-4 py-3 text-sm text-green-400">

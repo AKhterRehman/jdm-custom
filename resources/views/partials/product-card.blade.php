@@ -28,7 +28,7 @@
                     @endif
                 </div>
             </div>
-            <p class="label mt-5 text-gold-500">{{ $product->category->name }}</p>
+            <p class="mt-5 font-label text-[0.8rem] font-light text-[#8f949c]">{{ $product->category->name }}</p>
             <p class="mt-2 line-clamp-2 font-lux text-[1.35rem] leading-snug text-white transition group-hover:text-gold-300">{{ $displayName }}</p>
             <p class="mt-1.5 font-label text-sm font-light text-[#b9b5ab]">
                 @if ($product->sale_price)

@@ -2,11 +2,7 @@
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-commission.jpg" />
         <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
-            <div class="flex items-center gap-4">
-                <span class="rule-gold"></span>
-                <p class="label text-gold-500">Get in touch</p>
-            </div>
-            <h1 class="mt-8 font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Contact <em class="font-normal italic text-gold-300">us.</em></h1>
+            <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Contact <em class="font-normal italic text-gold-300">us.</em></h1>
             <p class="mt-7 max-w-lg font-label text-[1.02rem] font-light leading-relaxed text-[#cfcabd]">Questions about a custom piece, an order, or a personalized design? We're here to help.</p>
         </div>
     </section>

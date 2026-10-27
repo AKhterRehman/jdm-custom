@@ -93,11 +93,7 @@
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-commission.jpg" />
         <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
-            <div class="flex items-center gap-4">
-                <span class="rule-gold"></span>
-                <p class="label text-gold-500">The full catalog</p>
-            </div>
-            <h1 class="mt-8 font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Every piece, <em class="font-normal italic text-gold-300">in one place.</em></h1>
+            <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Every piece, <em class="font-normal italic text-gold-300">in one place.</em></h1>
         </div>
     </section>
 
@@ -125,7 +121,7 @@
                     @endif
                 </form>
 
-                <p class="label mb-4 text-gold-500">Categories</p>
+                <p class="mb-4 font-lux text-xl text-[#ece7da]">Categories</p>
                 <ul class="space-y-1 text-sm">
                     <li>
                         <a href="{{ route('shop.index', array_filter([
@@ -189,9 +185,7 @@
             );
         }
     }" class="mt-8 border border-white/10 p-5">
-                    <p class="label mb-5 text-gold-500">
-                        Filter by Price
-                    </p>
+                    <p class="mb-5 font-lux text-xl text-[#ece7da]">Filter by price</p>
 
                     <div class="mb-4 flex items-center justify-between text-sm text-silver-300">
                         <span class="font-semibold text-white" x-text="'$' + min"></span>
