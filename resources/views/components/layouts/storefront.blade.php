@@ -93,7 +93,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased {{ $dark ? 'bg-ink-900 text-gray-300' : 'bg-white text-ink-900' }}">
+    <body class="font-sans antialiased {{ $dark ? 'bg-ink-900 text-gray-300 is-dark' : 'bg-white text-ink-900' }}">
         @php
             $navCategories = \App\Models\Category::whereNull('parent_id')->where('is_active', true)->orderBy('sort_order')->get();
             $automotiveCategory = $navCategories->firstWhere('slug', 'automotive-art');

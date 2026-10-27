@@ -2,37 +2,47 @@
     $dark = $dark ?? false;
     $displayName = \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($product->name, ' | '), ' – ');
     $image = $product->images->first();
+    $wide = false;
+
+    if ($image && str_starts_with($image->path, '/images/')) {
+        $size = @getimagesize(public_path($image->path));
+        $wide = $size && $size[1] > 0 && ($size[0] / $size[1]) > 0.85;
+    }
 @endphp
 
-<div class="group art-card">
+<div class="group piece-card">
     <a href="{{ route('product.show', $product) }}" class="block">
         @if ($dark)
-            <div class="art-plate relative aspect-[4/5]">
-                @if ($product->sale_price)
-                    @php $discount = round((1 - $product->sale_price / $product->price) * 100); @endphp
-                    <span class="absolute top-3 left-3 z-10 bg-gold-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink-900">-{{ $discount }}%</span>
-                @endif
+            <div class="plate-mat relative aspect-[4/5]">
+                <div class="relative h-full w-full overflow-hidden bg-[#0b0b0d]">
+                    @if ($product->sale_price)
+                        @php $discount = round((1 - $product->sale_price / $product->price) * 100); @endphp
+                        <span class="label absolute left-3 top-3 z-10 bg-gold-500 px-2.5 py-1 text-[0.6rem] text-ink-900">-{{ $discount }}%</span>
+                    @endif
 
-                @if ($image)
-                    <img src="{{ $image->url() }}" alt="{{ $image->alt_text }}" loading="lazy" class="h-full w-full object-cover">
-                @endif
-                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition duration-500 group-hover:opacity-100"></div>
+                    @if ($image)
+                        @if ($wide)
+                            <img src="{{ $image->url() }}" alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-2xl brightness-[.45]">
+                        @endif
+                        <img src="{{ $image->url() }}" alt="{{ $image->alt_text }}" loading="lazy" class="relative h-full w-full {{ $wide ? 'object-contain' : 'object-cover' }}">
+                    @endif
+                </div>
             </div>
-            <p class="mt-5 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-gold-500">{{ $product->category->name }}</p>
-            <p class="mt-1.5 line-clamp-1 font-display text-xl font-semibold leading-snug text-white transition group-hover:text-gold-300">{{ $displayName }}</p>
-            <p class="mt-1 text-sm text-silver-400">
+            <p class="label mt-5 text-gold-500">{{ $product->category->name }}</p>
+            <p class="mt-2 line-clamp-2 font-lux text-[1.35rem] leading-snug text-white transition group-hover:text-gold-300">{{ $displayName }}</p>
+            <p class="mt-1.5 font-label text-sm font-light text-[#b9b5ab]">
                 @if ($product->sale_price)
-                    <span class="text-gold-400">${{ number_format($product->sale_price, 2) }}</span>
+                    <span class="text-gold-300">${{ number_format($product->sale_price, 2) }}</span>
                     <span class="ml-2 text-silver-500 line-through">${{ number_format($product->price, 2) }}</span>
                 @else
-                    ${{ number_format($product->price, 2) }}
+                    From ${{ number_format($product->price, 2) }}
                 @endif
             </p>
         @else
-            <div class="relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-sm transition group-hover:shadow-xl">
+            <div class="relative aspect-square overflow-hidden bg-gray-100 shadow-sm transition group-hover:shadow-xl">
                 @if ($product->sale_price)
                     @php $discount = round((1 - $product->sale_price / $product->price) * 100); @endphp
-                    <span class="absolute top-3 left-3 z-10 rounded-full bg-gold-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">-{{ $discount }}%</span>
+                    <span class="absolute left-3 top-3 z-10 bg-gold-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">-{{ $discount }}%</span>
                 @endif
 
                 @if ($image)
@@ -40,7 +50,7 @@
                 @endif
             </div>
             <p class="mt-4 text-xs font-semibold uppercase tracking-widest text-gray-400">{{ $product->category->name }}</p>
-            <p class="line-clamp-2 font-heading font-semibold text-ink-900 group-hover:text-gold-600 transition">{{ $displayName }}</p>
+            <p class="line-clamp-2 font-heading font-semibold text-ink-900 transition group-hover:text-gold-600">{{ $displayName }}</p>
             <p class="mt-1">
                 @if ($product->sale_price)
                     <span class="font-bold text-gold-600">${{ number_format($product->sale_price, 2) }}</span>
@@ -54,13 +64,13 @@
 
     @auth
         @if ($product->variations->isEmpty())
-            <form action="{{ route('cart.quick-add') }}" method="POST" class="mt-3">
+            <form action="{{ route('cart.quick-add') }}" method="POST" class="mt-4">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" @disabled($product->available_stock_quantity < 1)
-                    class="w-full border px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] transition disabled:cursor-not-allowed disabled:opacity-40 {{ $dark ? 'border-white/20 text-white hover:border-gold-500 hover:text-gold-300' : 'rounded-md border-ink-900 text-ink-900 hover:border-gold-600 hover:bg-gold-600 hover:text-white' }}">
-                    {{ $product->available_stock_quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
+                    class="{{ $dark ? 'btn-line w-full !py-3 !text-[0.66rem]' : 'w-full border border-ink-900 px-4 py-2.5 text-xs font-bold uppercase tracking-wide text-ink-900 transition hover:border-gold-600 hover:bg-gold-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-40' }}">
+                    {{ $product->available_stock_quantity > 0 ? 'Add to cart' : 'Out of stock' }}
                 </button>
             </form>
         @endif

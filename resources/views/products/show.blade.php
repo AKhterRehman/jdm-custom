@@ -31,7 +31,8 @@
                 x-init="startAutoSlide()"
                 @mouseenter="clearInterval(timer)"
                 @mouseleave="startAutoSlide()">
-                <div class="art-plate relative aspect-[4/5] w-full shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]">
+                <div class="plate-mat aspect-[4/5] w-full">
+                    <div class="relative h-full w-full overflow-hidden bg-[#0b0b0d]">
                     <template x-for="(image, index) in images" :key="index">
                         <img
                             :src="image.url"
@@ -46,6 +47,7 @@
                             class="absolute inset-0 h-full w-full object-cover"
                         >
                     </template>
+                    </div>
                 </div>
 
                 <div class="mt-4 grid grid-cols-4 gap-3" x-show="images.length > 1" x-cloak>
@@ -53,8 +55,8 @@
                         <button
                             type="button"
                             @click="select(index)"
-                            class="aspect-square overflow-hidden bg-charcoal-700 transition"
-                            :class="active === index ? 'ring-2 ring-gold-500' : 'ring-1 ring-white/10 hover:ring-gold-400'"
+                            class="aspect-square overflow-hidden bg-[#111113] transition"
+                            :class="active === index ? 'ring-1 ring-gold-500' : 'ring-1 ring-white/10 hover:ring-white/30'"
                         >
                             <img :src="image.url" :alt="image.alt" class="h-full w-full object-cover">
                         </button>
@@ -63,12 +65,12 @@
             </div>
 
             <div>
-                <p class="lux-eyebrow mb-3">{{ $product->category->name }}</p>
-                <h1 class="font-display text-4xl font-medium leading-tight text-white sm:text-5xl">{{ $displayName }}</h1>
-                <div class="lux-rule mt-6"></div>
+                <p class="label text-gold-500 mb-3">{{ $product->category->name }}</p>
+                <h1 class="font-lux text-[clamp(2.4rem,4.4vw,4rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">{{ $displayName }}</h1>
+                <div class="rule-gold mt-7"></div>
                 <p class="mt-5 text-silver-300 leading-relaxed whitespace-pre-line">{{ $product->short_description }}</p>
 
-                <div class="mt-6 border border-white/10 bg-white/5 p-5 text-sm text-silver-300">
+                <div class="mt-8 border border-white/10 p-5 text-sm leading-relaxed text-[#b9b5ab]">
                     <p class="font-semibold text-white">Handcrafted and made to order</p>
                     <p class="mt-1 leading-6">Standard sizes and pricing are shown where applicable. Custom dimensions, logos, designs, and color combinations are available. Shipping is an additional charge.</p>
                     <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="mt-2 inline-flex font-semibold text-gold-400 hover:text-gold-300">Request a custom quote &rarr;</a>
@@ -77,10 +79,10 @@
                 <div x-data="{ quantity: 1, available: {{ max(0, (int) $product->available_stock_quantity) }}, selectedPrice: {{ (float) ($product->sale_price ?? $product->price) }} }">
                 <div class="mt-6">
                     @if ($product->sale_price)
-                        <span class="font-display text-4xl font-semibold text-gold-300" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->sale_price, 2) }}</span>
+                        <span class="font-lux text-4xl font-normal text-gold-300" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->sale_price, 2) }}</span>
                         <span class="ml-2 text-lg text-gray-400 line-through">${{ number_format($product->price, 2) }}</span>
                     @else
-                        <span class="font-display text-4xl font-semibold text-white" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->price, 2) }}</span>
+                        <span class="font-lux text-4xl font-normal text-white" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->price, 2) }}</span>
                     @endif
                 </div>
 
@@ -138,11 +140,11 @@
                             @input="quantity = Math.min(Math.max(Number($event.target.value) || 1, 1), available)"
                             class="w-full border-white/20 bg-white/5 text-white focus:border-gold-500 focus:ring-gold-500 sm:w-24">
                         <button type="submit" @disabled($product->available_stock_quantity <= 0) :disabled="available < 1"
-                            class="flex-1 border border-white/30 px-6 py-3.5 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white transition hover:border-gold-500 hover:text-gold-300 disabled:cursor-not-allowed disabled:opacity-50">
+                            class="btn-line flex-1">
                             Add to Cart
                         </button>
                         <button type="submit" formaction="{{ route('cart.buy-now') }}" @disabled($product->available_stock_quantity <= 0) :disabled="available < 1"
-                            class="btn-gold flex-1 disabled:cursor-not-allowed disabled:opacity-50">
+                            class="btn-solid flex-1">
                             Buy Now
                         </button>
                     </div>
@@ -158,14 +160,14 @@
 
                 @if ($product->description)
                     <div class="mt-10 border-t border-white/10 pt-6">
-                        <h2 class="mb-3 font-display text-2xl font-semibold text-white">Description</h2>
+                        <h2 class="mb-3 font-lux text-2xl font-normal text-white">Description</h2>
                         <p class="text-silver-300 leading-relaxed whitespace-pre-line">{{ $product->description }}</p>
                     </div>
                 @endif
 
                 @if ($product->specifications->isNotEmpty())
                     <div class="mt-8 border-t border-white/10 pt-6">
-                        <h2 class="mb-3 font-display text-2xl font-semibold text-white">Specifications</h2>
+                        <h2 class="mb-3 font-lux text-2xl font-normal text-white">Specifications</h2>
                         <dl class="divide-y divide-white/10 text-sm">
                             @foreach ($product->specifications as $spec)
                                 <div class="flex justify-between py-2.5">
@@ -216,8 +218,8 @@
         <section id="reviews" class="mt-24 border border-white/10 bg-charcoal-800 p-6 sm:p-8 lg:p-10">
             <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between mb-8">
                 <div>
-                    <p class="lux-eyebrow mb-3">Product Reviews</p>
-                    <h2 class="font-display text-3xl font-medium text-white sm:text-4xl">Reviews for {{ $displayName }}</h2>
+                    <p class="label text-gold-500 mb-3">Product Reviews</p>
+                    <h2 class="font-lux text-3xl font-normal text-white sm:text-4xl">Reviews for {{ $displayName }}</h2>
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
                     <div class="inline-flex w-fit items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
@@ -227,7 +229,7 @@
                         <span class="text-xs font-bold uppercase tracking-wide text-white">{{ $reviewCount ? $averageRating.' / 5 from '.$reviewCount.' '.str('review')->plural($reviewCount) : 'No reviews yet' }}</span>
                     </div>
                     @auth
-                        <button type="button" data-open-review-modal class="btn-gold">
+                        <button type="button" data-open-review-modal class="btn-solid">
                             Write a Review
                         </button>
                     @endauth
@@ -485,8 +487,8 @@
 
         @if ($relatedProducts->isNotEmpty())
             <div class="mt-24 border-t border-white/10 pt-16">
-                <p class="lux-eyebrow mb-3">You Might Also Like</p>
-                <h2 class="mb-10 font-display text-3xl font-medium text-white sm:text-4xl">Related Pieces</h2>
+                <p class="label text-gold-500 mb-3">You Might Also Like</p>
+                <h2 class="mb-10 font-lux text-3xl font-normal text-white sm:text-4xl">Related Pieces</h2>
                 <div class="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4">
                     @foreach ($relatedProducts as $related)
                         @include('partials.product-card', ['product' => $related, 'dark' => true])

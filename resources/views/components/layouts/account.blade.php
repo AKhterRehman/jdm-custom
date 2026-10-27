@@ -1,13 +1,13 @@
-<x-layouts.storefront :title="$title ?? 'My Account'">
+<x-layouts.storefront :dark="true" :title="$title ?? 'My Account'">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         @if (session('status'))
-            <div class="mb-6 rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
+            <div class="mb-6 rounded-none bg-green-500/10 border border-green-500/30 px-4 py-3 text-sm text-green-400">
                 {{ session('status') }}
             </div>
         @endif
 
         @if (session('error'))
-            <div class="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+            <div class="mb-6 rounded-none bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-300">
                 {{ session('error') }}
             </div>
         @endif

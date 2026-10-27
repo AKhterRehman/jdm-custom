@@ -1,15 +1,15 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Security check</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Confirm your password</h2>
-            <p class="mt-2 text-sm leading-6 text-gray-500">For your protection, please enter your password before continuing.</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-400">Security check</p>
+            <h2 class="mt-2 font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Confirm your password</h2>
+            <p class="mt-2 text-sm leading-6 text-[#8f949c]">For your protection, please enter your password before continuing.</p>
         </div>
 
         <form method="POST" action="{{ route('password.confirm') }}" class="auth-form-spacing">
             @csrf
             <div x-data="{ showPassword: false }">
-                <x-input-label for="password" :value="__('Password')" class="text-ink-900" />
+                <x-input-label for="password" :value="__('Password')" class="text-[#ece7da]" />
                 <div class="auth-password-field">
                     <x-text-input id="password" class="auth-password-input auth-premium-input block w-full px-4 py-3 pr-12" x-bind:type="showPassword ? 'text' : 'password'" name="password" required autocomplete="current-password" />
                     <button type="button" @click="showPassword = ! showPassword" :aria-label="showPassword ? 'Hide password' : 'Show password'" class="auth-eye-toggle">
@@ -19,7 +19,7 @@
                 </div>
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
-            <x-primary-button class="w-full justify-center rounded-lg py-3.5 text-sm shadow-sm">{{ __('Confirm and continue') }}</x-primary-button>
+            <x-primary-button class="w-full justify-center rounded-none py-3.5 text-sm shadow-sm">{{ __('Confirm and continue') }}</x-primary-button>
         </form>
     </div>
 </x-guest-layout>

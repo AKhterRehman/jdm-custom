@@ -11,9 +11,9 @@
     </style>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Account recovery</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Verify your code</h2>
-            <p class="mt-2 text-sm leading-6 text-gray-500">Enter the 6-digit code sent to <span class="font-medium text-ink-900">{{ $email }}</span>.</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-400">Account recovery</p>
+            <h2 class="mt-2 font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Verify your code</h2>
+            <p class="mt-2 text-sm leading-6 text-[#8f949c]">Enter the 6-digit code sent to <span class="font-medium text-[#ece7da]">{{ $email }}</span>.</p>
         </div>
 
         <x-auth-session-status class="mb-5" :status="session('status')" />
@@ -48,7 +48,7 @@
         }">
             @csrf
             <div>
-                <x-input-label for="otp" :value="__('Verification code')" class="text-ink-900" />
+                <x-input-label for="otp" :value="__('Verification code')" class="text-[#ece7da]" />
                 <input x-ref="otp" id="otp" name="otp" type="hidden" required>
                 <div class="otp-code-panel">
                     <div class="otp-inputs" @paste="paste($event)">
@@ -73,8 +73,8 @@
                 </div>
                 <x-input-error :messages="$errors->get('otp')" class="mt-2" />
             </div>
-            <x-primary-button class="w-full justify-center rounded-lg py-3.5 text-sm shadow-sm">{{ __('Verify code') }}</x-primary-button>
-            <p class="pt-1 text-center text-sm text-gray-600">Didn&rsquo;t receive it? <a href="{{ route('password.request') }}" class="auth-account-link font-semibold text-gold-600 hover:text-gold-700">Request a new code.</a></p>
+            <x-primary-button class="w-full justify-center rounded-none py-3.5 text-sm shadow-sm">{{ __('Verify code') }}</x-primary-button>
+            <p class="pt-1 text-center text-sm text-[#b9b5ab]">Didn&rsquo;t receive it? <a href="{{ route('password.request') }}" class="auth-account-link font-semibold text-gold-400 hover:text-gold-300">Request a new code.</a></p>
         </form>
     </div>
 </x-guest-layout>

@@ -86,9 +86,9 @@
 .login-field:-webkit-autofill,
 .login-field:-webkit-autofill:hover,
 .login-field:-webkit-autofill:focus {
-    -webkit-text-fill-color: #1f2937;
-    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
-    box-shadow: 0 0 0 1000px #ffffff inset;
+    -webkit-text-fill-color: #ece7da;
+    -webkit-box-shadow: 0 0 0 1000px #0b0b0d inset;
+    box-shadow: 0 0 0 1000px #0b0b0d inset;
 }
 
 
@@ -254,3 +254,50 @@ li:last-child > .index-row { border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
     .hero-plate__img, .index-stage__img, .index-row { transition: none; }
     .hero-progress.is-running .hero-progress__bar { animation: none; transform: scaleX(1); }
 }
+
+/* ---------- Design 2: every dark page ---------- */
+
+body.is-dark { font-family: Jost, ui-sans-serif, system-ui, sans-serif; font-weight: 300; }
+body.is-dark .font-lux { font-weight: 400; letter-spacing: -0.01em; }
+body.is-dark ::selection { background: #b89b5e; color: #0b0b0d; }
+
+/* Form controls: dark, square, with a gold focus line. */
+body.is-dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="hidden"]):not([type="submit"]),
+body.is-dark select,
+body.is-dark textarea {
+    background-color: #111113; color: #ece7da; border-color: rgba(255, 255, 255, 0.16); border-radius: 0;
+    font-family: Jost, sans-serif; font-weight: 300;
+}
+body.is-dark input::placeholder, body.is-dark textarea::placeholder { color: #6e727a; }
+body.is-dark input:focus, body.is-dark select:focus, body.is-dark textarea:focus {
+    border-color: #b89b5e; box-shadow: 0 0 0 1px #b89b5e; outline: none; --tw-ring-shadow: 0 0 #0000;
+}
+body.is-dark select option { background: #111113; color: #ece7da; }
+body.is-dark input[type="checkbox"], body.is-dark input[type="radio"] {
+    background-color: #111113; border-color: rgba(255, 255, 255, 0.3); color: #b89b5e; --tw-ring-color: #b89b5e;
+}
+body.is-dark input[type="checkbox"]:checked, body.is-dark input[type="radio"]:checked { background-color: #b89b5e; border-color: #b89b5e; }
+body.is-dark input:-webkit-autofill, body.is-dark input:-webkit-autofill:hover, body.is-dark input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ece7da; -webkit-box-shadow: 0 0 0 1000px #111113 inset; box-shadow: 0 0 0 1000px #111113 inset; caret-color: #ece7da;
+}
+body.is-dark input[type="file"] { color: #b9b5ab; }
+body.is-dark input[type="file"]::file-selector-button { background: #ece7da; color: #0b0b0d; border: 0; padding: 0.55rem 1rem; margin-right: 1rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.7rem; cursor: pointer; }
+
+/* Quieter line button, for secondary actions on dark pages. */
+.btn-line {
+    display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
+    padding: 1.05rem 2rem; border: 1px solid rgba(236, 231, 218, 0.4); color: #ece7da;
+    font-family: Jost, sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase;
+    transition: border-color 300ms ease, color 300ms ease;
+}
+.btn-line:hover { border-color: #b89b5e; color: #d1b370; }
+.btn-line:disabled, .btn-solid:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Page title block used at the top of the shop, categories and account pages. */
+.page-head { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+/* Artwork card: a thin frame, with the photo easing in on hover. */
+.piece-card .plate-mat { transition: border-color 450ms ease; }
+.piece-card .plate-mat img { transition: transform 1100ms cubic-bezier(.2, .7, .2, 1); }
+.piece-card:hover .plate-mat { border-color: rgba(184, 155, 94, 0.7); }
+.piece-card:hover .plate-mat img { transform: scale(1.035); }

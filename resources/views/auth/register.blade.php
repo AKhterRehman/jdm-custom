@@ -1,9 +1,9 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.22em] text-gold-600">Create your account</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Create your account</h2>
-            <p class="mt-2 text-sm leading-6 text-gray-500">Set up your account to manage your custom orders with ease.</p>
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-gold-400">Create your account</p>
+            <h2 class="mt-2 font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Create your account</h2>
+            <p class="mt-2 text-sm leading-6 text-[#8f949c]">Set up your account to manage your custom orders with ease.</p>
         </div>
 
         <form method="POST" action="{{ route('register') }}" class="auth-form-spacing space-y-4">
@@ -11,21 +11,21 @@
 
             <!-- Name -->
             <div>
-                <x-input-label for="name" :value="__('Full name')" class="text-ink-900" />
+                <x-input-label for="name" :value="__('Full name')" class="text-[#ece7da]" />
                 <x-text-input id="name" class="auth-premium-input mt-2 block w-full px-4 py-3" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email address')" class="text-ink-900" />
+                <x-input-label for="email" :value="__('Email address')" class="text-[#ece7da]" />
                 <x-text-input id="email" class="auth-premium-input mt-2 block w-full px-4 py-3" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <!-- Password -->
             <div x-data="{ showPassword: false }">
-                <x-input-label for="password" :value="__('Password')" class="text-ink-900" />
+                <x-input-label for="password" :value="__('Password')" class="text-[#ece7da]" />
                 <div class="auth-password-field">
                     <x-text-input id="password" class="auth-password-input auth-premium-input block w-full px-4 py-3 pr-12"
                               x-ref="password"
@@ -38,12 +38,12 @@
                     </button>
                 </div>
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                <p class="mt-2 text-xs leading-5 text-gray-500">Use at least 8 characters with a mix of letters, numbers, and symbols.</p>
+                <p class="mt-2 text-xs leading-5 text-[#8f949c]">Use at least 8 characters with a mix of letters, numbers, and symbols.</p>
             </div>
 
             <!-- Confirm Password -->
             <div x-data="{ showConfirmation: false }">
-                <x-input-label for="password_confirmation" :value="__('Confirm password')" class="text-ink-900" />
+                <x-input-label for="password_confirmation" :value="__('Confirm password')" class="text-[#ece7da]" />
                 <div class="auth-password-field">
                     <x-text-input id="password_confirmation" class="auth-password-input auth-premium-input block w-full px-4 py-3 pr-12"
                               x-ref="passwordConfirmation"
@@ -57,13 +57,13 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-            <x-primary-button class="w-full justify-center rounded-lg py-3.5 text-sm shadow-sm">
+            <x-primary-button class="w-full justify-center rounded-none py-3.5 text-sm shadow-sm">
                 {{ __('Create account') }}
             </x-primary-button>
 
-            <p class="pt-1 text-center text-sm text-gray-600">
+            <p class="pt-1 text-center text-sm text-[#b9b5ab]">
                 Already have an account?
-                <a href="{{ route('login') }}" class="auth-account-link font-semibold text-gold-600 transition hover:text-gold-700 focus:outline-none focus:ring-2 focus:ring-gold-600 focus:ring-offset-2 rounded">Click here to sign in.</a>
+                <a href="{{ route('login') }}" class="auth-account-link font-semibold text-gold-400 transition hover:text-gold-300 focus:outline-none focus:ring-2 focus:ring-gold-500  rounded">Click here to sign in.</a>
             </p>
         </form>
     </div>

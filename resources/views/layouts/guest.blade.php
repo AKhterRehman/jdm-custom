@@ -9,7 +9,7 @@
         <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700|bodoni-moda:400,500,600,400i,500i|jost:300,400,500&display=swap" rel="stylesheet" />
 
         <style>
             .auth-form-spacing {
@@ -28,15 +28,17 @@
 
             .auth-premium-input {
                 min-height: 3.25rem;
-                border-color: #d1d5db;
-                border-radius: 0.625rem;
-                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+                background-color: #0b0b0d;
+                color: #ece7da;
+                border-color: rgba(255, 255, 255, 0.16);
+                border-radius: 0;
+                box-shadow: none;
                 transition: border-color 150ms ease, box-shadow 150ms ease;
             }
 
             .auth-premium-input:focus {
-                border-color: #9a7b3f;
-                box-shadow: 0 0 0 3px rgba(192, 160, 98, 0.22);
+                border-color: #b89b5e;
+                box-shadow: 0 0 0 1px #b89b5e;
             }
 
             .auth-password-field {
@@ -58,18 +60,18 @@
                 transform: translateY(-50%);
                 align-items: center;
                 justify-content: center;
-                border-radius: 0.5rem;
-                color: #94a3b8;
+                border-radius: 0;
+                color: #8f949c;
                 transition: color 150ms ease, background-color 150ms ease;
             }
 
             .auth-eye-toggle:hover {
-                background: #f7f1e3;
-                color: #9a7b3f;
+                background: rgba(255, 255, 255, 0.06);
+                color: #d1b370;
             }
 
             .auth-eye-toggle:focus-visible {
-                outline: 2px solid #9a7b3f;
+                outline: 1px solid #b89b5e;
                 outline-offset: 2px;
             }
 
@@ -90,7 +92,8 @@
             }
 
             .auth-form-card {
-                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -12px rgba(15, 23, 42, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.9);
             }
 
             @media (max-width: 640px) {
@@ -109,7 +112,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-ink-900 antialiased">
+    <body class="is-dark bg-ink-900 font-label font-light text-[#ece7da] antialiased">
         <div class="grid min-h-screen lg:grid-cols-2">
             {{-- Hero / brand column --}}
             <div class="hidden lg:flex flex-col justify-between text-white p-12 relative overflow-hidden auth-hero-panel">
@@ -119,9 +122,9 @@
                     <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain drop-shadow-lg" style="height: 7rem; width: auto;">
                 </a>
 
-                <div class="relative auth-hero-card rounded-2xl p-8">
-                    <p class="lux-eyebrow mb-4">JDM Custom Creations</p>
-                    <h1 class="font-display text-5xl font-medium leading-tight">Automotive art, <span class="italic text-gold-300">handcrafted.</span></h1>
+                <div class="relative auth-hero-card p-8">
+                    <p class="label mb-4 text-gold-500">JDM Custom Creations</p>
+                    <h1 class="font-lux text-5xl font-normal leading-[1.05] tracking-[-0.01em]">Automotive art, <em class="italic text-gold-300">handcrafted.</em></h1>
                     <p class="mt-4 text-gray-200 max-w-sm">Hand-finished hardwood and epoxy crests, made to order for the collector's garage.</p>
                 </div>
 
@@ -129,13 +132,13 @@
             </div>
 
             {{-- Form column --}}
-            <div class="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
+            <div class="flex min-h-screen flex-col items-center justify-center bg-ink-900 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom Creations home">
                         <img src="{{ asset('images/jdm-custom-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
-                    <div class="auth-form-card rounded-2xl bg-white p-6 sm:p-10">
+                    <div class="auth-form-card bg-[#111113] p-6 sm:p-10">
                         {{ $slot }}
                     </div>
                 </div>

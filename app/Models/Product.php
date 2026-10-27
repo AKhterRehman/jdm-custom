@@ -14,6 +14,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Product extends Model
 {
+    /**
+     * Imported listings carry long marketplace titles ("Name | keyword | keyword"). Storefront
+     * lists and summaries show only the leading name.
+     */
+    public static function shortenName(string $name): string
+    {
+        return trim(str($name)->before(' | ')->before(' – ')->toString());
+    }
+
+    public function getShortNameAttribute(): string
+    {
+        return static::shortenName($this->name);
+    }
+
     protected function casts(): array
     {
         return [

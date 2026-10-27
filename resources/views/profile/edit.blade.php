@@ -6,11 +6,11 @@
             @include('profile.partials.update-profile-information-form')
         </div>
 
-        <div class="max-w-xl border-t border-gray-100 pt-8">
+        <div class="max-w-xl border-t border-white/10 pt-8">
             @include('profile.partials.update-password-form')
         </div>
 
-        <div class="max-w-xl border-t border-gray-100 pt-8">
+        <div class="max-w-xl border-t border-white/10 pt-8">
             @include('profile.partials.delete-user-form')
         </div>
     </div>
