@@ -5,10 +5,10 @@
 ?>
 <x-layouts.account :title="'Order '.$order->order_number">
     <div class="flex items-center justify-between">
-        <a href="{{ route('orders.index') }}" class="text-sm text-gray-500 hover:text-red-600">&larr; Back to orders</a>
+        <a href="{{ route('orders.index') }}" class="text-sm text-gray-500 hover:text-gold-600">&larr; Back to orders</a>
         <div class="flex gap-3 text-sm">
-            <a href="{{ route('orders.receipt', $order) }}" target="_blank" class="rounded-md border border-gray-300 px-3 py-1.5 hover:border-red-600">Print Receipt</a>
-            <a href="{{ route('orders.pdf', $order) }}" class="rounded-md border border-gray-300 px-3 py-1.5 hover:border-red-600">Download PDF</a>
+            <a href="{{ route('orders.receipt', $order) }}" target="_blank" class="rounded-md border border-gray-300 px-3 py-1.5 hover:border-gold-600">Print Receipt</a>
+            <a href="{{ route('orders.pdf', $order) }}" class="rounded-md border border-gray-300 px-3 py-1.5 hover:border-gold-600">Download PDF</a>
         </div>
     </div>
 
@@ -22,9 +22,9 @@
     @else
         <ol class="mt-8 flex items-center w-full max-w-2xl">
             @foreach ($steps as $key => $label)
-                <li class="flex-1 flex items-center {{ ! $loop->last ? 'after:content-[\'\'] after:flex-1 after:h-0.5 after:mx-2 '.($loop->index < $currentIndex ? 'after:bg-red-600' : 'after:bg-gray-200') : '' }}">
+                <li class="flex-1 flex items-center {{ ! $loop->last ? 'after:content-[\'\'] after:flex-1 after:h-0.5 after:mx-2 '.($loop->index < $currentIndex ? 'after:bg-gold-600' : 'after:bg-gray-200') : '' }}">
                     <div class="flex flex-col items-center gap-1 shrink-0">
-                        <span class="h-3 w-3 rounded-full {{ $loop->index <= $currentIndex ? 'bg-red-600' : 'bg-gray-200' }}"></span>
+                        <span class="h-3 w-3 rounded-full {{ $loop->index <= $currentIndex ? 'bg-gold-600' : 'bg-gray-200' }}"></span>
                         <span class="text-xs {{ $loop->index <= $currentIndex ? 'text-gray-900 font-medium' : 'text-gray-400' }}">{{ $label }}</span>
                     </div>
                 </li>
@@ -70,7 +70,7 @@
             @if ($order->payment_method === 'stripe' && $order->payment_status !== 'paid')
                 <form action="{{ route('checkout.stripe.retry', $order) }}" method="POST" class="mt-3">
                     @csrf
-                    <button type="submit" class="rounded-md bg-ink-900 px-4 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">
+                    <button type="submit" class="rounded-md bg-ink-900 px-4 py-2 text-xs font-bold uppercase tracking-wide text-white hover:bg-gold-600 transition">
                         Pay with Card
                     </button>
                 </form>

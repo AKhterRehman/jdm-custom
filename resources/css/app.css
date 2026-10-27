@@ -4,7 +4,7 @@
 
 /* Animated gradient text — cycles through the brand's red/amber palette. */
 .text-gradient-animate {
-    background: linear-gradient(90deg, #dc2626, #f59e0b, #dc2626, #991b1b, #dc2626);
+    background: linear-gradient(90deg, #c0a062, #f1e4c3, #c0a062, #8f949c, #c0a062);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -90,3 +90,88 @@
     -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
     box-shadow: 0 0 0 1000px #ffffff inset;
 }
+
+
+/* ---------- Luxury automotive identity ---------- */
+
+/* Primary gold call to action: dark text on brushed gold. */
+.btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.75rem;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #d1b370 0%, #c0a062 45%, #9a7b3f 100%);
+    color: #0b0b0d;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: filter 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+}
+.btn-gold:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 30px -10px rgba(192, 160, 98, 0.55); }
+
+/* Quiet outline button for secondary actions. */
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.75rem;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: border-color 250ms ease, color 250ms ease, background-color 250ms ease;
+}
+.btn-ghost:hover { border-color: #d1b370; color: #e0c993; }
+
+/* Small spaced-out label above headings. */
+.lux-eyebrow {
+    color: #c0a062;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+}
+
+/* Thin gold rule used as a divider under section headings. */
+.lux-rule { height: 1px; width: 4rem; background: linear-gradient(90deg, #c0a062, transparent); }
+
+/* An artwork "plate": the photo sits in a dark gallery mount with a hairline border. */
+.art-plate {
+    position: relative;
+    overflow: hidden;
+    background: #121214;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: border-color 400ms ease, box-shadow 400ms ease, transform 400ms ease;
+}
+.art-plate img { transition: transform 900ms cubic-bezier(.2,.7,.2,1); }
+.art-card:hover .art-plate { border-color: rgba(192, 160, 98, 0.65); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(192, 160, 98, 0.25); }
+.art-card:hover .art-plate img { transform: scale(1.045); }
+
+/* Slow marque ticker. */
+.marque-strip { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marque-strip__track { display: flex; width: max-content; animation: marquee-scroll 55s linear infinite; }
+
+/* Gentle float for the hero artwork. */
+@keyframes lux-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.lux-float { animation: lux-float 9s ease-in-out infinite; }
+.lux-float-delay { animation-delay: -4.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .marque-strip__track, .lux-float { animation: none !important; }
+}
+
+/* Laravel's default pagination markup, restyled for dark pages. */
+.dark-pagination nav p, .dark-pagination nav span, .dark-pagination nav a, .dark-pagination nav button { color: #b4b8bf; }
+.dark-pagination nav a, .dark-pagination nav span[aria-current] span, .dark-pagination nav span[aria-disabled] span, .dark-pagination nav button {
+    background-color: #17171a !important; border-color: rgba(255, 255, 255, 0.1) !important; color: #d4d7dc !important;
+}
+.dark-pagination nav span[aria-current] span { background-color: #c0a062 !important; color: #0b0b0d !important; border-color: #c0a062 !important; }
+.dark-pagination nav a:hover { border-color: #c0a062 !important; color: #e0c993 !important; }
+.dark-pagination nav .shadow-sm { box-shadow: none; }

@@ -368,7 +368,7 @@ class ProductSeeder extends Seeder
             '36 inches' => 800.00,
             '46 inches' => 1200.00,
         ];
-        $terms = ['wall', 'sign', 'cnc', 'shadow', 'mural', 'engraving'];
+        $terms = ['wall', 'sign', 'cnc', 'shadow', 'mural', 'engraving', 'automotive'];
 
         Product::with('category')->whereHas('category', function ($query) use ($terms) {
             $query->where(function ($query) use ($terms) {

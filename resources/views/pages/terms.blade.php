@@ -1,12 +1,11 @@
 <x-layouts.storefront title="Terms and Conditions">
     <section class="relative overflow-hidden bg-ink-900 text-white"
-        style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]">
-        </div>
+        style="background-image: url('{{ asset('images/luxury-garage-commission.jpg') }}'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-gradient-to-b from-ink-900/80 via-ink-900/65 to-ink-900/95"></div>
         <div
             class="relative mx-auto flex min-h-[280px] max-w-5xl items-center justify-center px-4 sm:px-6 lg:px-8 py-24 text-center">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Legal</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-500 mb-4">Legal</p>
                 <h1 class="font-heading text-4xl sm:text-5xl font-bold">Terms &amp; <span class="text-gradient-animate">
                         Conditions</span></h1>
                 <p class="mt-5 text-gray-300 max-w-2xl mx-auto leading-relaxed">Last updated:
@@ -123,9 +122,9 @@
                     please contact us at:
                     <br>
                     Email: <a href="mailto:jdmadvancedbuilders@gmail.com"
-                        class="text-red-600 hover:underline">jdmadvancedbuilders@gmail.com</a>
+                        class="text-gold-600 hover:underline">jdmadvancedbuilders@gmail.com</a>
                     <br>
-                    Phone: <a href="tel:+1234567890" class="text-red-600 hover:underline">+1 (234) 567-890</a>
+                    Phone: <a href="tel:+1234567890" class="text-gold-600 hover:underline">+1 (234) 567-890</a>
                 </p>
             </div>
         </div>

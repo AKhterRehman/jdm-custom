@@ -9,7 +9,7 @@
         <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700&display=swap" rel="stylesheet" />
 
         <style>
             .auth-form-spacing {
@@ -35,8 +35,8 @@
             }
 
             .auth-premium-input:focus {
-                border-color: #dc2626;
-                box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+                border-color: #9a7b3f;
+                box-shadow: 0 0 0 3px rgba(192, 160, 98, 0.22);
             }
 
             .auth-password-field {
@@ -64,20 +64,20 @@
             }
 
             .auth-eye-toggle:hover {
-                background: #fef2f2;
-                color: #dc2626;
+                background: #f7f1e3;
+                color: #9a7b3f;
             }
 
             .auth-eye-toggle:focus-visible {
-                outline: 2px solid #dc2626;
+                outline: 2px solid #9a7b3f;
                 outline-offset: 2px;
             }
 
             /* Hero column background */
             .auth-hero-panel {
                 background-image:
-                    linear-gradient(180deg, rgba(15, 15, 15, 0.55) 0%, rgba(15, 15, 15, 0.35) 45%, rgba(15, 15, 15, 0.8) 100%),
-                    url('{{ asset('images/hero-wood-bg.jpg') }}');
+                    linear-gradient(180deg, rgba(11, 11, 13, 0.7) 0%, rgba(11, 11, 13, 0.5) 45%, rgba(11, 11, 13, 0.92) 100%),
+                    url('{{ asset('images/luxury-garage-hero.jpg') }}');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -113,17 +113,16 @@
         <div class="grid min-h-screen lg:grid-cols-2">
             {{-- Hero / brand column --}}
             <div class="hidden lg:flex flex-col justify-between text-white p-12 relative overflow-hidden auth-hero-panel">
-                {{-- subtle red radial accent, kept from original --}}
-                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(220,38,38,0.25),_transparent_60%)]"></div>
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(192,160,98,0.16),_transparent_60%)]"></div>
 
                 <a href="/" class="relative inline-flex items-center justify-center" aria-label="JDM Custom Creations home">
                     <img src="{{ asset('images/jdm-logo-onDark.png') }}" alt="JDM Custom Creations" class="object-contain drop-shadow-lg" style="height: 7rem; width: auto;">
                 </a>
 
                 <div class="relative auth-hero-card rounded-2xl p-8">
-                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-400 mb-4">Handcrafted &middot; Custom &middot; Made Your Way</p>
-                    <h1 class="font-heading text-4xl font-bold leading-tight">Wood Art, Handcrafted for You</h1>
-                    <p class="mt-4 text-gray-200 max-w-sm">Custom engravings, CNC art, shadow boxes, and jewelry boxes — shaped with precision and finished by hand.</p>
+                    <p class="lux-eyebrow mb-4">JDM Custom Creations</p>
+                    <h1 class="font-display text-5xl font-medium leading-tight">Automotive art, <span class="italic text-gold-300">handcrafted.</span></h1>
+                    <p class="mt-4 text-gray-200 max-w-sm">Hand-finished hardwood and epoxy crests, made to order for the collector's garage.</p>
                 </div>
 
                 <p class="relative text-xs text-gray-300">&copy; {{ date('Y') }} JDM Custom Creations</p>

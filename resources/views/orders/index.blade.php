@@ -2,7 +2,7 @@
     <h1 class="font-heading text-2xl font-bold text-ink-900 mb-8">My Orders</h1>
 
     @if ($orders->isEmpty())
-        <p class="text-gray-500">You haven't placed any orders yet. <a href="{{ route('home') }}" class="text-red-600 hover:underline">Start shopping</a>.</p>
+        <p class="text-gray-500">You haven't placed any orders yet. <a href="{{ route('home') }}" class="text-gold-600 hover:underline">Start shopping</a>.</p>
     @else
         <div class="divide-y divide-gray-100 border-t border-b border-gray-100">
             @foreach ($orders as $order)
@@ -25,7 +25,7 @@
 
                     @if ($order->status === 'delivered' && $reviewProduct)
                         <a href="{{ route('product.show', $reviewProduct) }}#reviews"
-                           class="inline-flex items-center rounded-full border border-red-600 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-50">
+                           class="inline-flex items-center rounded-full border border-gold-600 px-3 py-1.5 text-sm font-medium text-gold-600 transition hover:bg-gold-200/30">
                             Add Review
                         </a>
                     @endif

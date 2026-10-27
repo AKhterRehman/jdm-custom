@@ -1,8 +1,8 @@
 <x-layouts.storefront title="Contact Us">
-    <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
+    <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('{{ asset('images/luxury-garage-commission.jpg') }}'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-gradient-to-b from-ink-900/80 via-ink-900/65 to-ink-900/95"></div>
         <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Get In Touch</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-500 mb-4">Get In Touch</p>
             <h1 class="font-heading text-4xl sm:text-5xl font-bold">Contact <span class="text-gradient-animate">Us</span></h1>
             <p class="mt-5 text-gray-300 max-w-2xl mx-auto leading-relaxed">
                 Questions about a custom piece, an order, or a personalized design? We're here to help.
@@ -30,17 +30,17 @@
                 @endif
 
                 <h2 class="font-heading text-xl font-semibold text-ink-900 mb-2">Tell us about your enquiry</h2>
-                <p class="mb-6 text-sm text-gray-500">Fields marked with <span class="text-red-600">*</span> are required. Share your preferred dimensions, design, logo, colors, and quantity for a faster custom quote.</p>
+                <p class="mb-6 text-sm text-gray-500">Fields marked with <span class="text-gold-600">*</span> are required. Share your preferred dimensions, design, logo, colors, and quantity for a faster custom quote.</p>
 
                 <form action="{{ route('pages.contact.submit') }}" method="POST" class="space-y-4">
                     @csrf
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
-                            <label for="name" class="mb-1.5 block text-sm font-medium text-gray-700">Full name <span class="text-red-600">*</span></label>
+                            <label for="name" class="mb-1.5 block text-sm font-medium text-gray-700">Full name <span class="text-gold-600">*</span></label>
                             <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" class="w-full rounded-md border-gray-300 text-sm" placeholder="Your full name">
                         </div>
                         <div>
-                            <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">Email address <span class="text-red-600">*</span></label>
+                            <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">Email address <span class="text-gold-600">*</span></label>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" class="w-full rounded-md border-gray-300 text-sm" placeholder="you@example.com">
                         </div>
                     </div>
@@ -64,14 +64,14 @@
                         </select>
                     </div>
                     <div>
-                        <label for="subject" class="mb-1.5 block text-sm font-medium text-gray-700">Subject <span class="text-red-600">*</span></label>
+                        <label for="subject" class="mb-1.5 block text-sm font-medium text-gray-700">Subject <span class="text-gold-600">*</span></label>
                         <input id="subject" type="text" name="subject" value="{{ old('subject') }}" required class="w-full rounded-md border-gray-300 text-sm" placeholder="A short summary of your enquiry">
                     </div>
                     <div>
-                        <label for="message" class="mb-1.5 block text-sm font-medium text-gray-700">Message <span class="text-red-600">*</span></label>
+                        <label for="message" class="mb-1.5 block text-sm font-medium text-gray-700">Message <span class="text-gold-600">*</span></label>
                         <textarea id="message" name="message" rows="6" required class="w-full rounded-md border-gray-300 text-sm" placeholder="Tell us about your idea, requirements, or question.">{{ old('message') }}</textarea>
                     </div>
-                    <button type="submit" class="rounded-md bg-ink-900 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">
+                    <button type="submit" class="rounded-md bg-ink-900 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-gold-600 transition">
                         Send Message
                     </button>
                 </form>

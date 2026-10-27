@@ -1,17 +1,17 @@
 <x-guest-layout>
     <style>
-        .otp-code-panel { margin-top: 0.6rem; padding: 1.1rem; border: 1px solid #fee2e2; border-radius: 1rem; background: linear-gradient(135deg, #fffafa 0%, #fff 72%); box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04); }
+        .otp-code-panel { margin-top: 0.6rem; padding: 1.1rem; border: 1px solid #fee2e2; border-radius: 1rem; background: linear-gradient(135deg, #fbf8f0 0%, #fff 72%); box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04); }
         .otp-inputs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.65rem; }
         .otp-digit { width: 100%; height: 3.75rem; border: 1px solid #cbd5e1; border-radius: 0.75rem; background: #fff; box-shadow: inset 0 1px 1px rgba(15, 23, 42, 0.03); color: #111827; font-size: 1.45rem; font-weight: 800; line-height: 1; text-align: center; transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, color 160ms ease, transform 160ms ease; }
         .otp-digit:hover { border-color: #fca5a5; transform: translateY(-1px); }
-        .otp-digit:focus { border-color: #dc2626; background: #fffafa; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12); outline: none; transform: translateY(-2px); }
-        .otp-digit--filled { border-color: #dc2626; background: #dc2626; box-shadow: 0 5px 12px rgba(220, 38, 38, 0.22); color: #fff; }
+        .otp-digit:focus { border-color: #9a7b3f; background: #fbf8f0; box-shadow: 0 0 0 4px rgba(192, 160, 98, 0.2); outline: none; transform: translateY(-2px); }
+        .otp-digit--filled { border-color: #9a7b3f; background: #9a7b3f; box-shadow: 0 5px 12px rgba(154, 123, 63, 0.3); color: #fff; }
         .otp-digit--filled:focus { background: #b91c1c; color: #fff; }
         @media (max-width: 420px) { .otp-code-panel { padding: 0.8rem; } .otp-inputs { gap: 0.4rem; } .otp-digit { height: 3.25rem; font-size: 1.2rem; } }
     </style>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-red-600">Account recovery</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Account recovery</p>
             <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Verify your code</h2>
             <p class="mt-2 text-sm leading-6 text-gray-500">Enter the 6-digit code sent to <span class="font-medium text-ink-900">{{ $email }}</span>.</p>
         </div>
@@ -74,7 +74,7 @@
                 <x-input-error :messages="$errors->get('otp')" class="mt-2" />
             </div>
             <x-primary-button class="w-full justify-center rounded-lg py-3.5 text-sm shadow-sm">{{ __('Verify code') }}</x-primary-button>
-            <p class="pt-1 text-center text-sm text-gray-600">Didn&rsquo;t receive it? <a href="{{ route('password.request') }}" class="auth-account-link font-semibold text-red-600 hover:text-red-700">Request a new code.</a></p>
+            <p class="pt-1 text-center text-sm text-gray-600">Didn&rsquo;t receive it? <a href="{{ route('password.request') }}" class="auth-account-link font-semibold text-gold-600 hover:text-gold-700">Request a new code.</a></p>
         </form>
     </div>
 </x-guest-layout>

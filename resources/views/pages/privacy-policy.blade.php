@@ -1,8 +1,7 @@
 <x-layouts.storefront title="Privacy Policy">
     <section class="relative overflow-hidden bg-ink-900 text-white"
-        style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]">
-        </div>
+        style="background-image: url('{{ asset('images/luxury-garage-commission.jpg') }}'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-gradient-to-b from-ink-900/80 via-ink-900/65 to-ink-900/95"></div>
         <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-white-500 mb-4">LEGGAL</p>
             <h1 class="font-heading text-4xl sm:text-5xl font-bold"> Privacy <span
@@ -91,9 +90,9 @@
                     If you have any questions about this Privacy Policy or how we handle your personal information,
                     please contact us at:
                     <br>
-                    Email: <a href="mailto:jdmadvancedbuilders@gmail.com" class="text-red-600 hover:underline">jdmadvancedbuilders@gmail.com</a>
+                    Email: <a href="mailto:jdmadvancedbuilders@gmail.com" class="text-gold-600 hover:underline">jdmadvancedbuilders@gmail.com</a>
                     <br>
-                    Phone: <a href="tel:+1234567890" class="text-red-600 hover:underline">+1 (234) 567-890</a>
+                    Phone: <a href="tel:+1234567890" class="text-gold-600 hover:underline">+1 (234) 567-890</a>
                 </p>
             </div>
         </div>

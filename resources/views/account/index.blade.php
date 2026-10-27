@@ -3,15 +3,15 @@
     <p class="text-gray-500 mb-8">Manage your orders, addresses, and account details.</p>
 
     <div class="grid sm:grid-cols-3 gap-4 mb-10">
-        <a href="{{ route('orders.index') }}" class="rounded-xl border border-gray-200 p-5 hover:border-red-600 hover:shadow-md transition">
+        <a href="{{ route('orders.index') }}" class="rounded-xl border border-gray-200 p-5 hover:border-gold-600 hover:shadow-md transition">
             <p class="font-heading text-2xl font-bold text-ink-900">{{ auth()->user()->orders()->count() }}</p>
             <p class="text-sm text-gray-500">Orders</p>
         </a>
-        <a href="{{ route('addresses.index') }}" class="rounded-xl border border-gray-200 p-5 hover:border-red-600 hover:shadow-md transition">
+        <a href="{{ route('addresses.index') }}" class="rounded-xl border border-gray-200 p-5 hover:border-gold-600 hover:shadow-md transition">
             <p class="font-heading text-2xl font-bold text-ink-900">{{ $addressCount }}</p>
             <p class="text-sm text-gray-500">Saved Addresses</p>
         </a>
-        <a href="{{ route('wishlist.index') }}" class="rounded-xl border border-gray-200 p-5 hover:border-red-600 hover:shadow-md transition">
+        <a href="{{ route('wishlist.index') }}" class="rounded-xl border border-gray-200 p-5 hover:border-gold-600 hover:shadow-md transition">
             <p class="font-heading text-2xl font-bold text-ink-900">{{ $wishlistCount }}</p>
             <p class="text-sm text-gray-500">Wishlist Items</p>
         </a>
@@ -20,7 +20,7 @@
     <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Recent Orders</h2>
 
     @if ($recentOrders->isEmpty())
-        <p class="text-gray-500">You haven't placed any orders yet. <a href="{{ route('home') }}" class="text-red-600 hover:underline">Start shopping</a>.</p>
+        <p class="text-gray-500">You haven't placed any orders yet. <a href="{{ route('home') }}" class="text-gold-600 hover:underline">Start shopping</a>.</p>
     @else
         <div class="divide-y divide-gray-100 border-t border-b border-gray-100">
             @foreach ($recentOrders as $order)

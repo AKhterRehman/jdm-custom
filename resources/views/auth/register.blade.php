@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.22em] text-red-600">Create your account</p>
+            <p class="text-xs font-bold uppercase tracking-[0.22em] text-gold-600">Create your account</p>
             <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Create your account</h2>
             <p class="mt-2 text-sm leading-6 text-gray-500">Set up your account to manage your custom orders with ease.</p>
         </div>
@@ -63,7 +63,7 @@
 
             <p class="pt-1 text-center text-sm text-gray-600">
                 Already have an account?
-                <a href="{{ route('login') }}" class="auth-account-link font-semibold text-red-600 transition hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 rounded">Click here to sign in.</a>
+                <a href="{{ route('login') }}" class="auth-account-link font-semibold text-gold-600 transition hover:text-gold-700 focus:outline-none focus:ring-2 focus:ring-gold-600 focus:ring-offset-2 rounded">Click here to sign in.</a>
             </p>
         </form>
     </div>

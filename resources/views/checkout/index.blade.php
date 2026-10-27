@@ -28,7 +28,7 @@
                     @if ($addresses->isNotEmpty())
                         <div class="space-y-3 mb-4">
                             @foreach ($addresses as $address)
-                                <label class="flex items-start gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600">
+                                <label class="flex items-start gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-gold-600">
                                     <input type="radio" name="address_id" value="{{ $address->id }}" data-shipping-address @change="useNewAddress = false" @checked((string) $selectedAddressId === (string) $address->id) class="mt-1">
                                     <span class="text-sm">
                                         <span class="block font-medium text-gray-900">{{ $address->full_name }} &middot; {{ $address->phone }}</span>
@@ -41,7 +41,7 @@
 
                     <details class="rounded-md border border-gray-200 p-4" x-bind:open="useNewAddress">
                         <summary class="cursor-pointer text-sm font-medium text-gray-700">Add a new address</summary>
-                        <label class="mt-4 flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 cursor-pointer has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
+                        <label class="mt-4 flex items-center gap-3 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 cursor-pointer has-[:checked]:border-gold-600 has-[:checked]:bg-gold-200/30">
                             <input type="radio" name="address_id" value="" @change="useNewAddress = true" @checked($useNewAddress)>
                             <span class="text-sm font-medium text-gray-900">Use this new address for this order</span>
                         </label>
@@ -56,7 +56,7 @@
                             <input type="text" name="new_address[country]" value="{{ old('new_address.country', 'US') }}" placeholder="Country" :disabled="!useNewAddress" class="rounded-md border-gray-300 text-sm disabled:bg-gray-100 disabled:text-gray-400" data-new-address-field>
                         </div>
                         <p class="mt-3 text-xs text-gray-500">Your new address is saved to your account when you place this order.</p>
-                        <button type="button" id="calculate-shipping-btn" class="mt-3 rounded-md border border-gray-300 px-4 py-2 text-sm hover:border-red-600">Calculate Shipping</button>
+                        <button type="button" id="calculate-shipping-btn" class="mt-3 rounded-md border border-gray-300 px-4 py-2 text-sm hover:border-gold-600">Calculate Shipping</button>
                     </details>
                 </section>
 
@@ -84,12 +84,12 @@
                 <section>
                     <h2 class="font-heading text-lg font-semibold text-ink-900 mb-4">Payment Method</h2>
                     <div class="space-y-3">
-                        <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
+                        <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-gold-600 has-[:checked]:bg-gold-200/30">
                             <input type="radio" name="payment_method" value="cod" checked>
                             <span class="text-sm font-medium text-gray-900">Cash on Delivery</span>
                         </label>
 
-                        <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
+                        <label class="flex items-center gap-3 rounded-md border border-gray-200 p-4 cursor-pointer has-[:checked]:border-gold-600 has-[:checked]:bg-gold-200/30">
                             <input type="radio" name="payment_method" value="stripe">
                             <span class="text-sm font-medium text-gray-900">Credit / Debit Card (Stripe)</span>
                         </label>
@@ -126,12 +126,12 @@
                         @if ($coupon)
                             <div class="flex items-center justify-between text-sm bg-green-50 border border-green-200 rounded-md px-3 py-2">
                                 <span>Coupon <strong>{{ $coupon->code }}</strong> applied</span>
-                                <button type="submit" form="remove-coupon-form" class="text-red-600 hover:underline">Remove</button>
+                                <button type="submit" form="remove-coupon-form" class="text-gold-600 hover:underline">Remove</button>
                             </div>
                         @else
                             <div class="flex gap-2">
                                 <input type="text" name="code" form="coupon-form" placeholder="Coupon code" class="flex-1 rounded-md border-gray-300 text-sm">
-                                <button type="submit" form="coupon-form" class="rounded-md border border-gray-300 px-3 text-sm hover:border-red-600">Apply</button>
+                                <button type="submit" form="coupon-form" class="rounded-md border border-gray-300 px-3 text-sm hover:border-gold-600">Apply</button>
                             </div>
                         @endif
 
@@ -159,7 +159,7 @@
                         </dl>
                     </div>
 
-                    <button type="submit" class="mt-6 w-full rounded-md bg-ink-900 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-600 transition">
+                    <button type="submit" class="mt-6 w-full rounded-md bg-ink-900 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-gold-600 transition">
                         Place Order
                     </button>
                 </div>

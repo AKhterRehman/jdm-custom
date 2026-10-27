@@ -8,27 +8,53 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
+    // Etsy listing ids of the pieces shown large in the hero, in display order.
+    private const HERO_SKUS = ['ETSY-4527500804', 'ETSY-4509718241', 'ETSY-4557513997'];
+
+    // Categories surfaced as the quiet "from the workshop" row under the automotive collection.
+    private const WORKSHOP_CATEGORIES = ['custom-epoxy-signs', 'cnc-creations', '3d-cnc-models', 'jewelry-boxes'];
+
     public function index(): View
     {
-        $categories = Category::whereNull('parent_id')
+        $automotive = Category::where('slug', 'automotive-art')->where('is_active', true)->first();
+
+        $collection = $automotive
+            ? Product::with(['images', 'category'])
+                ->where('is_active', true)
+                ->where('category_id', $automotive->id)
+                ->orderByDesc('price')
+                ->orderBy('name')
+                ->get()
+                // Two near-identical AMG listings exist; show one on the homepage.
+                ->reject(fn (Product $product) => $product->sku === 'ETSY-4557588163')
+                ->values()
+            : collect();
+
+        $heroPieces = collect(self::HERO_SKUS)
+            ->map(fn (string $sku) => $collection->firstWhere('sku', $sku))
+            ->filter()
+            ->values();
+
+        if ($heroPieces->count() < 3) {
+            $heroPieces = $collection->take(3)->values();
+        }
+
+        $workshop = Category::whereIn('slug', self::WORKSHOP_CATEGORIES)
             ->where('is_active', true)
-            ->orderBy('sort_order')
-            ->get();
+            ->get()
+            ->sortBy(fn (Category $category) => array_search($category->slug, self::WORKSHOP_CATEGORIES))
+            ->map(function (Category $category) {
+                $category->setRelation('cover', Product::with('images')
+                    ->where('is_active', true)
+                    ->where('category_id', $category->id)
+                    ->whereHas('images')
+                    ->first());
 
-        $featuredProducts = Product::with(['images', 'category'])
-            ->where('is_active', true)
-            ->where('is_featured', true)
-            ->latest()
-            ->get();
+                return $category;
+            })
+            ->filter(fn (Category $category) => $category->cover)
+            ->values();
 
-        $newArrivals = Product::with(['images', 'category'])
-            ->where('is_active', true)
-            ->latest()
-            ->take(8)
-            ->get();
-
-        $totalProducts = Product::where('is_active', true)->count();
-
-        return view('home', compact('categories', 'featuredProducts', 'newArrivals', 'totalProducts'));
+        return view('home', compact('automotive', 'collection', 'heroPieces', 'workshop'));
     }
 }

@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-red-600">Welcome back</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Welcome back</p>
             <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Sign in to your account</h2>
             <p class="mt-2 text-sm leading-6 text-gray-500">Enter your details below to continue to JDM Custom.</p>
         </div>
@@ -39,12 +39,12 @@
 
             <div class="flex items-center justify-between gap-4 pt-0.5">
                 <label for="remember_me" class="inline-flex cursor-pointer items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-red-600 shadow-sm focus:ring-red-600" name="remember">
+                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-gold-600 shadow-sm focus:ring-gold-600" name="remember">
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
 
                 @if (Route::has('password.request'))
-                    <a class="text-sm font-medium text-gray-600 transition hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 rounded" href="{{ route('password.request') }}">
+                    <a class="text-sm font-medium text-gray-600 transition hover:text-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-600 focus:ring-offset-2 rounded" href="{{ route('password.request') }}">
                         {{ __('Forgot password?') }}
                     </a>
                 @endif
@@ -57,7 +57,7 @@
             @if (Route::has('register'))
                 <div class="pt-1 text-center">
                     <p class="mb-3 text-sm text-gray-600">Don&rsquo;t have an account?</p>
-                    <a href="{{ route('register') }}" class="auth-account-link flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition hover:border-red-600 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+                    <a href="{{ route('register') }}" class="auth-account-link flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition hover:border-gold-600 hover:text-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-600 focus:ring-offset-2">
                         {{ __('Create account') }}
                     </a>
                 </div>

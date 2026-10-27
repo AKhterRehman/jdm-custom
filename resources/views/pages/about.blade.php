@@ -1,84 +1,50 @@
-<x-layouts.storefront title="About Us">
-    <section class="relative overflow-hidden bg-ink-900 text-white" style="background-image: url('{{ asset('images/hero-wood-bg.jpg') }}'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(220,38,38,0.18),_transparent_60%)]"></div>
-        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-500 mb-4">Our Story</p>
-            <h1 class="font-heading text-4xl sm:text-5xl font-bold">About JDM <span class="text-gradient-animate">Custom</span> Creations</h1>
-            <p class="mt-5 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Handcrafted wooden creations that blend traditional woodworking with modern CNC precision 
-                built by artisans who care about the details.
-            </p>
+<x-layouts.storefront :dark="true" title="About Us">
+    @php $automotive = \App\Models\Category::where('slug', 'automotive-art')->where('is_active', true)->first(); @endphp
+
+    <section class="relative isolate overflow-hidden border-b border-white/10 bg-ink-900 text-white">
+        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-50" aria-hidden="true">
+        <div class="absolute inset-0 -z-10 bg-gradient-to-b from-ink-900/80 via-ink-900/60 to-ink-900"></div>
+        <div class="relative mx-auto max-w-4xl px-4 py-28 text-center sm:px-6 lg:px-8">
+            <p class="lux-eyebrow">The Artist</p>
+            <h1 class="mt-5 font-display text-5xl font-medium tracking-tight sm:text-7xl">Made by hand.<br><span class="italic text-gold-300">Made for collectors.</span></h1>
+            <div class="lux-rule mx-auto mt-8"></div>
         </div>
     </section>
 
-    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-600 mb-3">Who We Are</p>
-                <h2 class="font-heading text-2xl sm:text-3xl font-bold text-ink-900 mb-4">Bringing your ideas to life in wood</h2>
-               <p class="text-gray-600 leading-relaxed mb-4">
-                    JDM Custom Creations began with a simple goal: build one-of-a-kind wooden pieces that reflect
-                    the people who order them. What started as a small workshop has grown into a full custom
-                    shop, but the approach hasn't changed. Every piece is still made to order, by hand.
-                </p>
-                <p class="text-gray-600 leading-relaxed">
-                    We work across engraving, CNC cut art, shadow boxes, jewelry boxes, epoxy signage, layered
-                    3D CNC models, murals, and custom board games. Bamboo is our go-to material for its strength
-                    and grain, but we work in hardwoods and plywood too, depending on what a piece calls for.
-                </p>
-            </div>
+    <section class="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-28">
+        <p class="font-display text-2xl leading-relaxed text-silver-300 sm:text-3xl">
+            JDM Custom Creations builds hand-finished automotive art in hardwood and epoxy. Every crest is designed,
+            carved, and finished one at a time, made to order for the garage it will hang in.
+        </p>
+        <p class="mx-auto mt-8 max-w-xl leading-relaxed text-silver-400">
+            The workshop also builds custom furniture, signs, and CNC pieces, but automotive art is the work it is known for.
+        </p>
+    </section>
 
-            <div class="grid grid-cols-2 gap-6">
-                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
-                    <p class="font-heading text-3xl font-bold text-red-600">9</p>
-                    <p class="text-sm text-gray-500 mt-1">Craft Categories</p>
+    <section class="border-y border-white/10 bg-charcoal-900">
+        <div class="mx-auto grid max-w-5xl gap-12 px-4 py-20 text-center sm:grid-cols-3 sm:px-6">
+            @foreach ([
+                ['Made to order', 'Nothing comes off a shelf. Each piece is built for the person who ordered it.'],
+                ['Hand finished', 'Hardwood, epoxy, and a gloss finish, brought up by hand.'],
+                ['Commissions welcome', 'Any marque, any crest, any size. Tell us the car.'],
+            ] as [$title, $text])
+                <div data-reveal>
+                    <div class="lux-rule mx-auto mb-6"></div>
+                    <h3 class="font-display text-2xl text-white">{{ $title }}</h3>
+                    <p class="mt-3 text-sm leading-relaxed text-silver-400">{{ $text }}</p>
                 </div>
-                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
-                    <p class="font-heading text-3xl font-bold text-red-600">100%</p>
-                    <p class="text-sm text-gray-500 mt-1">Made to Order</p>
-                </div>
-                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
-                    <p class="font-heading text-3xl font-bold text-red-600">CNC</p>
-                    <p class="text-sm text-gray-500 mt-1">Precision Cut</p>
-                </div>
-                <div class="rounded-xl border border-gray-200 p-6 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-red-200 hover:bg-red-50/60 hover:shadow-xl hover:shadow-red-950/10">
-                    <p class="font-heading text-3xl font-bold text-red-600">Hand</p>
-                    <p class="text-sm text-gray-500 mt-1">Finished Every Piece</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 
-    <section class="bg-gray-50 border-y border-gray-100">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-red-600 mb-3 text-center">What Drives Us</p>
-            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-ink-900 mb-12 text-center">Our Values</h2>
-            <div class="grid sm:grid-cols-3 gap-8 text-center">
-                <div>
-                    <h3 class="font-heading font-semibold text-ink-900 mb-2">Made to Order</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Every piece is built for the person who ordered it — not pulled off a shelf.</p>
-                </div>
-                <div>
-                    <h3 class="font-heading font-semibold text-ink-900 mb-2">Craft Meets Precision</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Modern CNC tooling paired with hand-finishing for detail that holds up close.</p>
-                </div>
-                <div>
-                    <h3 class="font-heading font-semibold text-ink-900 mb-2">Built to Last</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Quality materials and real joinery, so a piece stays in the family for years.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-ink-900 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <h2 class="font-heading text-3xl sm:text-4xl font-bold">Have an idea in mind?</h2>
-            <p class="mt-5 text-gray-300 leading-relaxed">
-                Browse the full catalog or reach out and we'll help you bring your piece to life.
-            </p>
-            <div class="mt-8 flex items-center justify-center gap-4">
-                <a href="{{ route('shop.index') }}" class="rounded-md bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-red-500 transition">Shop Now</a>
-                <a href="{{ route('pages.contact') }}" class="rounded-md border border-white/30 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:border-red-500 hover:text-red-400 transition">Contact Us</a>
+    <section class="bg-ink-900 py-24 text-center">
+        <div class="mx-auto max-w-xl px-4" data-reveal>
+            <h2 class="font-display text-4xl font-medium text-white sm:text-5xl">Commission a piece</h2>
+            <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+                <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-gold">Start a Commission</a>
+                @if ($automotive)
+                    <a href="{{ route('category.show', $automotive) }}" class="btn-ghost">View the Collection</a>
+                @endif
             </div>
         </div>
     </section>

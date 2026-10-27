@@ -11,6 +11,7 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
+            'Automotive Art' => 'Hand-finished marque crests in hardwood and epoxy, made for the collector\'s garage.',
             'Engraving' => 'Timeless designs, etched with precision into premium hardwoods.',
             'CNC Creations' => 'Precision-cut frames, plaques, and wall art for intricate, custom designs.',
             'Shadow Boxes' => 'Bring your stories to life with detailed, handcrafted memory displays.',
@@ -20,6 +21,8 @@ class CategorySeeder extends Seeder
             'Custom Murals' => 'Transform a wall into a one-of-a-kind wooden work of art.',
             'Custom Signs' => 'Your vision, beautifully carved and displayed.',
             'Custom Board Games' => 'Fun and memories, handcrafted and personalized for you.',
+            'Signs' => 'Crests and wall art in hardwood and epoxy.',
+            'Kitchen & Dining Tables' => 'Handmade table accents and dining pieces.',
         ];
 
         $order = 0;
