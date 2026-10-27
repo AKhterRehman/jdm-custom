@@ -2,7 +2,7 @@
     @php $automotive = \App\Models\Category::where('slug', 'automotive-art')->where('is_active', true)->first(); @endphp
 
     {{-- HERO --}}
-    <section class="relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
+    <section class="zone-dark relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-hero.jpg" />
 
         <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 pb-24 pt-40 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-28 lg:pt-44">

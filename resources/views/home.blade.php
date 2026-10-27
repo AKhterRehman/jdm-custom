@@ -149,7 +149,7 @@
     @endif
 
     {{-- COMMISSION --}}
-    <section class="relative isolate overflow-hidden bg-ink-900 py-32 sm:py-44">
+    <section class="zone-dark relative isolate overflow-hidden bg-ink-900 py-32 sm:py-44">
         <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" loading="lazy" aria-hidden="true">
         {{-- A soft dark pool behind the copy keeps it readable while the car stays visible around it. --}}
         <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_60%_at_50%_50%,rgba(11,11,13,0.8)_0%,rgba(11,11,13,0.4)_55%,rgba(11,11,13,0.08)_100%)]"></div>

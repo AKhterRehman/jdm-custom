@@ -167,3 +167,28 @@ if (indexSection) {
         row.addEventListener('focus', () => activate(i));
     });
 }
+
+// Theme switch: dark is the default, the choice is remembered on this device.
+const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+
+const syncThemeButtons = () => {
+    const light = document.documentElement.dataset.theme === 'light';
+    themeButtons.forEach((button) => {
+        button.setAttribute('aria-label', light ? 'Switch to the dark theme' : 'Switch to the light theme');
+    });
+};
+
+themeButtons.forEach((button) => button.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+
+    try {
+        localStorage.setItem('jdm-theme', next);
+    } catch (error) {
+        // Private browsing can block storage; the theme still applies for this visit.
+    }
+
+    syncThemeButtons();
+}));
+
+syncThemeButtons();

@@ -8,6 +8,8 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
+        <script>try{var t=localStorage.getItem('jdm-theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch(e){}</script>
+
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700|bodoni-moda:400,500,600,400i,500i|jost:300,400,500&display=swap" rel="stylesheet" />
 
@@ -132,7 +134,7 @@
             </div>
 
             {{-- Form column --}}
-            <div class="flex min-h-screen flex-col items-center justify-center bg-ink-900 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
+            <div class="themed flex min-h-screen flex-col items-center justify-center bg-ink-900 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom Creations home">
                         <img src="{{ asset('images/jdm-custom-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
