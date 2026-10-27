@@ -93,7 +93,8 @@
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-commission.jpg" />
         <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
-            <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Every piece, <em class="font-normal italic text-gold-300">in one place.</em></h1>
+            <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">The full catalog</h1>
+            <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Every piece, in one place.</p>
         </div>
     </section>
 

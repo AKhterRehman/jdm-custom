@@ -1,7 +1,8 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Confirm your password</h2>
+            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Security check</h2>
+            <p class="mt-3 font-lux text-xl italic leading-snug text-gold-300">Confirm your password</p>
             <p class="mt-2 text-sm leading-6 text-[#8f949c]">For your protection, please enter your password before continuing.</p>
         </div>
 

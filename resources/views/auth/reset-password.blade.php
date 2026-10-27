@@ -1,7 +1,8 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Create a new password</h2>
+            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Password recovery</h2>
+            <p class="mt-3 font-lux text-xl italic leading-snug text-gold-300">Create a new password</p>
             <p class="mt-2 text-sm leading-6 text-[#8f949c]">Choose a strong password to securely restore access to your account.</p>
         </div>
 

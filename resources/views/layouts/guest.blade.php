@@ -125,7 +125,8 @@
                 </a>
 
                 <div class="relative auth-hero-card p-8">
-                    <h1 class="font-lux text-5xl font-normal leading-[1.05] tracking-[-0.01em]">Automotive art, <em class="italic text-gold-300">handcrafted.</em></h1>
+                    <h1 class="font-lux text-5xl font-normal leading-[1.05] tracking-[-0.01em]">JDM Custom Creations</h1>
+                    <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Automotive art, handcrafted.</p>
                     <p class="mt-4 text-gray-200 max-w-sm">Hand-finished hardwood and epoxy crests, made to order for the collector's garage.</p>
                 </div>
 

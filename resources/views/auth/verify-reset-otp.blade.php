@@ -11,7 +11,8 @@
     </style>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Verify your code</h2>
+            <h2 class="font-lux text-3xl font-normal tracking-tight text-[#ece7da]">Account recovery</h2>
+            <p class="mt-3 font-lux text-xl italic leading-snug text-gold-300">Verify your code</p>
             <p class="mt-2 text-sm leading-6 text-[#8f949c]">Enter the 6-digit code sent to <span class="font-medium text-[#ece7da]">{{ $email }}</span>.</p>
         </div>
 

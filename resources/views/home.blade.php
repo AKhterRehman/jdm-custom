@@ -14,9 +14,8 @@
 
         <div class="mx-auto grid min-h-[100svh] max-w-[88rem] items-center gap-14 px-5 pb-20 pt-36 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-16 lg:pt-32">
             <div class="lg:col-span-6 xl:col-span-6" data-reveal>
-                <h1 class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.6vw,6.6rem)]">
-                    Automotive art<br>for the <em class="font-normal italic text-gold-300">private garage.</em>
-                </h1>
+                <h1 class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.6vw,6.6rem)]">JDM Custom Creations</h1>
+                <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Automotive art for the private garage.</p>
                 <p class="mt-9 max-w-md font-label text-[1.02rem] font-light leading-relaxed text-[#b9b5ab]">
                     Hand finished crests in hardwood and epoxy. Each piece is made to order, one at a time.
                 </p>
@@ -64,7 +63,8 @@
             <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
                 <div class="mb-16 flex items-end justify-between gap-8 sm:mb-20" data-reveal>
                     <div>
-                        <h2 class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white">Choose a marque.</h2>
+                        <h2 class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white">The Collection</h2>
+                        <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Choose a marque.</p>
                     </div>
                     @if ($automotive)
                         <a href="{{ route('category.show', $automotive) }}" class="link-line hidden sm:inline-block">View all pieces</a>
@@ -121,7 +121,8 @@
             <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
                 <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
                     <div class="lg:col-span-4" data-reveal>
-                        <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">The same crest, at four scales.</h2>
+                        <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Sizes</h2>
+                        <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">The same crest, at four scales.</p>
                         <p class="mt-7 max-w-sm font-label font-light leading-relaxed text-[#b9b5ab]">Every piece is made to order. Other dimensions are available on request, and shipping is calculated at checkout.</p>
                     </div>
 
@@ -150,7 +151,8 @@
         <div class="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-ink-900 to-transparent"></div>
         <div class="absolute inset-x-0 bottom-0 -z-10 h-28 bg-gradient-to-t from-ink-900 to-transparent"></div>
         <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
-            <h2 class="font-lux text-[clamp(2.6rem,5.2vw,4.8rem)] font-normal leading-[1.02] tracking-[-0.015em] text-white">Your marque,<br><em class="font-normal italic text-gold-300">made to order.</em></h2>
+            <h2 class="font-lux text-[clamp(2.6rem,5.2vw,4.8rem)] font-normal leading-[1.02] tracking-[-0.015em] text-white">Commissions</h2>
+            <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Your marque, made to order.</p>
             <p class="mx-auto mt-8 max-w-md font-label font-normal leading-relaxed text-[#e4dfd2]">Tell us the car. We design, carve and finish the piece for your garage.</p>
             <div class="mt-12 flex justify-center">
                 <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-solid">Commission a piece</a>
@@ -167,7 +169,8 @@
                 </div>
             </div>
             <div class="lg:col-span-6 lg:col-start-7" data-reveal style="transition-delay: 120ms">
-                <h2 class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Woodwork with a <em class="font-normal italic text-gold-300">story to tell.</em></h2>
+                <h2 class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Our Story</h2>
+                <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Woodwork with a story to tell.</p>
                 <p class="mt-8 max-w-xl font-label text-[1.05rem] font-light leading-[1.85] text-[#b9b5ab]">At JDM Custom Creations, we are passionate artisans dedicated to bringing your ideas to life through the timeless beauty of handcrafted woodwork. Our journey began with a simple mission: to create unique, custom made pieces that reflect the individuality and vision of our customers.</p>
                 <div class="mt-10">
                     <a href="{{ route('pages.about') }}" class="link-line">Read our story</a>

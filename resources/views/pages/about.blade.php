@@ -7,9 +7,8 @@
 
         <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 pb-24 pt-40 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-28 lg:pt-44">
             <div class="lg:col-span-6" data-reveal>
-                <h1 class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.2vw,6.2rem)]">
-                    Woodwork with a<br><em class="font-normal italic text-gold-300">story to tell.</em>
-                </h1>
+                <h1 class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.2vw,6.2rem)]">Our Story</h1>
+                <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Woodwork with a story to tell.</p>
             </div>
             <div class="lg:col-span-4 lg:col-start-9" data-reveal style="transition-delay: 120ms">
                 <div class="plate-mat mx-auto aspect-[4/5] max-w-[24rem] lg:max-w-none">
@@ -22,7 +21,10 @@
     {{-- THE STORY --}}
     <section class="bg-ink-900 py-28 sm:py-36">
         <div class="mx-auto grid max-w-[88rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
-            <div class="space-y-8 lg:col-span-8 lg:col-start-3" data-reveal>
+            <div class="lg:col-span-4" data-reveal>
+                <h2 class="font-lux text-[clamp(2.2rem,3.4vw,3.2rem)] font-normal leading-[1.05] tracking-[-0.01em] text-white">The JDM story</h2>
+            </div>
+            <div class="space-y-8 lg:col-span-7" data-reveal>
                 <p class="font-lux text-[clamp(1.6rem,2.4vw,2.2rem)] leading-[1.35] text-white">At JDM Custom Creations, we are passionate artisans dedicated to bringing your ideas to life through the timeless beauty of handcrafted woodwork.</p>
                 <p class="max-w-2xl font-label text-[1.05rem] font-light leading-[1.9] text-[#b9b5ab]">Our journey began with a simple mission: to create unique, custom made pieces that reflect the individuality and vision of our customers.</p>
                 <p class="max-w-2xl font-label text-[1.05rem] font-light leading-[1.9] text-[#b9b5ab]">Today, we blend traditional craftsmanship with modern innovation to deliver exceptional wooden creations. Every piece is meticulously crafted with attention to detail, whether it is a cherished keepsake, a decorative statement, or a personalized gift.</p>
@@ -55,11 +57,13 @@
                 </div>
             </div>
             <div class="lg:col-span-6 lg:col-start-7" data-reveal style="transition-delay: 120ms">
-                <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Your vision, <em class="font-normal italic text-gold-300">beautifully made.</em></h2>
+                <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Our mission</h2>
+                <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Your vision, beautifully made.</p>
                 <p class="mt-8 max-w-xl font-label text-[1.05rem] font-light leading-[1.85] text-[#b9b5ab]">To bring your vision to life through exceptional craftsmanship, innovative design, and unmatched attention to detail.</p>
 
                 <div class="mt-14 border-t border-white/10 pt-10">
-                    <h3 class="font-lux text-[1.9rem] leading-tight text-white">Craft, technology, and heart.</h3>
+                    <h3 class="font-lux text-[1.9rem] leading-tight text-white">What we do</h3>
+                    <p class="mt-4 font-lux text-[1.35rem] italic leading-snug text-gold-300">Craft, technology, and heart.</p>
                     <p class="mt-4 max-w-xl font-label font-light leading-relaxed text-[#b9b5ab]">From automotive crests and CNC shadow boxes to jewelry boxes, epoxy signs, 3D models, murals, and personalized signs. Every piece is a labor of love.</p>
                 </div>
             </div>
@@ -70,7 +74,8 @@
     <section class="border-t border-white/10 bg-charcoal-900 py-28 sm:py-36">
         <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
             <div class="lg:col-span-6 lg:order-1" data-reveal>
-                <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">More than products. <em class="font-normal italic text-gold-300">Memories.</em></h2>
+                <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Our commitment</h2>
+                <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">More than products. Memories.</p>
                 <p class="mt-8 max-w-xl font-label text-[1.05rem] font-light leading-[1.85] text-[#b9b5ab]">We proudly serve individuals, families, and businesses with one of a kind creations that stand the test of time.</p>
                 <div class="mt-11 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-9">
                     @if ($automotive)
