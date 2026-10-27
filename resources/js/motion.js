@@ -58,17 +58,22 @@ const setup = () => {
     let delivered = false;
     const pending = new Set(items);
 
+    // A clipped element has no visible area, so the observer would never see it: watch its parent instead.
+    const trigger = (el) => (el.hasAttribute('data-clip') ? el.parentElement : el);
+    const owners = new Map(items.map((el) => [trigger(el), el]));
+
     const observer = new IntersectionObserver((entries) => {
         delivered = true;
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
-            show(entry.target);
-            pending.delete(entry.target);
+            const el = owners.get(entry.target);
+            show(el);
+            pending.delete(el);
             observer.unobserve(entry.target);
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
 
-    items.forEach((el) => observer.observe(el));
+    owners.forEach((el, watched) => observer.observe(watched));
 
     // Some embedded browsers never deliver observer callbacks. If none arrive, fall back to measuring on scroll.
     window.setTimeout(() => {
@@ -77,7 +82,7 @@ const setup = () => {
         const check = () => {
             const limit = window.innerHeight * 0.94;
             pending.forEach((el) => {
-                if (el.getBoundingClientRect().top < limit) {
+                if (trigger(el).getBoundingClientRect().top < limit) {
                     show(el);
                     pending.delete(el);
                 }
