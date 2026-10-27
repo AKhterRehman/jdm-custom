@@ -175,3 +175,24 @@
 .dark-pagination nav span[aria-current] span { background-color: #c0a062 !important; color: #0b0b0d !important; border-color: #c0a062 !important; }
 .dark-pagination nav a:hover { border-color: #c0a062 !important; color: #e0c993 !important; }
 .dark-pagination nav .shadow-sm { box-shadow: none; }
+
+/* ---------- Hero artwork slider ---------- */
+.art-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 900ms ease, visibility 0s linear 900ms; }
+.art-slide.is-active { opacity: 1; visibility: visible; transition: opacity 900ms ease; z-index: 1; }
+.art-piece { transform: translateY(22px) scale(0.97); transition: transform 1100ms cubic-bezier(.2, .7, .2, 1); }
+.art-slide.is-active .art-piece { transform: none; }
+
+.art-arrow {
+    display: inline-flex; height: 2.75rem; width: 2.75rem; flex-shrink: 0; align-items: center; justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.22); color: #d4d7dc; background: rgba(11, 11, 13, 0.4);
+    transition: border-color 250ms ease, color 250ms ease, background-color 250ms ease;
+}
+.art-arrow:hover, .art-arrow:focus-visible { border-color: #c0a062; color: #e0c993; outline: none; }
+
+.art-dot { height: 0.3rem; width: 1.1rem; border: 0; padding: 0; background: rgba(255, 255, 255, 0.28); cursor: pointer; transition: width 350ms ease, background-color 350ms ease; }
+.art-dot:hover { background: rgba(255, 255, 255, 0.6); }
+.art-dot.is-active { width: 2rem; background: #c0a062; }
+
+@media (prefers-reduced-motion: reduce) {
+    .art-slide, .art-slide.is-active, .art-piece { transition: none; }
+}

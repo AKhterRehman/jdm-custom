@@ -1,11 +1,14 @@
 <x-layouts.storefront :dark="true">
     @php
-        // Hero composition: [left %, top %, width %, aspect ratio, float delay] per piece.
-        $heroLayout = [
-            ['left' => '28%', 'top' => '0%', 'width' => '46%', 'aspect' => '4 / 5', 'delay' => false],
-            ['left' => '0%', 'top' => '30%', 'width' => '33%', 'aspect' => '1 / 1', 'delay' => true],
-            ['left' => '70%', 'top' => '22%', 'width' => '30%', 'aspect' => '3 / 4', 'delay' => true],
+        // Hero slider: every slide is the same overlapping composition. The centre piece changes
+        // each slide and its neighbours flank it, so every automotive piece gets its turn.
+        // [piece offset, left, top, width, floats on the delayed beat, stacking]
+        $slots = [
+            [1, '28%', '0%', '46%', false, 'z-20'],
+            [0, '0%', '30%', '33%', true, 'z-10'],
+            [2, '70%', '22%', '30%', true, 'z-10'],
         ];
+        $pieceCount = $sliderPieces->count();
 
         $marques = ['Porsche', 'Lamborghini', 'Mercedes AMG', 'Bentley', 'Rolls Royce', 'Aston Martin', 'BMW M', 'Shelby'];
     @endphp
@@ -35,22 +38,50 @@
             </div>
 
             <div class="lg:col-span-7">
-                <div class="relative mx-auto aspect-[6/5] w-full max-w-2xl">
-                    @foreach ($heroPieces as $index => $piece)
-                        @php $layout = $heroLayout[$index] ?? null; @endphp
-                        @continue(! $layout || ! $piece->images->first())
-                        <a href="{{ route('product.show', $piece) }}"
-                           class="art-card absolute block {{ $index === 0 ? 'z-20' : 'z-10' }}"
-                           style="left: {{ $layout['left'] }}; top: {{ $layout['top'] }}; width: {{ $layout['width'] }};"
-                           aria-label="{{ \Illuminate\Support\Str::before($piece->name, ' | ') }}">
-                            <div class="lux-float {{ $layout['delay'] ? 'lux-float-delay' : '' }}">
-                                <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: {{ $layout['aspect'] }};">
-                                    <img src="{{ $piece->images->first()->url() }}" alt="{{ \Illuminate\Support\Str::before($piece->name, ' | ') }}" class="h-full w-full object-cover">
+                @if ($pieceCount >= 3)
+                    <div class="mx-auto w-full max-w-2xl" data-art-slider>
+                        <div class="relative aspect-[6/5] w-full">
+                            @for ($k = 0; $k < $pieceCount; $k++)
+                                @php $center = $sliderPieces[($k + 1) % $pieceCount]; @endphp
+                                <div class="art-slide {{ $k === 0 ? 'is-active' : '' }}"
+                                     data-title="{{ \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($center->name, ' | '), ' – ') }}"
+                                     data-url="{{ route('product.show', $center) }}"
+                                     @if ($k !== 0) aria-hidden="true" @endif>
+                                    @foreach ($slots as $slotIndex => [$offset, $left, $top, $width, $delayed, $layer])
+                                        @php $piece = $sliderPieces[($k + $offset) % $pieceCount]; @endphp
+                                        <a href="{{ route('product.show', $piece) }}" tabindex="{{ $k === 0 ? '0' : '-1' }}"
+                                           class="art-card art-piece absolute block {{ $layer }}"
+                                           style="left: {{ $left }}; top: {{ $top }}; width: {{ $width }}; transition-delay: {{ $slotIndex * 90 }}ms;"
+                                           aria-label="{{ \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ') }}">
+                                            <div class="lux-float {{ $delayed ? 'lux-float-delay' : '' }}">
+                                                <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: {{ $piece->slider_aspect }};">
+                                                    <img src="{{ $piece->slider_src }}" alt="{{ \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ') }}" class="h-full w-full object-cover" decoding="async">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endfor
+                        </div>
+
+                        <div class="mt-8 flex items-center justify-between gap-4">
+                            <button type="button" data-art-prev class="art-arrow" aria-label="Previous piece">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+                            </button>
+                            <div class="min-w-0 flex-1 text-center">
+                                <a href="#" data-art-caption class="block truncate font-display text-2xl italic text-white transition hover:text-gold-300" aria-live="polite"></a>
+                                <div class="mt-3 flex flex-wrap items-center justify-center gap-1.5" role="tablist" aria-label="Choose a piece">
+                                    @for ($k = 0; $k < $pieceCount; $k++)
+                                        <button type="button" data-art-dot class="art-dot {{ $k === 0 ? 'is-active' : '' }}" role="tab" aria-label="Show piece {{ $k + 1 }}" aria-selected="{{ $k === 0 ? 'true' : 'false' }}"></button>
+                                    @endfor
                                 </div>
                             </div>
-                        </a>
-                    @endforeach
-                </div>
+                            <button type="button" data-art-next class="art-arrow" aria-label="Next piece">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </section>

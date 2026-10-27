@@ -177,9 +177,11 @@
                 class="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
             ></div>
 
+            {{-- The wrapper clips the off-screen drawer so it can never widen the page on phones. --}}
+            <div class="lg:hidden fixed inset-0 z-50 overflow-hidden pointer-events-none">
             <div
                 :class="mobileOpen ? 'translate-x-0' : 'translate-x-full'"
-                class="lg:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-ink-900 shadow-2xl flex flex-col transition-transform duration-300 ease-out"
+                class="pointer-events-auto absolute inset-y-0 right-0 w-80 max-w-[85vw] bg-ink-900 shadow-2xl flex flex-col transition-transform duration-300 ease-out"
             >
                 <div class="flex items-center justify-between px-6 h-20 border-b border-white/10 shrink-0">
                     <span class="inline-flex items-center justify-center">
@@ -241,6 +243,7 @@
                         </div>
                     @endauth
                 </div>
+            </div>
             </div>
         </header>
 

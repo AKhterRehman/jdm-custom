@@ -100,3 +100,56 @@ window.setTimeout(() => {
         if (/^0(?:\.0+)?(?:[^0-9]*)$/.test(el.textContent.trim())) animateCounter(el);
     });
 }, 250);
+
+// Hero artwork slider: arrows and dots pick a piece, autoplay pauses on hover or focus.
+const artSlider = document.querySelector('[data-art-slider]');
+
+if (artSlider) {
+    const artSlides = Array.from(artSlider.querySelectorAll('.art-slide'));
+    const artDots = Array.from(artSlider.querySelectorAll('[data-art-dot]'));
+    const artCaption = artSlider.querySelector('[data-art-caption]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let artIndex = 0;
+    let artTimer;
+
+    const showArtSlide = (index) => {
+        artIndex = (index + artSlides.length) % artSlides.length;
+
+        artSlides.forEach((slide, i) => {
+            const active = i === artIndex;
+            slide.classList.toggle('is-active', active);
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+            slide.querySelectorAll('a').forEach((link) => link.setAttribute('tabindex', active ? '0' : '-1'));
+        });
+
+        artDots.forEach((dot, i) => {
+            dot.classList.toggle('is-active', i === artIndex);
+            dot.setAttribute('aria-selected', i === artIndex ? 'true' : 'false');
+        });
+
+        if (artCaption) {
+            artCaption.textContent = artSlides[artIndex].dataset.title;
+            artCaption.setAttribute('href', artSlides[artIndex].dataset.url);
+        }
+    };
+
+    const stopArtTimer = () => window.clearInterval(artTimer);
+    const startArtTimer = () => {
+        stopArtTimer();
+        if (!prefersReducedMotion) {
+            artTimer = window.setInterval(() => showArtSlide(artIndex + 1), 5200);
+        }
+    };
+
+    artSlider.querySelector('[data-art-prev]')?.addEventListener('click', () => { showArtSlide(artIndex - 1); startArtTimer(); });
+    artSlider.querySelector('[data-art-next]')?.addEventListener('click', () => { showArtSlide(artIndex + 1); startArtTimer(); });
+    artDots.forEach((dot, i) => dot.addEventListener('click', () => { showArtSlide(i); startArtTimer(); }));
+
+    artSlider.addEventListener('mouseenter', stopArtTimer);
+    artSlider.addEventListener('mouseleave', startArtTimer);
+    artSlider.addEventListener('focusin', stopArtTimer);
+    artSlider.addEventListener('focusout', startArtTimer);
+
+    showArtSlide(0);
+    startArtTimer();
+}
