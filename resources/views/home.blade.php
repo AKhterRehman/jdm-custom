@@ -8,29 +8,30 @@
 
     {{-- HERO --}}
     <section class="relative isolate overflow-hidden bg-ink-900 text-[#ece7da]" data-hero>
-        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" aria-hidden="true">
+        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="kenburns absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" data-parallax="0.08" aria-hidden="true">
         <div class="absolute inset-0 -z-10 bg-[linear-gradient(95deg,rgba(11,11,13,0.9)_0%,rgba(11,11,13,0.55)_38%,rgba(11,11,13,0.12)_100%)]"></div>
         <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink-900 to-transparent"></div>
+        <div class="hero-glow" aria-hidden="true"></div>
 
         <div class="mx-auto grid min-h-[100svh] max-w-[88rem] items-center gap-14 px-5 pb-20 pt-36 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-16 lg:pt-32">
-            <div class="lg:col-span-6 xl:col-span-6" data-reveal>
-                <h1 class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.6vw,6.6rem)]">JDM Custom Creations</h1>
-                <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Automotive art for the private garage.</p>
-                <p class="mt-9 max-w-md font-label text-[1.02rem] font-light leading-relaxed text-[#b9b5ab]">
+            <div class="lg:col-span-6 xl:col-span-6">
+                <h1 data-split style="--base: 200ms" class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.6vw,6.6rem)]">JDM Custom Creations</h1>
+                <p data-split style="--base: 800ms" class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Automotive art for the private garage.</p>
+                <p data-rise style="--d: 1250ms" class="mt-9 max-w-md font-label text-[1.02rem] font-light leading-relaxed text-[#b9b5ab]">
                     Hand finished crests in hardwood and epoxy. Each piece is made to order, one at a time.
                 </p>
-                <div class="mt-11 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-9">
+                <div data-rise style="--d: 1450ms" class="mt-11 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-9">
                     @if ($automotive)
-                        <a href="{{ route('category.show', $automotive) }}" class="btn-solid">View the collection</a>
+                        <a href="{{ route('category.show', $automotive) }}" class="btn-solid" data-magnetic>View the collection</a>
                     @endif
                     <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="link-line">Commission a piece</a>
                 </div>
             </div>
 
             @if ($featuredCount)
-                <div class="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9" data-reveal style="transition-delay: 120ms">
+                <div class="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9" data-plate3d style="--d: 500ms">
                     <div class="mx-auto w-full max-w-[26rem] lg:max-w-none" data-hero-slider>
-                        <div class="plate-mat aspect-[4/5]">
+                        <div class="plate-mat aspect-[4/5]" data-tilt="7">
                             <div class="relative h-full w-full overflow-hidden">
                                 @foreach ($featured as $i => $piece)
                                     <a href="{{ route('product.show', $piece) }}" data-hero-piece
@@ -55,24 +56,29 @@
                 </div>
             @endif
         </div>
+
+        <div class="absolute bottom-8 left-5 hidden items-center gap-4 sm:left-8 md:flex lg:left-12" data-rise style="--d: 2000ms" aria-hidden="true">
+            <span class="label text-silver-500">Scroll</span>
+            <span class="scroll-cue__line"></span>
+        </div>
     </section>
 
     {{-- THE COLLECTION --}}
     @if ($collection->isNotEmpty())
         <section id="collection" class="bg-ink-900 py-28 sm:py-36" data-index>
             <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
-                <div class="mb-16 flex items-end justify-between gap-8 sm:mb-20" data-reveal>
+                <div class="mb-16 flex items-end justify-between gap-8 sm:mb-20">
                     <div>
-                        <h2 class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white">The Collection</h2>
-                        <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Choose a marque.</p>
+                        <h2 data-split class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white">The Collection</h2>
+                        <p data-split style="--base: 300ms" class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Choose a marque.</p>
                     </div>
                     @if ($automotive)
-                        <a href="{{ route('category.show', $automotive) }}" class="link-line hidden sm:inline-block">View all pieces</a>
+                        <div class="hidden sm:block" data-rise style="--d: 600ms"><a href="{{ route('category.show', $automotive) }}" class="link-line">View all pieces</a></div>
                     @endif
                 </div>
 
                 <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
-                    <ol class="lg:col-span-6" data-reveal>
+                    <ol class="lg:col-span-6" data-stagger>
                         @foreach ($collection as $i => $piece)
                             <li>
                                 <a href="{{ route('product.show', $piece) }}" data-index-row data-index="{{ $i }}"
@@ -86,9 +92,9 @@
                         @endforeach
                     </ol>
 
-                    <div class="hidden lg:col-span-5 lg:col-start-8 lg:block">
+                    <div class="hidden lg:col-span-5 lg:col-start-8 lg:block" data-rise style="--d: 250ms">
                         <div class="sticky top-32">
-                            <div class="plate-mat aspect-[4/5]">
+                            <div class="plate-mat aspect-[4/5]" data-tilt="5">
                                 <div class="relative h-full w-full overflow-hidden bg-[#0b0b0d]">
                                     @foreach ($collection as $i => $piece)
                                         <div data-index-image class="index-stage__img {{ $i === 0 ? 'is-active' : '' }}"
@@ -120,15 +126,15 @@
         <section class="border-y border-white/10 bg-charcoal-900 py-28 sm:py-36">
             <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
                 <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
-                    <div class="lg:col-span-4" data-reveal>
-                        <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Sizes</h2>
-                        <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">The same crest, at four scales.</p>
-                        <p class="mt-7 max-w-sm font-label font-light leading-relaxed text-[#b9b5ab]">Every piece is made to order. Other dimensions are available on request, and shipping is calculated at checkout.</p>
+                    <div class="lg:col-span-4">
+                        <h2 data-split class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Sizes</h2>
+                        <p data-split style="--base: 300ms" class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">The same crest, at four scales.</p>
+                        <p data-rise style="--d: 700ms" class="mt-7 max-w-sm font-label font-light leading-relaxed text-[#b9b5ab]">Every piece is made to order. Other dimensions are available on request, and shipping is calculated at checkout.</p>
                     </div>
 
-                    <div class="lg:col-span-8" data-reveal>
+                    <div class="lg:col-span-8">
                         @php $largest = max(array_column($sizes, 'inches')); @endphp
-                        <div class="flex items-end gap-5 sm:gap-8">
+                        <div class="flex items-end gap-5 sm:gap-8" data-stagger="boxes">
                             @foreach ($sizes as $size)
                                 <div class="min-w-0 flex-1">
                                     <div class="size-box" style="width: {{ round($size['inches'] / $largest * 100) }}%"></div>
@@ -145,17 +151,17 @@
 
     {{-- COMMISSION --}}
     <section class="zone-dark relative isolate overflow-hidden bg-ink-900 py-32 sm:py-44">
-        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" loading="lazy" aria-hidden="true">
+        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" style="scale: 1.2" data-parallax="0.06" loading="lazy" aria-hidden="true">
         {{-- A soft dark pool behind the copy keeps it readable while the car stays visible around it. --}}
         <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_60%_at_50%_50%,rgba(11,11,13,0.8)_0%,rgba(11,11,13,0.4)_55%,rgba(11,11,13,0.08)_100%)]"></div>
         <div class="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-ink-900 to-transparent"></div>
         <div class="absolute inset-x-0 bottom-0 -z-10 h-28 bg-gradient-to-t from-ink-900 to-transparent"></div>
-        <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
-            <h2 class="font-lux text-[clamp(2.6rem,5.2vw,4.8rem)] font-normal leading-[1.02] tracking-[-0.015em] text-white">Commissions</h2>
-            <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Your marque, made to order.</p>
-            <p class="mx-auto mt-8 max-w-md font-label font-normal leading-relaxed text-[#e4dfd2]">Tell us the car. We design, carve and finish the piece for your garage.</p>
-            <div class="mt-12 flex justify-center">
-                <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-solid">Commission a piece</a>
+        <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+            <h2 data-split class="font-lux text-[clamp(2.6rem,5.2vw,4.8rem)] font-normal leading-[1.02] tracking-[-0.015em] text-white">Commissions</h2>
+            <p data-split style="--base: 300ms" class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Your marque, made to order.</p>
+            <p data-rise style="--d: 800ms" class="mx-auto mt-8 max-w-md font-label font-normal leading-relaxed text-[#e4dfd2]">Tell us the car. We design, carve and finish the piece for your garage.</p>
+            <div class="mt-12 flex justify-center" data-rise style="--d: 1000ms">
+                <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-solid" data-magnetic>Commission a piece</a>
             </div>
         </div>
     </section>
@@ -163,16 +169,18 @@
     {{-- OUR STORY: a short introduction, the full story lives on its own page. --}}
     <section class="bg-ink-900 py-28 sm:py-36">
         <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
-            <div class="lg:col-span-5" data-reveal>
-                <div class="plate-mat mx-auto aspect-[4/5] max-w-[26rem] lg:max-w-none">
-                    <img src="{{ asset('images/df211347-0d1d-4047-9ded-30cdf48ee89555.webp') }}" alt="The maker carving a piece by hand" loading="lazy" class="h-full w-full object-cover">
+            <div class="lg:col-span-5">
+                <div class="plate-mat mx-auto aspect-[4/5] max-w-[26rem] lg:max-w-none" data-tilt="5">
+                    <div class="h-full w-full overflow-hidden" data-clip>
+                        <img src="{{ asset('images/df211347-0d1d-4047-9ded-30cdf48ee89555.webp') }}" alt="The maker carving a piece by hand" loading="lazy" class="h-full w-full object-cover" style="scale: 1.12" data-parallax="0.035">
+                    </div>
                 </div>
             </div>
-            <div class="lg:col-span-6 lg:col-start-7" data-reveal style="transition-delay: 120ms">
-                <h2 class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Our Story</h2>
-                <p class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Woodwork with a story to tell.</p>
-                <p class="mt-8 max-w-xl font-label text-[1.05rem] font-light leading-[1.85] text-[#b9b5ab]">At JDM Custom Creations, we are passionate artisans dedicated to bringing your ideas to life through the timeless beauty of handcrafted woodwork. Our journey began with a simple mission: to create unique, custom made pieces that reflect the individuality and vision of our customers.</p>
-                <div class="mt-10">
+            <div class="lg:col-span-6 lg:col-start-7">
+                <h2 data-split style="--base: 200ms" class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Our Story</h2>
+                <p data-split style="--base: 500ms" class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Woodwork with a story to tell.</p>
+                <p data-rise style="--d: 900ms" class="mt-8 max-w-xl font-label text-[1.05rem] font-light leading-[1.85] text-[#b9b5ab]">At JDM Custom Creations, we are passionate artisans dedicated to bringing your ideas to life through the timeless beauty of handcrafted woodwork. Our journey began with a simple mission: to create unique, custom made pieces that reflect the individuality and vision of our customers.</p>
+                <div class="mt-10" data-rise style="--d: 1100ms">
                     <a href="{{ route('pages.about') }}" class="link-line">Read our story</a>
                 </div>
             </div>
@@ -183,8 +191,8 @@
     @if ($workshop->isNotEmpty())
         <section class="border-t border-white/10 bg-ink-900 py-12">
             <div class="mx-auto flex max-w-[88rem] flex-col gap-5 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
-                <p class="font-lux text-xl italic text-[#8f949c]">Also from the workshop</p>
-                <ul class="flex flex-wrap gap-x-9 gap-y-3">
+                <p data-rise class="font-lux text-xl italic text-[#8f949c]">Also from the workshop</p>
+                <ul class="flex flex-wrap gap-x-9 gap-y-3" data-stagger>
                     @foreach ($workshop as $category)
                         <li><a href="{{ route('category.show', $category) }}" class="link-line">{{ $category->name }}</a></li>
                     @endforeach

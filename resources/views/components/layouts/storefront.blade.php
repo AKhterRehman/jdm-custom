@@ -9,7 +9,7 @@
         <title>{{ isset($title) ? $title.' - ' : '' }}{{ config('app.name') }}</title>
         <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
-        <script>try{var t=localStorage.getItem('jdm-theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch(e){}</script>
+        <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('jdm-theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch(e){}</script>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700|bodoni-moda:400,500,600,400i,500i|jost:300,400,500&display=swap" rel="stylesheet" />

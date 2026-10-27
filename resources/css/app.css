@@ -255,6 +255,83 @@ li:last-child > .index-row { border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
     .hero-progress.is-running .hero-progress__bar { animation: none; transform: scaleX(1); }
 }
 
+/* ---------- Home motion (see resources/js/motion.js) ---------- */
+
+/* Hidden states only apply while the motion script is running (html.js), so the page reads fine without it. */
+html.js [data-split] { opacity: 0; }
+html.js [data-split].is-split { opacity: 1; }
+.split-w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.1em 0.07em 0.18em 0.02em; margin: -0.1em -0.07em -0.18em -0.02em; }
+.split-w__in { display: inline-block; transform: translateY(118%); transition: transform 1200ms cubic-bezier(.2, .8, .2, 1) calc(var(--w, 0) * 80ms + var(--base, 0ms)); }
+[data-split].is-visible .split-w__in { transform: none; }
+
+html.js [data-rise] { opacity: 0; transform: translateY(26px); transition: opacity 1000ms ease var(--d, 0ms), transform 1200ms cubic-bezier(.2, .8, .2, 1) var(--d, 0ms); }
+html.js [data-rise].is-visible { opacity: 1; transform: none; }
+
+/* A framed piece swings in from depth, like a plate being turned toward you. */
+html.js [data-plate3d] { opacity: 0; transform: perspective(1500px) translate3d(0, 40px, -120px) rotateY(-16deg) rotateX(5deg); transform-origin: 0% 50%; transition: opacity 1000ms ease var(--d, 0ms), transform 1800ms cubic-bezier(.2, .8, .2, 1) var(--d, 0ms); }
+html.js [data-plate3d].is-visible { opacity: 1; transform: perspective(1500px) translate3d(0, 0, 0) rotateY(0) rotateX(0); }
+
+/* Photographs are unveiled with a wipe while the image settles. */
+html.js [data-clip] { clip-path: inset(100% 0 0 0); transition: clip-path 1600ms cubic-bezier(.77, 0, .18, 1); }
+html.js [data-clip].is-visible { clip-path: inset(0 0 0 0); }
+html.js [data-clip] > img { transform: scale(1.22); transition: transform 2400ms cubic-bezier(.2, .8, .2, 1); }
+html.js [data-clip].is-visible > img { transform: none; }
+
+html.js [data-stagger]:not([data-stagger="boxes"]) > * { opacity: 0; transform: translateY(22px); transition: opacity 900ms ease calc(var(--i, 0) * 90ms), transform 1100ms cubic-bezier(.2, .8, .2, 1) calc(var(--i, 0) * 90ms); }
+html.js [data-stagger].is-visible:not([data-stagger="boxes"]) > * { opacity: 1; transform: none; }
+
+/* Sizes: each square stands up from the floor in turn, and lifts toward you on hover. */
+.size-box { background: linear-gradient(160deg, rgba(184, 155, 94, 0.08), transparent 62%); }
+html.js [data-stagger="boxes"] .size-box { transform-origin: 50% 100%; opacity: 0; transform: perspective(900px) rotateX(-80deg) translateY(30px); transition: opacity 700ms ease calc(var(--i, 0) * 150ms), transform 1500ms cubic-bezier(.2, .8, .2, 1) calc(var(--i, 0) * 150ms), box-shadow 500ms ease; }
+html.js [data-stagger="boxes"].is-visible .size-box { opacity: 1; transform: perspective(900px) rotateX(0) translateY(0); }
+html.js [data-stagger="boxes"] > * p { opacity: 0; transition: opacity 900ms ease calc(var(--i, 0) * 150ms + 600ms); }
+html.js [data-stagger="boxes"].is-visible > * p { opacity: 1; }
+html.js [data-stagger="boxes"].is-settled .size-box { transition-delay: 0ms; }
+html.js [data-stagger="boxes"].is-settled .size-box:hover { transform: perspective(900px) translateY(-10px) rotateX(14deg); box-shadow: 0 30px 40px -26px rgba(184, 155, 94, 0.55); }
+
+/* Pointer tilt with a soft light across the surface. */
+[data-tilt] { position: relative; will-change: transform; }
+.tilt-glare { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0; transition: opacity 500ms ease; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.16), transparent 55%); }
+[data-tilt]:hover .tilt-glare { opacity: 1; }
+
+/* Hero: slow push-in on the photograph, a light that follows the cursor, a quiet scroll cue. */
+@keyframes kenburns { from { scale: 1.16; } to { scale: 1.26; } }
+.kenburns { scale: 1.16; animation: kenburns 26s ease-in-out infinite alternate; }
+.hero-glow { position: absolute; inset: 0; z-index: -10; pointer-events: none; opacity: 0; transition: opacity 900ms ease; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 40%), rgba(209, 179, 112, 0.14), transparent 65%); }
+[data-hero]:hover .hero-glow { opacity: 1; }
+.scroll-cue__line { position: relative; display: block; width: 3.5rem; height: 1px; overflow: hidden; background: rgba(255, 255, 255, 0.18); }
+.scroll-cue__line::after { content: ''; position: absolute; inset: 0; background: #b89b5e; transform: translateX(-100%); animation: scroll-cue 2.8s cubic-bezier(.6, 0, .2, 1) infinite; }
+@keyframes scroll-cue { 0% { transform: translateX(-100%); } 55%, 100% { transform: translateX(100%); } }
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 60; height: 2px; pointer-events: none; background: linear-gradient(90deg, #8a6a2b, #d1b370); transform: scaleX(0); transform-origin: left; }
+
+/* The caption eases in each time the hero piece changes. */
+@keyframes swap-in { from { opacity: 0; transform: translateY(0.45em); } to { opacity: 1; transform: none; } }
+.swap-in { animation: swap-in 750ms cubic-bezier(.2, .8, .2, 1); }
+
+/* Links redraw their hairline on hover; the main button leans toward the cursor. */
+@keyframes link-draw { from { background-size: 0 1px; } to { background-size: 100% 1px; } }
+.link-line:hover { animation: link-draw 650ms cubic-bezier(.2, .7, .2, 1); }
+.btn-solid[data-magnetic] { transition: background-color 350ms ease, color 350ms ease, translate 500ms cubic-bezier(.2, .7, .2, 1); }
+
+/* Collection: the stage image settles in and the active row draws a gold line. */
+.index-stage__img { transform: scale(1.07); transition: opacity 800ms ease, transform 1700ms cubic-bezier(.2, .7, .2, 1); }
+.index-stage__img.is-active { transform: none; }
+.index-row__price { transition: transform 600ms cubic-bezier(.2, .7, .2, 1), color 450ms ease; }
+@media (min-width: 1024px) {
+    .index-row { position: relative; }
+    .index-row::after { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: #b89b5e; transform: scaleX(0); transform-origin: left; transition: transform 900ms cubic-bezier(.2, .7, .2, 1); }
+    .index-row.is-active::after, .index-row:focus-visible::after { transform: scaleX(1); }
+    .index-row.is-active .index-row__price { transform: translateX(-0.35rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.js [data-split], html.js [data-rise], html.js [data-plate3d], html.js [data-clip], html.js [data-clip] > img,
+    html.js [data-stagger] > *, html.js [data-stagger] .size-box, html.js [data-stagger] > * p { opacity: 1; transform: none; clip-path: none; transition: none; }
+    .split-w__in { transform: none; transition: none; }
+    .kenburns, .scroll-cue__line::after, .swap-in, .link-line:hover { animation: none; }
+    .index-stage__img { transform: none; transition: none; }
+}
+
 /* ---------- Design 2: every dark page ---------- */
 
 body.is-dark { font-family: Jost, ui-sans-serif, system-ui, sans-serif; font-weight: 300; }

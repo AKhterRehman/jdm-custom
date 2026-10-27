@@ -4,6 +4,8 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+import './motion';
+
 // Reveal [data-reveal] elements with a fade+slide as they scroll into view.
 if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -126,6 +128,13 @@ if (heroPieces.length > 1) {
         nameEl.textContent = heroPieces[current].dataset.name;
         priceEl.textContent = heroPieces[current].dataset.price;
         countEl.textContent = String(current + 1).padStart(2, '0');
+
+        // The caption eases in again each time the piece changes.
+        [nameEl, priceEl, countEl].forEach((el) => {
+            el.classList.remove('swap-in');
+            void el.offsetWidth;
+            el.classList.add('swap-in');
+        });
     };
 
     const restartProgress = () => {
