@@ -150,14 +150,15 @@
 
     {{-- COMMISSION --}}
     <section class="relative isolate overflow-hidden bg-ink-900 py-32 sm:py-44">
-        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-40" loading="lazy" aria-hidden="true">
-        <div class="absolute inset-0 -z-10 bg-ink-900/60"></div>
-        <div class="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-ink-900 to-transparent"></div>
-        <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink-900 to-transparent"></div>
+        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" loading="lazy" aria-hidden="true">
+        {{-- A soft dark pool behind the copy keeps it readable while the car stays visible around it. --}}
+        <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_60%_at_50%_50%,rgba(11,11,13,0.8)_0%,rgba(11,11,13,0.4)_55%,rgba(11,11,13,0.08)_100%)]"></div>
+        <div class="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-ink-900 to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 -z-10 h-28 bg-gradient-to-t from-ink-900 to-transparent"></div>
         <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
             <p class="label text-gold-500">Commissions</p>
             <h2 class="mt-6 font-lux text-[clamp(2.6rem,5.2vw,4.8rem)] font-normal leading-[1.02] tracking-[-0.015em] text-white">Your marque,<br><em class="font-normal italic text-gold-300">made to order.</em></h2>
-            <p class="mx-auto mt-8 max-w-md font-label font-light leading-relaxed text-[#b9b5ab]">Tell us the car. We design, carve and finish the piece for your garage.</p>
+            <p class="mx-auto mt-8 max-w-md font-label font-normal leading-relaxed text-[#e4dfd2]">Tell us the car. We design, carve and finish the piece for your garage.</p>
             <div class="mt-12 flex justify-center">
                 <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-solid">Commission a piece</a>
             </div>
