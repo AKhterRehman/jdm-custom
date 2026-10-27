@@ -176,24 +176,80 @@
 .dark-pagination nav a:hover { border-color: #c0a062 !important; color: #e0c993 !important; }
 .dark-pagination nav .shadow-sm { box-shadow: none; }
 
-/* ---------- Hero artwork slider ---------- */
-/* Every piece glides between slots, so the pieces shift position rather than fading out together. */
-.art-piece {
-    --glide: 1500ms cubic-bezier(.65, 0, .25, 1);
-    transition: left var(--glide), top var(--glide), width var(--glide), opacity var(--glide), z-index 0s linear 750ms;
-    will-change: left, top, width, opacity;
+/* ---------- Home: private gallery ---------- */
+
+/* Small spaced capitals used for labels and counters. */
+.label { font-family: Jost, sans-serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; }
+.rule-gold { display: block; height: 1px; width: 3.25rem; background: #b89b5e; }
+
+/* Solid bone coloured button, no gradient or glow. */
+.btn-solid {
+    display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
+    padding: 1.1rem 2.2rem; background: #ece7da; color: #0b0b0d;
+    font-family: Jost, sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase;
+    transition: background-color 350ms ease, color 350ms ease;
 }
-.art-piece[data-slot="center"]    { left: 28%;  top: 0%;   width: 46%; opacity: 1; z-index: 20; }
-.art-piece[data-slot="left"]      { left: 0%;   top: 30%;  width: 33%; opacity: 1; z-index: 10; }
-.art-piece[data-slot="right"]     { left: 70%;  top: 22%;  width: 30%; opacity: 1; z-index: 10; }
-.art-piece[data-slot="out-left"]  { left: -28%; top: 38%;  width: 26%; opacity: 0; z-index: 0; pointer-events: none; }
-.art-piece[data-slot="out-right"] { left: 104%; top: 38%;  width: 26%; opacity: 0; z-index: 0; pointer-events: none; }
+.btn-solid:hover { background: #b89b5e; }
+
+/* Text link with a hairline underneath. */
+.link-line {
+    display: inline-block; padding-bottom: 0.45rem;
+    font-family: Jost, sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: #ece7da;
+    background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+    transition: color 300ms ease;
+}
+.link-line:hover { color: #d1b370; }
+
+/* An artwork "plate": the photo sits inside a dark mount, like a framed print on a gallery wall. */
+.plate-mat { background: #111113; border: 1px solid rgba(255, 255, 255, 0.09); padding: clamp(0.8rem, 4%, 1.5rem); box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.95); }
+
+/* Hero: pieces crossfade slowly with a barely visible settle. */
+.hero-plate__img { position: absolute; inset: 0; display: block; opacity: 0; transform: scale(1.04); transition: opacity 1400ms ease, transform 8000ms cubic-bezier(.2, .6, .2, 1); }
+.hero-plate__img.is-active { opacity: 1; transform: scale(1); }
+.hero-progress { position: relative; height: 1px; background: rgba(255, 255, 255, 0.16); }
+.hero-progress__bar { position: absolute; inset: 0; background: #b89b5e; transform: scaleX(0); transform-origin: left; }
+.hero-progress.is-running .hero-progress__bar { animation: hero-progress var(--hero-interval, 6500ms) linear forwards; }
+[data-hero]:hover .hero-progress__bar, [data-hero]:focus-within .hero-progress__bar { animation-play-state: paused; }
+@keyframes hero-progress { to { transform: scaleX(1); } }
+
+/* Collection index: a typographic list that drives a large image. */
+.index-row {
+    display: grid; grid-template-columns: 2.6rem 1fr auto; align-items: baseline; gap: 1.1rem;
+    padding: 1.45rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(236, 231, 218, 0.4); transition: color 450ms ease, padding-left 450ms cubic-bezier(.2, .7, .2, 1);
+}
+li:last-child > .index-row { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.index-row__num { color: rgba(184, 155, 94, 0.6); transition: color 450ms ease; }
+.index-row__name { font-size: clamp(1.9rem, 3.3vw, 3.2rem); line-height: 1.05; letter-spacing: -0.01em; }
+.index-row__price { font-size: 0.82rem; font-weight: 300; letter-spacing: 0.04em; white-space: nowrap; }
+.index-row.is-active, .index-row:focus-visible { color: #fff; padding-left: 0.9rem; outline: none; }
+.index-row.is-active .index-row__num, .index-row:focus-visible .index-row__num { color: #d1b370; }
+.index-row__thumb { display: none; }
+.index-stage__img { position: absolute; inset: 0; opacity: 0; transition: opacity 700ms ease; }
+.index-stage__img.is-active { opacity: 1; }
+
+/* On small screens the list shows its own thumbnails instead of the sticky stage, with the price under the name. */
+@media (max-width: 1023px) {
+    .index-row {
+        grid-template-columns: 1.8rem 3.6rem minmax(0, 1fr);
+        grid-template-areas: "num thumb name" "num thumb price";
+        align-items: center; column-gap: 1rem; row-gap: 0.15rem;
+        color: #ece7da; padding: 0.95rem 0;
+    }
+    .index-row__num { grid-area: num; }
+    .index-row__thumb { grid-area: thumb; display: block; height: 4.6rem; width: 3.6rem; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .index-row__name { grid-area: name; align-self: end; font-size: 1.6rem; overflow-wrap: anywhere; }
+    .index-row__price { grid-area: price; align-self: start; color: rgba(236, 231, 218, 0.55); }
+    .index-row.is-active { padding-left: 0; }
+}
+
+/* Sizes: proportional outlines, drawn to scale against the largest. */
+.size-box { aspect-ratio: 1; border: 1px solid rgba(184, 155, 94, 0.6); position: relative; }
+.size-box::before, .size-box::after { content: ''; position: absolute; width: 0.55rem; height: 0.55rem; border: 1px solid #b89b5e; background: #17171a; }
+.size-box::before { top: -0.3rem; left: -0.3rem; }
+.size-box::after { bottom: -0.3rem; right: -0.3rem; }
 
 @media (prefers-reduced-motion: reduce) {
-    .art-piece { transition: none; }
+    .hero-plate__img, .index-stage__img, .index-row { transition: none; }
+    .hero-progress.is-running .hero-progress__bar { animation: none; transform: scaleX(1); }
 }
-
-/* Drag to slide: grab cursor, no text or image selection, vertical page scroll still works on touch. */
-.art-slider-area { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-.art-slider-area.is-dragging { cursor: grabbing; }
-.art-slider-area img { -webkit-user-drag: none; }

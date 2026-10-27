@@ -101,121 +101,69 @@ window.setTimeout(() => {
     });
 }, 250);
 
-// Hero artwork slider: advances on its own and pauses while hovered or focused. Each piece keeps
-// its element and glides to its next slot (see .art-piece in app.css).
-const artSlider = document.querySelector('[data-art-slider]');
+// Home hero: pieces change when the progress line completes, and pause while the hero is hovered.
+const heroSection = document.querySelector('[data-hero]');
+const heroPieces = heroSection ? Array.from(heroSection.querySelectorAll('[data-hero-piece]')) : [];
 
-if (artSlider) {
-    const artPieces = Array.from(artSlider.querySelectorAll('[data-art-piece]'));
-    const count = artPieces.length;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let centre = 1;
-    let artTimer;
+if (heroPieces.length > 1) {
+    const progress = heroSection.querySelector('.hero-progress');
+    const bar = heroSection.querySelector('.hero-progress__bar');
+    const nameEl = heroSection.querySelector('[data-hero-name]');
+    const priceEl = heroSection.querySelector('[data-hero-price]');
+    const countEl = heroSection.querySelector('[data-hero-count]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0;
 
-    const slotFor = (offset) => {
-        if (offset === -1) return 'left';
-        if (offset === 0) return 'center';
-        if (offset === 1) return 'right';
-        return offset < 0 ? 'out-left' : 'out-right';
-    };
+    const showPiece = (index) => {
+        current = (index + heroPieces.length) % heroPieces.length;
 
-    const arrange = () => {
-        artPieces.forEach((piece, i) => {
-            let offset = (((i - centre) % count) + count) % count;
-            if (offset >= count / 2) offset -= count;
-
-            const slot = slotFor(offset);
-            const visible = slot === 'left' || slot === 'center' || slot === 'right';
-            piece.dataset.slot = slot;
-            piece.setAttribute('aria-hidden', visible ? 'false' : 'true');
-            piece.setAttribute('tabindex', visible ? '0' : '-1');
+        heroPieces.forEach((piece, i) => {
+            const active = i === current;
+            piece.classList.toggle('is-active', active);
+            piece.setAttribute('tabindex', active ? '0' : '-1');
         });
+
+        nameEl.textContent = heroPieces[current].dataset.name;
+        priceEl.textContent = heroPieces[current].dataset.price;
+        countEl.textContent = String(current + 1).padStart(2, '0');
     };
 
-    const stopArtTimer = () => window.clearInterval(artTimer);
-    const startArtTimer = () => {
-        stopArtTimer();
-        if (!prefersReducedMotion) {
-            artTimer = window.setInterval(() => {
-                centre = (centre + 1) % count;
-                arrange();
-            }, 4800);
+    const restartProgress = () => {
+        progress.classList.remove('is-running');
+        void progress.offsetWidth;
+        progress.classList.add('is-running');
+    };
+
+    if (!reducedMotion) {
+        bar.addEventListener('animationend', () => {
+            showPiece(current + 1);
+            restartProgress();
+        });
+        restartProgress();
+    }
+}
+
+// Collection index: hovering or focusing a row brings that piece forward on the stage.
+const indexSection = document.querySelector('[data-index]');
+
+if (indexSection) {
+    const rows = Array.from(indexSection.querySelectorAll('[data-index-row]'));
+    const images = Array.from(indexSection.querySelectorAll('[data-index-image]'));
+    const nameEl = indexSection.querySelector('[data-index-name]');
+    const linkEl = indexSection.querySelector('[data-index-link]');
+
+    const activate = (i) => {
+        rows.forEach((row, n) => row.classList.toggle('is-active', n === i));
+        images.forEach((image, n) => image.classList.toggle('is-active', n === i));
+
+        if (images[i] && nameEl && linkEl) {
+            nameEl.textContent = images[i].dataset.name;
+            linkEl.setAttribute('href', images[i].dataset.url);
         }
     };
 
-    const go = (step) => {
-        centre = (centre + step + count) % count;
-        arrange();
-    };
-
-    // Drag (mouse, pen or touch) to move the slider; a short drag steps one piece. A drag never
-    // counts as a click, and clicking a side piece brings it to the centre.
-    let dragStartX = null;
-    let dragged = false;
-
-    artSlider.addEventListener('pointerdown', (event) => {
-        if (event.button !== undefined && event.button !== 0) return;
-        dragStartX = event.clientX;
-        dragged = false;
-        stopArtTimer();
+    rows.forEach((row, i) => {
+        row.addEventListener('mouseenter', () => activate(i));
+        row.addEventListener('focus', () => activate(i));
     });
-
-    artSlider.addEventListener('pointermove', (event) => {
-        if (dragStartX === null) return;
-        if (Math.abs(event.clientX - dragStartX) > 8) {
-            dragged = true;
-            artSlider.classList.add('is-dragging');
-        }
-    });
-
-    const endDrag = (event) => {
-        if (dragStartX === null) return;
-        const distance = event.clientX - dragStartX;
-        dragStartX = null;
-        artSlider.classList.remove('is-dragging');
-
-        if (dragged && Math.abs(distance) > 40) {
-            go(distance < 0 ? 1 : -1);
-        }
-
-        if (event.pointerType !== 'mouse') startArtTimer();
-    };
-
-    artSlider.addEventListener('pointerup', endDrag);
-    artSlider.addEventListener('pointercancel', endDrag);
-    artSlider.addEventListener('dragstart', (event) => event.preventDefault());
-
-    artSlider.addEventListener('click', (event) => {
-        const piece = event.target.closest('[data-art-piece]');
-
-        if (dragged) {
-            event.preventDefault();
-            dragged = false;
-            return;
-        }
-
-        if (piece && piece.dataset.slot === 'left') {
-            event.preventDefault();
-            go(-1);
-        } else if (piece && piece.dataset.slot === 'right') {
-            event.preventDefault();
-            go(1);
-        }
-    }, true);
-
-    // Letting go outside the slider ends the drag too.
-    artSlider.addEventListener('pointerleave', (event) => {
-        if (dragStartX !== null && event.pointerType === 'mouse') {
-            dragStartX = null;
-            artSlider.classList.remove('is-dragging');
-        }
-    });
-
-    artSlider.addEventListener('mouseenter', stopArtTimer);
-    artSlider.addEventListener('mouseleave', startArtTimer);
-    artSlider.addEventListener('focusin', stopArtTimer);
-    artSlider.addEventListener('focusout', startArtTimer);
-
-    arrange();
-    startArtTimer();
 }

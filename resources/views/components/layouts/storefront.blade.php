@@ -1,4 +1,4 @@
-@props(['title' => null, 'dark' => false])
+@props(['title' => null, 'dark' => false, 'overlay' => false])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -10,7 +10,7 @@
         <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700|bodoni-moda:400,500,600,400i,500i|jost:300,400,500&display=swap" rel="stylesheet" />
 
         <style>
             .payment-methods {
@@ -100,7 +100,9 @@
             $cartCount = auth()->check() ? auth()->user()->cart?->items()->sum('quantity') : null;
         @endphp
 
-        <header x-data="{ mobileOpen: false }" class="bg-ink-900/95 backdrop-blur text-gray-200 sticky top-0 z-30 border-b border-white/10">
+        <header x-data="{ mobileOpen: false, scrolled: false }" @scroll.window="scrolled = window.scrollY > 24"
+                :class="{{ $overlay ? "scrolled ? 'bg-ink-900/95 backdrop-blur border-white/10' : 'bg-transparent border-transparent'" : "'bg-ink-900/95 backdrop-blur border-white/10'" }}"
+                class="text-gray-200 {{ $overlay ? 'fixed inset-x-0 top-0' : 'sticky top-0' }} z-30 border-b transition-colors duration-500">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-24 items-center justify-between gap-8">
                     <a href="{{ route('home') }}" class="shrink-0 inline-flex items-center justify-center" aria-label="JDM Custom Creations home">

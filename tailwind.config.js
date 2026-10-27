@@ -15,6 +15,8 @@ export default {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 heading: ['Lexend', ...defaultTheme.fontFamily.sans],
                 display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                lux: ['"Bodoni Moda"', 'Didot', 'Georgia', 'serif'],
+                label: ['Jost', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 ink: {

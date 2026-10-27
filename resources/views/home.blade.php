@@ -1,175 +1,180 @@
-<x-layouts.storefront :dark="true">
+<x-layouts.storefront :dark="true" :overlay="true">
     @php
-        // Hero slider: each piece is rendered once and glides between slots (left, centre, right,
-        // plus off-screen waiting spots), so the pieces shift position instead of fading out together.
-        $startIndex = 1;
-        $pieceCount = $sliderPieces->count();
-        $slotFor = function (int $i) use ($startIndex, $pieceCount): string {
-            $offset = (($i - $startIndex) % $pieceCount + $pieceCount) % $pieceCount;
-            if ($offset >= $pieceCount / 2) {
-                $offset -= $pieceCount;
-            }
-
-            return match (true) {
-                $offset === -1 => 'left',
-                $offset === 0 => 'center',
-                $offset === 1 => 'right',
-                $offset < 0 => 'out-left',
-                default => 'out-right',
-            };
-        };
-
-        $marques = ['Porsche', 'Lamborghini', 'Mercedes AMG', 'Bentley', 'Rolls Royce', 'Aston Martin', 'BMW M', 'Shelby'];
+        $firstSize = $sizes[0] ?? null;
+        $lastSize = $sizes ? $sizes[count($sizes) - 1] : null;
+        $sizeRange = $firstSize && $lastSize ? $firstSize['inches'].' to '.$lastSize['inches'].' inch' : null;
+        $featuredCount = $featured->count();
     @endphp
 
-    {{-- HERO: the artwork leads, copy stays minimal. --}}
-    <section class="relative isolate overflow-hidden bg-ink-900 text-white">
-        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-75" aria-hidden="true">
-        <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(11,11,13,0.96)_0%,rgba(11,11,13,0.72)_42%,rgba(11,11,13,0.3)_100%)]"></div>
-        <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink-900 to-transparent"></div>
+    {{-- HERO --}}
+    <section class="relative isolate overflow-hidden bg-ink-900 text-[#ece7da]" data-hero>
+        <img src="{{ asset('images/luxury-garage-hero.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-50" aria-hidden="true">
+        <div class="absolute inset-0 -z-10 bg-[linear-gradient(95deg,rgba(11,11,13,0.97)_0%,rgba(11,11,13,0.82)_42%,rgba(11,11,13,0.55)_100%)]"></div>
+        <div class="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-ink-900 to-transparent"></div>
 
-        <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:min-h-[calc(100vh-6rem)] lg:grid-cols-12 lg:gap-8 lg:px-8 lg:py-20">
-            <div class="lg:col-span-5" data-reveal>
-                <p class="lux-eyebrow">JDM Custom Creations</p>
-                <h1 class="mt-6 font-display text-5xl font-medium leading-[1.02] tracking-tight sm:text-7xl">
-                    Automotive art,<br><span class="text-gradient-animate italic">handcrafted.</span>
+        <div class="mx-auto grid min-h-[100svh] max-w-[88rem] items-center gap-14 px-5 pb-20 pt-36 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-16 lg:pt-32">
+            <div class="lg:col-span-6 xl:col-span-6" data-reveal>
+                <div class="flex items-center gap-4">
+                    <span class="rule-gold"></span>
+                    <p class="label text-gold-500">JDM Custom Creations</p>
+                </div>
+                <h1 class="mt-9 font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.6vw,6.6rem)]">
+                    Automotive art<br>for the <em class="font-normal italic text-gold-300">private garage.</em>
                 </h1>
-                <div class="lux-rule mt-8"></div>
-                <p class="mt-8 max-w-md text-base leading-relaxed text-silver-300">
-                    Hand-finished hardwood and epoxy crests, made to order for the collector's garage.
+                <p class="mt-9 max-w-md font-label text-[1.02rem] font-light leading-relaxed text-[#b9b5ab]">
+                    Hand finished crests in hardwood and epoxy. Each piece is made to order, one at a time.
                 </p>
-                <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+                <div class="mt-11 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-9">
                     @if ($automotive)
-                        <a href="{{ route('category.show', $automotive) }}" class="btn-gold">View the Collection</a>
+                        <a href="{{ route('category.show', $automotive) }}" class="btn-solid">View the collection</a>
                     @endif
-                    <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-ghost">Commission a Piece</a>
+                    <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="link-line">Commission a piece</a>
                 </div>
             </div>
 
-            <div class="lg:col-span-7">
-                @if ($pieceCount >= 3)
-                    <div class="art-slider-area mx-auto w-full max-w-2xl" data-art-slider>
-                        <div class="relative aspect-[6/5] w-full">
-                            @foreach ($sliderPieces as $i => $piece)
-                                @php
-                                    $slot = $slotFor($i);
-                                    $pieceName = \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ');
-                                    $visible = in_array($slot, ['left', 'center', 'right'], true);
-                                @endphp
-                                <a href="{{ route('product.show', $piece) }}" data-art-piece data-slot="{{ $slot }}" draggable="false"
-                                   class="art-card art-piece absolute block"
-                                   tabindex="{{ $visible ? '0' : '-1' }}" aria-hidden="{{ $visible ? 'false' : 'true' }}"
-                                   aria-label="{{ $pieceName }}">
-                                    <div class="lux-float {{ $i % 2 ? 'lux-float-delay' : '' }}">
-                                        {{-- Every plate is the same 3:4 box. Wide photos keep their full artwork and are
-                                             filled with a soft blur of themselves rather than being cropped or shrunk. --}}
-                                        <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: 3 / 4;">
-                                            @if ($piece->slider_aspect > 0.85)
-                                                <img src="{{ $piece->slider_src }}" alt="" aria-hidden="true" draggable="false" class="absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-2xl brightness-[.45]">
-                                            @endif
-                                            <img src="{{ $piece->slider_src }}" alt="{{ $pieceName }}" draggable="false" class="relative h-full w-full object-contain" decoding="async">
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
+            @if ($featuredCount)
+                <div class="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9" data-reveal style="transition-delay: 120ms">
+                    <div class="mx-auto w-full max-w-[26rem] lg:max-w-none">
+                        <div class="plate-mat aspect-[4/5]">
+                            <div class="relative h-full w-full overflow-hidden">
+                                @foreach ($featured as $i => $piece)
+                                    <a href="{{ route('product.show', $piece) }}" data-hero-piece
+                                       data-name="{{ $piece->display_name }}" data-price="From ${{ number_format($piece->from_price) }}"
+                                       class="hero-plate__img {{ $i === 0 ? 'is-active' : '' }}" tabindex="{{ $i === 0 ? '0' : '-1' }}"
+                                       aria-label="{{ $piece->display_name }}">
+                                        <img src="{{ $piece->plate_src }}" alt="{{ $piece->display_name }}" class="h-full w-full object-cover" draggable="false">
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
+
+                        <div class="mt-5 flex items-end justify-between gap-6">
+                            <div class="min-w-0">
+                                <p class="label text-silver-500"><span data-hero-count>01</span> / {{ str_pad($featuredCount, 2, '0', STR_PAD_LEFT) }}</p>
+                                <p class="mt-2 truncate font-lux text-[1.45rem] leading-tight text-white" data-hero-name>{{ $featured[0]->display_name }}</p>
+                            </div>
+                            <p class="shrink-0 pb-1 font-label text-sm font-light text-[#b9b5ab]" data-hero-price>From ${{ number_format($featured[0]->from_price) }}</p>
+                        </div>
+                        <div class="hero-progress mt-5" aria-hidden="true"><span class="hero-progress__bar"></span></div>
                     </div>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
     </section>
 
-    {{-- MARQUE STRIP --}}
-    <div class="border-y border-white/10 bg-ink-900 py-5">
-        <div class="marque-strip">
-            <div class="marque-strip__track">
-                @for ($i = 0; $i < 4; $i++)
-                    <div class="flex shrink-0 items-center">
-                        @foreach ($marques as $marque)
-                            <span class="whitespace-nowrap px-8 font-display text-2xl italic text-silver-400">{{ $marque }}</span>
-                            <span class="text-[0.5rem] text-gold-500">&#9670;</span>
-                        @endforeach
-                    </div>
-                @endfor
-            </div>
-        </div>
-    </div>
-
     {{-- THE COLLECTION --}}
     @if ($collection->isNotEmpty())
-        <section id="collection" class="bg-ink-900 py-24 sm:py-32">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="mb-16 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end" data-reveal>
+        <section id="collection" class="bg-ink-900 py-28 sm:py-36" data-index>
+            <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+                <div class="mb-16 flex items-end justify-between gap-8 sm:mb-20" data-reveal>
                     <div>
-                        <p class="lux-eyebrow">Automotive Art</p>
-                        <h2 class="mt-4 font-display text-4xl font-medium text-white sm:text-6xl">The Collection</h2>
-                        <div class="lux-rule mt-6"></div>
+                        <p class="label text-gold-500">The Collection</p>
+                        <h2 class="mt-5 font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white">Choose a marque.</h2>
                     </div>
                     @if ($automotive)
-                        <a href="{{ route('category.show', $automotive) }}" class="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-silver-300 transition hover:text-gold-400">View all &rarr;</a>
+                        <a href="{{ route('category.show', $automotive) }}" class="link-line hidden sm:inline-block">View all pieces</a>
                     @endif
                 </div>
 
-                <div class="grid grid-cols-2 gap-x-5 gap-y-14 lg:grid-cols-3 lg:gap-x-8">
-                    @foreach ($collection as $piece)
-                        <div data-reveal style="transition-delay: {{ ($loop->index % 3) * 80 }}ms">
-                            @include('partials.product-card', ['product' => $piece, 'dark' => true])
+                <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+                    <ol class="lg:col-span-6" data-reveal>
+                        @foreach ($collection as $i => $piece)
+                            <li>
+                                <a href="{{ route('product.show', $piece) }}" data-index-row data-index="{{ $i }}"
+                                   class="index-row {{ $i === 0 ? 'is-active' : '' }}">
+                                    <span class="index-row__num label">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="index-row__thumb lg:hidden"><img src="{{ $piece->plate_src }}" alt="" loading="lazy" class="h-full w-full object-cover"></span>
+                                    <span class="index-row__name font-lux">{{ $piece->marque }}</span>
+                                    <span class="index-row__price font-label">From ${{ number_format($piece->from_price) }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ol>
+
+                    <div class="hidden lg:col-span-5 lg:col-start-8 lg:block">
+                        <div class="sticky top-32">
+                            <div class="plate-mat aspect-[4/5]">
+                                <div class="relative h-full w-full overflow-hidden bg-[#0b0b0d]">
+                                    @foreach ($collection as $i => $piece)
+                                        <div data-index-image class="index-stage__img {{ $i === 0 ? 'is-active' : '' }}"
+                                             data-name="{{ $piece->display_name }}" data-url="{{ route('product.show', $piece) }}">
+                                            @if ($piece->plate_aspect > 0.85)
+                                                <img src="{{ $piece->plate_src }}" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-2xl brightness-[.45]">
+                                            @endif
+                                            <img src="{{ $piece->plate_src }}" alt="{{ $piece->display_name }}" loading="lazy" class="relative h-full w-full {{ $piece->plate_aspect > 0.85 ? 'object-contain' : 'object-cover' }}">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="mt-5 flex items-end justify-between gap-6">
+                                <p class="min-w-0 font-lux text-[1.45rem] leading-tight text-white"><span class="block truncate" data-index-name>{{ $collection[0]->display_name }}</span></p>
+                                <a href="{{ route('product.show', $collection[0]) }}" data-index-link class="link-line shrink-0">View piece</a>
+                            </div>
+                            @if ($sizeRange)
+                                <p class="mt-2 font-label text-sm font-light text-silver-500">Hardwood and epoxy. {{ $sizeRange }}.</p>
+                            @endif
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{-- SIZES --}}
+    @if (count($sizes) >= 2)
+        <section class="border-y border-white/10 bg-charcoal-900 py-28 sm:py-36">
+            <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+                <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+                    <div class="lg:col-span-4" data-reveal>
+                        <p class="label text-gold-500">Sizes</p>
+                        <h2 class="mt-5 font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">The same crest, at four scales.</h2>
+                        <p class="mt-7 max-w-sm font-label font-light leading-relaxed text-[#b9b5ab]">Every piece is made to order. Other dimensions are available on request, and shipping is calculated at checkout.</p>
+                    </div>
+
+                    <div class="lg:col-span-8" data-reveal>
+                        @php $largest = max(array_column($sizes, 'inches')); @endphp
+                        <div class="flex items-end gap-5 sm:gap-8">
+                            @foreach ($sizes as $size)
+                                <div class="min-w-0 flex-1">
+                                    <div class="size-box" style="width: {{ round($size['inches'] / $largest * 100) }}%"></div>
+                                    <p class="mt-5 font-lux text-2xl text-white sm:text-3xl">{{ $size['inches'] }}<span class="font-label text-sm font-light text-silver-500"> in</span></p>
+                                    <p class="mt-1 font-label text-sm font-light text-[#b9b5ab]">${{ number_format($size['price']) }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     @endif
 
     {{-- COMMISSION --}}
-    <section class="relative isolate overflow-hidden bg-ink-900 py-28 sm:py-36">
-        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-45" loading="lazy" aria-hidden="true">
-        <div class="absolute inset-0 -z-10 bg-gradient-to-b from-ink-900 via-ink-900/70 to-ink-900"></div>
-        <div class="mx-auto max-w-3xl px-4 text-center sm:px-6" data-reveal>
-            <p class="lux-eyebrow">Made to order</p>
-            <h2 class="mt-5 font-display text-4xl font-medium leading-tight text-white sm:text-6xl">Your marque. <span class="italic text-gold-300">Your crest.</span></h2>
-            <p class="mx-auto mt-6 max-w-lg text-silver-300">Tell us the car. We design, carve, and finish a piece for your garage.</p>
-            <div class="mt-10 flex justify-center">
-                <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-gold">Request a Custom Piece</a>
-            </div>
-            <div class="mx-auto mt-14 flex max-w-xl flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-white/10 pt-8 text-[0.7rem] uppercase tracking-[0.24em] text-silver-400">
-                @foreach ([['24"', '$400'], ['30"', '$600'], ['36"', '$800'], ['46"', '$1,200']] as [$size, $price])
-                    <span>{{ $size }} <span class="text-gold-400">from {{ $price }}</span></span>
-                @endforeach
+    <section class="relative isolate overflow-hidden bg-ink-900 py-32 sm:py-44">
+        <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-40" loading="lazy" aria-hidden="true">
+        <div class="absolute inset-0 -z-10 bg-ink-900/60"></div>
+        <div class="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-ink-900 to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink-900 to-transparent"></div>
+        <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
+            <p class="label text-gold-500">Commissions</p>
+            <h2 class="mt-6 font-lux text-[clamp(2.6rem,5.2vw,4.8rem)] font-normal leading-[1.02] tracking-[-0.015em] text-white">Your marque,<br><em class="font-normal italic text-gold-300">made to order.</em></h2>
+            <p class="mx-auto mt-8 max-w-md font-label font-light leading-relaxed text-[#b9b5ab]">Tell us the car. We design, carve and finish the piece for your garage.</p>
+            <div class="mt-12 flex justify-center">
+                <a href="{{ route('pages.contact') }}?inquiry_type=custom-order" class="btn-solid">Commission a piece</a>
             </div>
         </div>
     </section>
 
-    {{-- ALSO FROM THE WORKSHOP: deliberately small and quiet. --}}
+    {{-- ALSO FROM THE WORKSHOP: a single quiet line. --}}
     @if ($workshop->isNotEmpty())
-        <section class="bg-charcoal-900 py-20 sm:py-24">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="mb-10 flex items-end justify-between" data-reveal>
-                    <div>
-                        <p class="lux-eyebrow">Also from the workshop</p>
-                        <h2 class="mt-3 font-display text-3xl text-white sm:text-4xl">Furniture &amp; custom work</h2>
-                    </div>
-                    <a href="{{ route('shop.index') }}" class="hidden text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-silver-300 transition hover:text-gold-400 sm:block">Shop all &rarr;</a>
-                </div>
-                <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+        <section class="border-t border-white/10 bg-ink-900 py-12">
+            <div class="mx-auto flex max-w-[88rem] flex-col gap-5 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+                <p class="label text-silver-500">Also from the workshop</p>
+                <ul class="flex flex-wrap gap-x-9 gap-y-3">
                     @foreach ($workshop as $category)
-                        <a href="{{ route('category.show', $category) }}" class="art-card group block" data-reveal style="transition-delay: {{ $loop->index * 70 }}ms">
-                            <div class="art-plate aspect-square">
-                                <img src="{{ $category->cover->images->first()->url() }}" alt="{{ $category->name }}" class="h-full w-full object-cover opacity-80 transition group-hover:opacity-100" loading="lazy">
-                            </div>
-                            <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-silver-300 transition group-hover:text-gold-300">{{ $category->name }}</p>
-                        </a>
+                        <li><a href="{{ route('category.show', $category) }}" class="link-line">{{ $category->name }}</a></li>
                     @endforeach
-                </div>
+                </ul>
             </div>
         </section>
     @endif
-
-    {{-- STORY: one line, the full story lives on the About page. --}}
-    <section class="border-t border-white/10 bg-ink-900 py-16">
-        <div class="mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center sm:px-6" data-reveal>
-            <p class="font-display text-2xl italic text-silver-300 sm:text-3xl">Designed, carved, and finished by hand.</p>
-            <a href="{{ route('pages.about') }}" class="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold-400 transition hover:text-gold-300">Our story &rarr;</a>
-        </div>
-    </section>
 </x-layouts.storefront>
