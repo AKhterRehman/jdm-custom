@@ -5,7 +5,7 @@
     <section class="zone-dark relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-hero.jpg" />
 
-        <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 pb-24 pt-40 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-28 lg:pt-44">
+        <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 pb-16 pt-40 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12 lg:pb-20 lg:pt-44">
             <div class="lg:col-span-6" data-reveal>
                 <h1 class="font-lux font-normal leading-[0.98] tracking-[-0.015em] text-[clamp(3rem,6.2vw,6.2rem)]">Our Story</h1>
                 <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Woodwork with a story to tell.</p>
@@ -19,7 +19,7 @@
     </section>
 
     {{-- THE STORY --}}
-    <section class="bg-ink-900 py-28 sm:py-36">
+    <section class="bg-ink-900 py-16 sm:py-20">
         <div class="mx-auto grid max-w-[88rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
             <div class="lg:col-span-4" data-reveal>
                 <h2 class="font-lux text-[clamp(2.2rem,3.4vw,3.2rem)] font-normal leading-[1.05] tracking-[-0.01em] text-white">The JDM story</h2>
@@ -49,7 +49,7 @@
     </section>
 
     {{-- MISSION --}}
-    <section class="bg-ink-900 py-28 sm:py-36">
+    <section class="bg-ink-900 py-16 sm:py-20">
         <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
             <div class="lg:col-span-5 lg:col-start-1" data-reveal>
                 <div class="plate-mat mx-auto aspect-[3/4] max-w-[26rem] lg:max-w-none">
@@ -71,7 +71,7 @@
     </section>
 
     {{-- COMMITMENT --}}
-    <section class="border-t border-white/10 bg-charcoal-900 py-28 sm:py-36">
+    <section class="border-t border-white/10 bg-charcoal-900 py-16 sm:py-20">
         <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
             <div class="lg:col-span-6 lg:order-1" data-reveal>
                 <h2 class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Our commitment</h2>

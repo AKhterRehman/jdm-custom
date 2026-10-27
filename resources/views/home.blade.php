@@ -65,9 +65,9 @@
 
     {{-- THE COLLECTION --}}
     @if ($collection->isNotEmpty())
-        <section id="collection" class="bg-ink-900 py-28 sm:py-36" data-index>
+        <section id="collection" class="bg-ink-900 py-16 sm:py-20" data-index>
             <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
-                <div class="mb-16 flex items-end justify-between gap-8 sm:mb-20">
+                <div class="mb-10 flex items-end justify-between gap-8 sm:mb-12">
                     <div>
                         <h2 data-split class="font-lux text-[clamp(2.4rem,4.4vw,4.2rem)] font-normal leading-[1.02] tracking-[-0.01em] text-white">The Collection</h2>
                         <p data-split style="--base: 300ms" class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">Choose a marque.</p>
@@ -77,7 +77,7 @@
                     @endif
                 </div>
 
-                <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+                <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
                     <ol class="lg:col-span-6" data-stagger>
                         @foreach ($collection as $i => $piece)
                             <li>
@@ -123,9 +123,9 @@
 
     {{-- SIZES --}}
     @if (count($sizes) >= 2)
-        <section class="border-y border-white/10 bg-charcoal-900 py-28 sm:py-36">
+        <section class="border-y border-white/10 bg-charcoal-900 py-16 sm:py-20">
             <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
-                <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+                <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
                     <div class="lg:col-span-4">
                         <h2 data-split class="font-lux text-[clamp(2.4rem,4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.01em] text-white">Sizes</h2>
                         <p data-split style="--base: 300ms" class="mt-4 font-lux text-[clamp(1.3rem,2vw,1.8rem)] italic leading-snug text-gold-300">The same crest, at four scales.</p>
@@ -150,7 +150,7 @@
     @endif
 
     {{-- COMMISSION --}}
-    <section class="zone-dark relative isolate overflow-hidden bg-ink-900 py-32 sm:py-44">
+    <section class="zone-dark relative isolate overflow-hidden bg-ink-900 py-20 sm:py-28">
         <img src="{{ asset('images/luxury-garage-commission.jpg') }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-95 brightness-110 contrast-105" style="scale: 1.2" data-parallax="0.06" loading="lazy" aria-hidden="true">
         {{-- A soft dark pool behind the copy keeps it readable while the car stays visible around it. --}}
         <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_60%_at_50%_50%,rgba(11,11,13,0.8)_0%,rgba(11,11,13,0.4)_55%,rgba(11,11,13,0.08)_100%)]"></div>
@@ -167,8 +167,8 @@
     </section>
 
     {{-- OUR STORY: a short introduction, the full story lives on its own page. --}}
-    <section class="bg-ink-900 py-28 sm:py-36">
-        <div class="mx-auto grid max-w-[88rem] items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
+    <section class="bg-ink-900 py-16 sm:py-20">
+        <div class="mx-auto grid max-w-[88rem] items-center gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
             <div class="lg:col-span-5">
                 <div class="plate-mat mx-auto aspect-[4/5] max-w-[26rem] lg:max-w-none" data-tilt="5">
                     <div class="h-full w-full overflow-hidden" data-clip>
@@ -189,7 +189,7 @@
 
     {{-- ALSO FROM THE WORKSHOP: a single quiet line. --}}
     @if ($workshop->isNotEmpty())
-        <section class="border-t border-white/10 bg-ink-900 py-12">
+        <section class="border-t border-white/10 bg-ink-900 py-8">
             <div class="mx-auto flex max-w-[88rem] flex-col gap-5 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
                 <p data-rise class="font-lux text-xl italic text-[#8f949c]">Also from the workshop</p>
                 <ul class="flex flex-wrap gap-x-9 gap-y-3" data-stagger>

@@ -1,5 +1,5 @@
 <x-layouts.storefront :dark="true" title="Your Wishlist">
-    <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+    <div class="mx-auto max-w-[88rem] px-5 py-10 sm:px-8 sm:py-16 lg:px-12">
         <h1 class="font-lux font-normal text-[#ece7da] mb-8 text-[clamp(2.2rem,4vw,3.4rem)] leading-[1.05] tracking-[-0.01em]">Your Wishlist</h1>
 
         @if (session('status'))

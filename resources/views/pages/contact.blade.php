@@ -1,13 +1,13 @@
 <x-layouts.storefront :dark="true" title="Contact Us">
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-commission.jpg" />
-        <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
+        <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
             <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Contact <em class="font-normal italic text-gold-300">us.</em></h1>
             <p class="mt-7 max-w-lg font-label text-[1.02rem] font-light leading-relaxed text-[#cfcabd]">Questions about a custom piece, an order, or a personalized design? We're here to help.</p>
         </div>
     </section>
 
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid lg:grid-cols-2 gap-16">
             <div>
                 @if (session('status'))

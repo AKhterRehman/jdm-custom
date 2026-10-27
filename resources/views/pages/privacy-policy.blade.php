@@ -1,13 +1,13 @@
 <x-layouts.storefront :dark="true" title="Privacy Policy">
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-commission.jpg" />
-        <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
+        <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
             <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">Privacy <em class="font-normal italic text-gold-300">policy.</em></h1>
             <p class="mt-7 max-w-lg font-label text-[1.02rem] font-light leading-relaxed text-[#cfcabd]">Last updated: {{ now()->format('F j, Y') }}</p>
         </div>
     </section>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 prose-sm">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose-sm">
         <div class="space-y-10 text-[#d3cec1] leading-relaxed">
             <p class="text-[#8f949c] italic">
                 At JDM Custom Creations, your privacy is a top priority. This Privacy Policy outlines how we collect,

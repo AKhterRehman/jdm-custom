@@ -92,13 +92,13 @@
 <x-layouts.storefront :dark="true" title="Shop">
     <section class="page-head relative isolate overflow-hidden bg-ink-900 text-[#ece7da]">
         <x-page-bg image="luxury-garage-commission.jpg" />
-        <div class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 sm:py-28 lg:px-12">
+        <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
             <h1 class="font-lux text-[clamp(2.8rem,6vw,5.2rem)] font-normal leading-[1] tracking-[-0.015em]">The full catalog</h1>
             <p class="mt-4 font-lux text-[clamp(1.5rem,2.6vw,2.4rem)] italic leading-snug text-gold-300">Every piece, in one place.</p>
         </div>
     </section>
 
-    <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+    <div class="mx-auto max-w-[88rem] px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
         <div class="grid gap-12 lg:grid-cols-4 lg:gap-12">
             <aside class="lg:col-span-1" x-data="{ open: false }">
                 <button type="button" @click="open = !open" :aria-expanded="open" class="btn-line mb-6 w-full lg:hidden">
@@ -297,7 +297,7 @@
                     @endforelse
                 </div>
 
-                <div class="mt-16 dark-pagination">
+                <div class="mt-10 dark-pagination">
                     {{ $products->links() }}
                 </div>
             </div>
