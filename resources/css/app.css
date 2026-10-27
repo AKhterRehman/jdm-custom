@@ -192,3 +192,8 @@
 @media (prefers-reduced-motion: reduce) {
     .art-piece { transition: none; }
 }
+
+/* Drag to slide: grab cursor, no text or image selection, vertical page scroll still works on touch. */
+.art-slider-area { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.art-slider-area.is-dragging { cursor: grabbing; }
+.art-slider-area img { -webkit-user-drag: none; }

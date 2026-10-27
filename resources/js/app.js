@@ -143,6 +143,74 @@ if (artSlider) {
         }
     };
 
+    const go = (step) => {
+        centre = (centre + step + count) % count;
+        arrange();
+    };
+
+    // Drag (mouse, pen or touch) to move the slider; a short drag steps one piece. A drag never
+    // counts as a click, and clicking a side piece brings it to the centre.
+    let dragStartX = null;
+    let dragged = false;
+
+    artSlider.addEventListener('pointerdown', (event) => {
+        if (event.button !== undefined && event.button !== 0) return;
+        dragStartX = event.clientX;
+        dragged = false;
+        stopArtTimer();
+    });
+
+    artSlider.addEventListener('pointermove', (event) => {
+        if (dragStartX === null) return;
+        if (Math.abs(event.clientX - dragStartX) > 8) {
+            dragged = true;
+            artSlider.classList.add('is-dragging');
+        }
+    });
+
+    const endDrag = (event) => {
+        if (dragStartX === null) return;
+        const distance = event.clientX - dragStartX;
+        dragStartX = null;
+        artSlider.classList.remove('is-dragging');
+
+        if (dragged && Math.abs(distance) > 40) {
+            go(distance < 0 ? 1 : -1);
+        }
+
+        if (event.pointerType !== 'mouse') startArtTimer();
+    };
+
+    artSlider.addEventListener('pointerup', endDrag);
+    artSlider.addEventListener('pointercancel', endDrag);
+    artSlider.addEventListener('dragstart', (event) => event.preventDefault());
+
+    artSlider.addEventListener('click', (event) => {
+        const piece = event.target.closest('[data-art-piece]');
+
+        if (dragged) {
+            event.preventDefault();
+            dragged = false;
+            return;
+        }
+
+        if (piece && piece.dataset.slot === 'left') {
+            event.preventDefault();
+            go(-1);
+        } else if (piece && piece.dataset.slot === 'right') {
+            event.preventDefault();
+            go(1);
+        }
+    }, true);
+
+    // Letting go outside the slider ends the drag too.
+    artSlider.addEventListener('pointerleave', (event) => {
+        if (dragStartX !== null && event.pointerType === 'mouse') {
+            dragStartX = null;
+            artSlider.classList.remove('is-dragging');
+        }
+    });
+
     artSlider.addEventListener('mouseenter', stopArtTimer);
     artSlider.addEventListener('mouseleave', startArtTimer);
     artSlider.addEventListener('focusin', stopArtTimer);

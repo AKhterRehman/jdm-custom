@@ -48,7 +48,7 @@
 
             <div class="lg:col-span-7">
                 @if ($pieceCount >= 3)
-                    <div class="mx-auto w-full max-w-2xl" data-art-slider>
+                    <div class="art-slider-area mx-auto w-full max-w-2xl" data-art-slider>
                         <div class="relative aspect-[6/5] w-full">
                             @foreach ($sliderPieces as $i => $piece)
                                 @php
@@ -56,13 +56,18 @@
                                     $pieceName = \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($piece->name, ' | '), ' – ');
                                     $visible = in_array($slot, ['left', 'center', 'right'], true);
                                 @endphp
-                                <a href="{{ route('product.show', $piece) }}" data-art-piece data-slot="{{ $slot }}"
+                                <a href="{{ route('product.show', $piece) }}" data-art-piece data-slot="{{ $slot }}" draggable="false"
                                    class="art-card art-piece absolute block"
                                    tabindex="{{ $visible ? '0' : '-1' }}" aria-hidden="{{ $visible ? 'false' : 'true' }}"
                                    aria-label="{{ $pieceName }}">
                                     <div class="lux-float {{ $i % 2 ? 'lux-float-delay' : '' }}">
-                                        <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: {{ $piece->slider_aspect }};">
-                                            <img src="{{ $piece->slider_src }}" alt="{{ $pieceName }}" class="h-full w-full object-cover" decoding="async">
+                                        {{-- Every plate is the same 3:4 box. Wide photos keep their full artwork and are
+                                             filled with a soft blur of themselves rather than being cropped or shrunk. --}}
+                                        <div class="art-plate shadow-[0_40px_80px_-30px_rgba(0,0,0,0.95)]" style="aspect-ratio: 3 / 4;">
+                                            @if ($piece->slider_aspect > 0.85)
+                                                <img src="{{ $piece->slider_src }}" alt="" aria-hidden="true" draggable="false" class="absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-2xl brightness-[.45]">
+                                            @endif
+                                            <img src="{{ $piece->slider_src }}" alt="{{ $pieceName }}" draggable="false" class="relative h-full w-full object-contain" decoding="async">
                                         </div>
                                     </div>
                                 </a>
