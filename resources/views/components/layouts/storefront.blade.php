@@ -109,14 +109,14 @@
                         <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
-                    <nav class="hidden lg:flex items-center gap-5 xl:gap-9 whitespace-nowrap text-[0.7rem] xl:text-[0.72rem] font-semibold uppercase tracking-[0.16em] xl:tracking-[0.22em]">
+                    <nav class="hidden lg:flex items-center gap-5 xl:gap-9 whitespace-nowrap text-[0.78rem] xl:text-[0.9rem] font-semibold uppercase tracking-[0.14em] xl:tracking-[0.2em]">
                         <a href="{{ route('home') }}" class="transition {{ request()->routeIs('home') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Home</a>
                         @if ($automotiveCategory)
                             <a href="{{ route('category.show', $automotiveCategory) }}" class="transition {{ request()->is('category/'.$automotiveCategory->slug) ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Automotive Art</a>
                         @endif
                         <a href="{{ route('shop.index') }}" class="transition {{ request()->routeIs('shop.*') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">Shop</a>
                         <div class="relative group">
-                            <button type="button" class="flex items-center gap-1 transition {{ request()->routeIs('category.*') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">
+                            <button type="button" class="flex items-center gap-1 uppercase transition {{ request()->routeIs('category.*') ? 'text-gold-400' : 'text-white hover:text-gold-400' }}">
                                 Categories
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-3 w-3 mt-0.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
@@ -151,17 +151,17 @@
                                     <span class="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-gold-500 text-[10px] font-bold text-ink-900">{{ $cartCount }}</span>
                                 @endif
                             </a>
-                            <a href="{{ route('account.index') }}" class="hidden lg:inline text-gray-300 hover:text-white transition font-medium">Account</a>
+                            <a href="{{ route('account.index') }}" class="hidden lg:inline text-[0.95rem] text-gray-200 hover:text-white transition font-medium">Account</a>
                             @if (auth()->user()->is_admin)
-                                <a href="{{ route('admin.dashboard') }}" class="hidden lg:inline text-gray-300 hover:text-white transition font-medium">Admin</a>
+                                <a href="{{ route('admin.dashboard') }}" class="hidden lg:inline text-[0.95rem] text-gray-200 hover:text-white transition font-medium">Admin</a>
                             @endif
                             <form action="{{ route('logout') }}" method="POST" class="hidden lg:block">
                                 @csrf
-                                <button type="submit" class="text-gray-300 hover:text-white transition font-medium">Log Out</button>
+                                <button type="submit" class="text-[0.95rem] text-gray-200 hover:text-white transition font-medium">Log Out</button>
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="hidden lg:inline text-gray-300 hover:text-white transition font-medium">Login</a>
-                            <a href="{{ route('register') }}" class="hidden lg:inline bg-gold-500 px-5 py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-ink-900 hover:bg-gold-400 transition">Register</a>
+                            <a href="{{ route('login') }}" class="hidden lg:inline text-[0.95rem] text-gray-200 hover:text-white transition font-medium">Login</a>
+                            <a href="{{ route('register') }}" class="hidden lg:inline bg-gold-500 px-6 py-3 text-[0.8rem] font-bold uppercase tracking-[0.2em] text-ink-900 hover:bg-gold-400 transition">Register</a>
                         @endauth
 
                         <button type="button" @click="mobileOpen = true" class="lg:hidden text-gray-300 hover:text-white transition" aria-label="Open menu">
