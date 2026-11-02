@@ -78,7 +78,7 @@
                 <div class="mt-6">
                     @if ($product->sale_price)
                         <span class="font-display text-4xl font-semibold text-gold-300" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->sale_price, 2) }}</span>
-                        <span class="ml-2 text-lg text-gray-400 line-through">${{ number_format($product->price, 2) }}</span>
+                        <span class="ml-2 text-lg text-silver-500 line-through">${{ number_format($product->price, 2) }}</span>
                     @else
                         <span class="font-display text-4xl font-semibold text-white" x-text="'$' + Number(selectedPrice).toFixed(2)">${{ number_format($product->price, 2) }}</span>
                     @endif
@@ -121,9 +121,9 @@
                                                     x-on:change="available = Math.min({{ max(0, (int) $product->available_stock_quantity) }}, {{ max(0, (int) $option->stock_quantity) }}); selectedPrice = {{ $option->price !== null ? (float) $option->price : (float) ($product->sale_price ?? $product->price) + (float) $option->price_adjustment }}; if (quantity > available) quantity = available">
                                                 {{ $option->attribute_value }}
                                                 @if ($option->price !== null)
-                                                    <span class="text-gray-400">(${{ number_format($option->price, 2) }})</span>
+                                                    <span class="text-silver-500">(${{ number_format($option->price, 2) }})</span>
                                                 @elseif ($option->price_adjustment > 0)
-                                                    <span class="text-gray-400">(+${{ number_format($option->price_adjustment, 2) }})</span>
+                                                    <span class="text-silver-500">(+${{ number_format($option->price_adjustment, 2) }})</span>
                                                 @endif
                                             </label>
                                         @endforeach
@@ -260,15 +260,15 @@
                                 @if ($review->user->profile_image_path)
                                     <img src="{{ asset('storage/'.$review->user->profile_image_path) }}" alt="{{ $review->user->name }}" class="h-11 w-11 rounded-full object-cover ring-2 ring-white/10">
                                 @else
-                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold-600 font-heading text-sm font-bold uppercase text-white ring-2 ring-white/10">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold-500 font-display text-sm font-bold uppercase text-ink-900 ring-2 ring-white/10">
                                         {{ $initialsFor($review->user->name) }}
                                     </span>
                                 @endif
                                 <div class="min-w-0 flex-1">
                                     <div class="flex flex-wrap items-center justify-between gap-2">
                                         <div>
-                                            <p class="font-heading font-semibold text-white">{{ $review->user->name }}</p>
-                                            <p class="text-xs text-gray-400">{{ $review->created_at->format('M j, Y') }}</p>
+                                            <p class="font-display font-semibold text-white">{{ $review->user->name }}</p>
+                                            <p class="text-xs text-silver-500">{{ $review->created_at->format('M j, Y') }}</p>
                                         </div>
                                         <div class="flex" aria-label="{{ $review->rating }} out of 5 stars">
                                             {!! $renderStars((int) $review->rating, 5) !!}
@@ -322,7 +322,7 @@
                         </article>
                     @empty
                         <div class="border border-dashed border-white/15 bg-white/5 p-6 text-center">
-                            <p class="font-heading font-semibold text-white">No reviews yet</p>
+                            <p class="font-display font-semibold text-white">No reviews yet</p>
                             <p class="mt-2 text-sm text-silver-400">Be the first to share how this piece worked for your space or gift.</p>
                         </div>
                     @endforelse
@@ -330,13 +330,13 @@
         </section>
 
         <div id="review-modal" data-review-modal-open="{{ ($errors->review->any() || session('review_status')) ? 'true' : 'false' }}" class="fixed inset-0 z-50 hidden items-start justify-center overflow-y-auto bg-black/60 px-4 py-4 sm:items-center">
-            <div class="my-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-4 shadow-2xl sm:max-h-[88vh] sm:p-6">
-                <div class="flex items-start justify-between gap-4 border-b border-gray-100 pb-3">
+            <div class="my-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-charcoal-800 p-4 shadow-2xl sm:max-h-[88vh] sm:p-6">
+                <div class="flex items-start justify-between gap-4 border-b border-white/5 pb-3">
                     <div>
-                        <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-600">Add Review</p>
-                        <h3 class="font-heading text-lg font-bold text-ink-900">Share your thoughts</h3>
+                        <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-400">Add Review</p>
+                        <h3 class="font-display text-lg font-bold text-white">Share your thoughts</h3>
                     </div>
-                    <button type="button" data-close-review-modal class="rounded-full border border-gray-200 p-1.5 text-gray-500 transition hover:border-gold-200 hover:text-gold-600">
+                    <button type="button" data-close-review-modal class="rounded-full border border-white/10 p-1.5 text-silver-400 transition hover:border-gold-200 hover:text-gold-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -348,16 +348,16 @@
                         @csrf
 
                         @if (session('review_status'))
-                            <div class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+                            <div class="rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm font-medium text-green-300">
                                 {{ session('review_status') }}
                             </div>
                         @endif
 
                         <div>
-                            <p class="mb-1.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Your Rating</p>
+                            <p class="mb-1.5 text-xs font-semibold uppercase tracking-wide text-silver-400">Your Rating</p>
                             <div id="review-stars" class="flex flex-wrap gap-1.5" aria-label="Select review rating">
                                 @for ($star = 1; $star <= 5; $star++)
-                                    <button type="button" class="review-star-btn rounded-full border border-gray-200 bg-white p-1.5 text-gray-300 transition hover:border-gold-200 hover:text-amber-400" data-value="{{ $star }}" aria-label="Rate {{ $star }} out of 5">
+                                    <button type="button" class="review-star-btn rounded-full border border-white/10 bg-charcoal-800 p-1.5 text-gray-300 transition hover:border-gold-200 hover:text-amber-400" data-value="{{ $star }}" aria-label="Rate {{ $star }} out of 5">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.195 3.674a1 1 0 0 0 .95.69h3.864c.969 0 1.371 1.24.588 1.81l-3.126 2.271a1 1 0 0 0-.364 1.118l1.194 3.674c.3.922-.755 1.688-1.538 1.118l-3.126-2.271a1 1 0 0 0-1.176 0l-3.126 2.271c-.783.57-1.838-.196-1.538-1.118l1.194-3.674a1 1 0 0 0-.364-1.118L2.452 9.101c-.783-.57-.38-1.81.588-1.81h3.864a1 1 0 0 0 .95-.69l1.195-3.674Z" />
                                         </svg>
@@ -366,51 +366,51 @@
                             </div>
                             <input type="hidden" name="rating" id="review-rating" value="{{ old('rating', 0) }}">
                             @error('rating', 'review')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div>
-                            <label for="review" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Your Review</label>
-                            <textarea id="review" name="review" rows="3" required class="mt-1.5 block w-full rounded-lg border-gray-200 text-sm shadow-sm focus:border-gold-500 focus:ring-gold-500" placeholder="Write your review here...">{{ old('review') }}</textarea>
+                            <label for="review" class="text-xs font-semibold uppercase tracking-wide text-silver-400">Your Review</label>
+                            <textarea id="review" name="review" rows="3" required class="mt-1.5 block w-full rounded-lg border-white/10 text-sm shadow-sm focus:border-gold-500 focus:ring-gold-500" placeholder="Write your review here...">{{ old('review') }}</textarea>
                             @error('review', 'review')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div>
-                            <label for="review-images" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Product Images</label>
-                            <input id="review-images" name="images[]" type="file" accept="image/jpeg,image/png,image/webp" multiple class="mt-1.5 block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm text-gray-600 file:mr-4 file:rounded-md file:border-0 file:bg-ink-900 file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-white hover:file:bg-gold-600">
-                            <p class="mt-1 text-xs text-gray-500">Optional. Up to 6 JPG, PNG, or WebP images, 4MB each.</p>
+                            <label for="review-images" class="text-xs font-semibold uppercase tracking-wide text-silver-400">Product Images</label>
+                            <input id="review-images" name="images[]" type="file" accept="image/jpeg,image/png,image/webp" multiple class="mt-1.5 block w-full rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-silver-300 file:mr-4 file:rounded-md file:border-0 file:bg-ink-900 file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-white hover:file:bg-gold-400">
+                            <p class="mt-1 text-xs text-silver-400">Optional. Up to 6 JPG, PNG, or WebP images, 4MB each.</p>
                             @error('images', 'review')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div>
-                            <label for="review-videos" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Product Videos</label>
-                            <input id="review-videos" name="videos[]" type="file" accept="video/mp4,video/webm,video/quicktime" multiple class="mt-1.5 block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm text-gray-600 file:mr-4 file:rounded-md file:border-0 file:bg-ink-900 file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-white hover:file:bg-gold-600">
-                            <p class="mt-1 text-xs text-gray-500">Optional. Up to 3 MP4, WebM, or MOV videos, 20MB each.</p>
+                            <label for="review-videos" class="text-xs font-semibold uppercase tracking-wide text-silver-400">Product Videos</label>
+                            <input id="review-videos" name="videos[]" type="file" accept="video/mp4,video/webm,video/quicktime" multiple class="mt-1.5 block w-full rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-silver-300 file:mr-4 file:rounded-md file:border-0 file:bg-ink-900 file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-white hover:file:bg-gold-400">
+                            <p class="mt-1 text-xs text-silver-400">Optional. Up to 3 MP4, WebM, or MOV videos, 20MB each.</p>
                             @error('videos', 'review')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="flex flex-wrap justify-end gap-3 pt-1">
-                            <button type="button" data-close-review-modal class="rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-gold-300 hover:text-gold-600">
+                            <button type="button" data-close-review-modal class="rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-gray-200 transition hover:border-gold-300 hover:text-gold-300">
                                 Cancel
                             </button>
-                            <button type="submit" class="shine-btn inline-flex items-center justify-center rounded-md bg-gold-600 px-5 py-2 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-gold-500">
+                            <button type="submit" class="shine-btn inline-flex items-center justify-center rounded-md bg-gold-500 px-5 py-2 text-sm font-bold uppercase tracking-wide text-ink-900 transition hover:bg-gold-500">
                                 Submit Review
                             </button>
                         </div>
                     </form>
                 @else
-                    <div class="mt-6 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-5">
-                        <p class="text-sm leading-relaxed text-gray-600">Sign in to leave a verified review and upload a product photo.</p>
+                    <div class="mt-6 rounded-lg border border-dashed border-white/15 bg-white/5 p-5">
+                        <p class="text-sm leading-relaxed text-silver-300">Sign in to leave a verified review and upload a product photo.</p>
                         <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="{{ route('login') }}" class="rounded-md bg-ink-900 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-gold-600">Sign In</a>
-                            <a href="{{ route('register') }}" class="rounded-md border border-gray-300 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-ink-900 transition hover:border-gold-600 hover:text-gold-600">Create Account</a>
+                            <a href="{{ route('login') }}" class="rounded-md bg-gold-500 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-ink-900 transition hover:bg-gold-400">Sign In</a>
+                            <a href="{{ route('register') }}" class="rounded-md border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white transition hover:border-gold-500 hover:text-gold-300">Create Account</a>
                         </div>
                     </div>
                 @endauth
@@ -464,7 +464,7 @@
                         star.classList.toggle('text-amber-400', value <= selectedValue);
                         star.classList.toggle('text-gray-300', value > selectedValue);
                         star.classList.toggle('border-gold-200', value <= selectedValue);
-                        star.classList.toggle('bg-amber-50', value <= selectedValue);
+                        star.classList.toggle('bg-amber-500/10', value <= selectedValue);
                     });
                 };
 

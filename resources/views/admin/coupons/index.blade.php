@@ -1,14 +1,14 @@
 <x-layouts.admin title="Coupons">
     <div class="flex items-center justify-between mb-8">
-        <h1 class="font-heading text-2xl font-bold text-ink-900">Coupons</h1>
-        <a href="{{ route('admin.coupons.create') }}" class="rounded-md bg-ink-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
+        <h1 class="font-display text-3xl font-medium text-white">Coupons</h1>
+        <a href="{{ route('admin.coupons.create') }}" class="rounded-md bg-gold-500 px-4 py-2 text-sm font-semibold text-ink-900 hover:bg-gold-400 transition">
             Add Coupon
         </a>
     </div>
 
-    <div class="rounded-lg border border-gray-200 bg-white overflow-hidden">
+    <div class="rounded-lg border border-white/10 bg-charcoal-800 overflow-hidden">
         <table class="w-full text-sm">
-            <thead class="bg-gray-50 text-left text-gray-500">
+            <thead class="bg-white/5 text-left text-silver-400">
                 <tr>
                     <th class="px-4 py-3">Code</th>
                     <th class="px-4 py-3">Discount</th>
@@ -18,35 +18,35 @@
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100">
+            <tbody class="divide-y divide-white/10">
                 @forelse ($coupons as $coupon)
                     <tr>
                         <td class="px-4 py-3 font-medium">{{ $coupon->code }}</td>
                         <td class="px-4 py-3">{{ $coupon->type === 'percentage' ? $coupon->value.'%' : '$'.number_format($coupon->value, 2) }}</td>
                         <td class="px-4 py-3">{{ $coupon->used_count }}{{ $coupon->max_uses ? ' / '.$coupon->max_uses : '' }}</td>
-                        <td class="px-4 py-3 text-gray-500">{{ $coupon->expires_at?->format('M j, Y') ?? '—' }}</td>
+                        <td class="px-4 py-3 text-silver-400">{{ $coupon->expires_at?->format('M j, Y') ?? '—' }}</td>
                         <td class="px-4 py-3">
-                            <span class="rounded-full px-2 py-1 text-xs font-medium {{ $coupon->is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500' }}">
+                            <span class="rounded-full px-2 py-1 text-xs font-medium {{ $coupon->is_active ? 'bg-green-500/10 text-green-300' : 'bg-white/5 text-silver-400' }}">
                                 {{ $coupon->is_active ? 'Active' : 'Inactive' }}
                             </span>
                         </td>
                         <td class="px-4 py-3 text-right space-x-3">
-                            <a href="{{ route('admin.coupons.edit', $coupon) }}" class="text-gray-600 hover:text-red-600">Edit</a>
+                            <a href="{{ route('admin.coupons.edit', $coupon) }}" class="text-silver-300 hover:text-gold-400">Edit</a>
                             <form action="{{ route('admin.coupons.destroy', $coupon) }}" method="POST" class="inline" onsubmit="return confirm('Delete this coupon?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-gray-400 hover:text-red-600">Delete</button>
+                                <button type="submit" class="text-silver-500 hover:text-gold-400">Delete</button>
                             </form>
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="px-4 py-6 text-center text-gray-500">No coupons yet.</td></tr>
+                    <tr><td colspan="6" class="px-4 py-6 text-center text-silver-400">No coupons yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
     <div class="mt-6">
-        {{ $coupons->links() }}
+        <div class="dark-pagination">{{ $coupons->links() }}</div>
     </div>
 </x-layouts.admin>

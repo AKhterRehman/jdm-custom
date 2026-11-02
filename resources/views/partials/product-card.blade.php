@@ -29,24 +29,24 @@
                 @endif
             </p>
         @else
-            <div class="relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-sm transition group-hover:shadow-xl">
+            <div class="relative aspect-square overflow-hidden rounded-xl bg-white/5 shadow-sm transition group-hover:shadow-xl">
                 @if ($product->sale_price)
                     @php $discount = round((1 - $product->sale_price / $product->price) * 100); @endphp
-                    <span class="absolute top-3 left-3 z-10 rounded-full bg-gold-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">-{{ $discount }}%</span>
+                    <span class="absolute top-3 left-3 z-10 rounded-full bg-gold-500 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-ink-900">-{{ $discount }}%</span>
                 @endif
 
                 @if ($image)
                     <img src="{{ $image->url() }}" alt="{{ $image->alt_text }}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
                 @endif
             </div>
-            <p class="mt-4 text-xs font-semibold uppercase tracking-widest text-gray-400">{{ $product->category->name }}</p>
-            <p class="line-clamp-2 font-heading font-semibold text-ink-900 group-hover:text-gold-600 transition">{{ $displayName }}</p>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-widest text-silver-500">{{ $product->category->name }}</p>
+            <p class="line-clamp-2 font-display font-semibold text-white group-hover:text-gold-300 transition">{{ $displayName }}</p>
             <p class="mt-1">
                 @if ($product->sale_price)
-                    <span class="font-bold text-gold-600">${{ number_format($product->sale_price, 2) }}</span>
-                    <span class="ml-2 text-sm text-gray-400 line-through">${{ number_format($product->price, 2) }}</span>
+                    <span class="font-bold text-gold-400">${{ number_format($product->sale_price, 2) }}</span>
+                    <span class="ml-2 text-sm text-silver-500 line-through">${{ number_format($product->price, 2) }}</span>
                 @else
-                    <span class="font-bold text-ink-900">${{ number_format($product->price, 2) }}</span>
+                    <span class="font-bold text-white">${{ number_format($product->price, 2) }}</span>
                 @endif
             </p>
         @endif
@@ -59,7 +59,7 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" @disabled($product->available_stock_quantity < 1)
-                    class="w-full border px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] transition disabled:cursor-not-allowed disabled:opacity-40 {{ $dark ? 'border-white/20 text-white hover:border-gold-500 hover:text-gold-300' : 'rounded-md border-ink-900 text-ink-900 hover:border-gold-600 hover:bg-gold-600 hover:text-white' }}">
+                    class="w-full border px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] transition disabled:cursor-not-allowed disabled:opacity-40 {{ $dark ? 'border-white/20 text-white hover:border-gold-500 hover:text-gold-300' : 'rounded-md border-ink-900 text-white hover:border-gold-500 hover:bg-gold-400 hover:text-white' }}">
                     {{ $product->available_stock_quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
                 </button>
             </form>

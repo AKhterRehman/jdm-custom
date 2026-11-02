@@ -9,38 +9,38 @@
         <link rel="icon" type="image/png" href="{{ asset('images/jdm-custom-logo-gold.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lexend:600,700,800|cormorant-garamond:400,500,600,700&display=swap" rel="stylesheet" />
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <style>
-            .admin-table-wrap { overflow-x: auto; border: 1px solid #e5e7eb; border-radius: 0.75rem; background: #fff; box-shadow: 0 8px 24px rgba(15,23,42,.04); }
+            .admin-table-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,.1); border-radius: 0.75rem; background: #17171a; }
             .admin-table { min-width: 760px; width: 100%; border-collapse: collapse; }
-            .admin-table thead { background: #f8fafc; }
-            .admin-table th { padding: .8rem 1rem; color: #64748b; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; white-space: nowrap; }
-            .admin-table td { padding: .85rem 1rem; border-top: 1px solid #f1f5f9; vertical-align: middle; }
+            .admin-table thead { background: rgba(255,255,255,.04); }
+            .admin-table th { padding: .8rem 1rem; color: #c0a062; font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-align: left; text-transform: uppercase; white-space: nowrap; }
+            .admin-table td { padding: .85rem 1rem; border-top: 1px solid rgba(255,255,255,.07); vertical-align: middle; }
             .admin-table tbody tr { transition: background-color .15s ease; }
-            .admin-table tbody tr:hover { background: #fafafa; }
-            .admin-action { display: inline-flex; height: 2rem; width: 2rem; align-items: center; justify-content: center; border-radius: .5rem; color: #64748b; transition: color .15s ease, background-color .15s ease, transform .15s ease; }
-            .admin-action:hover { background: #fef2f2; color: #dc2626; transform: translateY(-1px); }
-            .admin-action--danger:hover { background: #fef2f2; color: #dc2626; }
+            .admin-table tbody tr:hover { background: rgba(255,255,255,.03); }
+            .admin-action { display: inline-flex; height: 2rem; width: 2rem; align-items: center; justify-content: center; border-radius: .5rem; color: #8f949c; transition: color .15s ease, background-color .15s ease, transform .15s ease; }
+            .admin-action:hover { background: rgba(192,160,98,.12); color: #e0c993; transform: translateY(-1px); }
+            .admin-action--danger:hover { background: rgba(239,68,68,.12); color: #f87171; }
             main table { min-width: 760px; width: 100%; border-collapse: collapse; }
-            main table thead { background: #f8fafc; }
-            main table th { padding: .8rem 1rem; color: #64748b; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; white-space: nowrap; }
-            main table td { padding: .85rem 1rem; border-top: 1px solid #f1f5f9; vertical-align: middle; }
-            main table tbody tr:hover { background: #fafafa; }
+            main table thead { background: rgba(255,255,255,.04); }
+            main table th { padding: .8rem 1rem; color: #c0a062; font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-align: left; text-transform: uppercase; white-space: nowrap; }
+            main table td { padding: .85rem 1rem; border-top: 1px solid rgba(255,255,255,.07); vertical-align: middle; }
+            main table tbody tr:hover { background: rgba(255,255,255,.03); }
             main table td:last-child { white-space: nowrap; }
-            main table td:last-child a:not(.admin-action), main table td:last-child button { display: inline-flex; height: 2rem; width: 2rem; align-items: center; justify-content: center; border-radius: .5rem; color: #64748b; font-size: 0; vertical-align: middle; transition: color .15s ease, background-color .15s ease; }
+            main table td:last-child a:not(.admin-action), main table td:last-child button { display: inline-flex; height: 2rem; width: 2rem; align-items: center; justify-content: center; border-radius: .5rem; color: #8f949c; font-size: 0; vertical-align: middle; transition: color .15s ease, background-color .15s ease; }
             main table td:last-child a:not(.admin-action)::before, main table td:last-child button::before { content: ''; display: block; height: 1.05rem; width: 1.05rem; background-position: center; background-repeat: no-repeat; background-size: contain; }
-            main table td:last-child a:not(.admin-action)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='1.8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125'/%3E%3C/svg%3E"); }
-            main table td:last-child button::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='1.8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673A2.25 2.25 0 0 1 15.916 21.75H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.11 48.11 0 0 0-3.478-.562m-10.978.562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0C8.91 2.63 8 3.613 8 4.794v.916'/%3E%3C/svg%3E"); }
-            main table td:last-child a:not(.admin-action):hover, main table td:last-child button:hover, .admin-action:hover { background: #fef2f2; color: #dc2626; }
+            main table td:last-child a:not(.admin-action)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238f949c' stroke-width='1.8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125'/%3E%3C/svg%3E"); }
+            main table td:last-child button::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238f949c' stroke-width='1.8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673A2.25 2.25 0 0 1 15.916 21.75H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.11 48.11 0 0 0-3.478-.562m-10.978.562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0C8.91 2.63 8 3.613 8 4.794v.916'/%3E%3C/svg%3E"); }
+            main table td:last-child a:not(.admin-action):hover, main table td:last-child button:hover, .admin-action:hover { background: rgba(192,160,98,.12); color: #e0c993; }
             .admin-sidebar-link { min-height: 2.75rem; }
             @media (max-width: 1023px) { .admin-sidebar { display: none; } .admin-main { padding: 1rem; } }
         </style>
     </head>
-    <body class="font-sans antialiased bg-gray-50 text-ink-900">
+    <body class="font-sans antialiased bg-ink-900 text-gray-300">
         <div class="flex min-h-screen">
-            <aside class="admin-sidebar w-60 shrink-0 bg-ink-900 text-gray-300 flex flex-col">
+            <aside class="admin-sidebar w-60 shrink-0 border-r border-white/10 bg-[#0e0e10] text-gray-300 flex flex-col">
                 <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 border-b border-white/10" aria-label="JDM Custom Creations admin dashboard">
                     <span class="inline-flex items-center justify-center">
                         <img src="{{ asset('images/jdm-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 3.5rem; width: auto;">
@@ -65,11 +65,11 @@
                         @php $active = request()->routeIs(str_replace('.index', '', $link['route']).'*'); @endphp
                         <a
                             href="{{ route($link['route']) }}"
-                            class="admin-sidebar-link flex items-center justify-between gap-2 rounded-md px-3 py-2.5 font-medium border-l-2 transition {{ $active ? 'bg-white/5 text-white border-red-600' : 'border-transparent hover:bg-white/5 hover:text-white' }}"
+                            class="admin-sidebar-link flex items-center justify-between gap-2 rounded-md px-3 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.14em] border-l-2 transition {{ $active ? 'bg-white/5 text-gold-300 border-gold-500' : 'border-transparent hover:bg-white/5 hover:text-white' }}"
                         >
                             <span>{{ $link['label'] }}</span>
                             @if ($link['label'] === 'Messages' && $unreadMessages > 0)
-                                <span class="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold text-white">{{ $unreadMessages }}</span>
+                                <span class="rounded-full bg-gold-500 px-2 py-0.5 text-[10px] font-bold text-ink-900">{{ $unreadMessages }}</span>
                             @endif
                         </a>
                     @endforeach
@@ -86,13 +86,13 @@
 
             <main class="admin-main min-w-0 flex-1 p-8">
                 @if (session('status'))
-                    <div class="mb-6 rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
+                    <div class="mb-6 rounded-md bg-green-500/10 border border-green-500/30 px-4 py-3 text-sm text-green-300">
                         {{ session('status') }}
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                    <div class="mb-6 rounded-md bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-300">
                         {{ session('error') }}
                     </div>
                 @endif

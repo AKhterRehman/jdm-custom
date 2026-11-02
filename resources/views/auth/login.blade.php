@@ -1,9 +1,9 @@
 <x-guest-layout>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Welcome back</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Sign in to your account</h2>
-            <p class="mt-2 text-sm leading-6 text-gray-500">Enter your details below to continue to JDM Custom.</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-400">Welcome back</p>
+            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-white">Sign in to your account</h2>
+            <p class="mt-2 text-sm leading-6 text-silver-400">Enter your details below to continue to JDM Custom.</p>
         </div>
 
         <!-- Session Status -->
@@ -14,14 +14,14 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email address')" class="text-ink-900" />
+                <x-input-label for="email" :value="__('Email address')" class="text-white" />
                 <x-text-input id="email" class="auth-premium-input mt-2 block w-full px-4 py-3" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <!-- Password -->
             <div x-data="{ showPassword: false }">
-                <x-input-label for="password" :value="__('Password')" class="text-ink-900" />
+                <x-input-label for="password" :value="__('Password')" class="text-white" />
                 <div class="auth-password-field">
                     <x-text-input id="password" class="auth-password-input auth-premium-input block w-full px-4 py-3 pr-12"
                                 x-ref="password"
@@ -39,12 +39,12 @@
 
             <div class="flex items-center justify-between gap-4 pt-0.5">
                 <label for="remember_me" class="inline-flex cursor-pointer items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-gold-600 shadow-sm focus:ring-gold-600" name="remember">
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <input id="remember_me" type="checkbox" class="rounded border-white/15 text-gold-400 shadow-sm focus:ring-gold-500" name="remember">
+                    <span class="ms-2 text-sm text-silver-300">{{ __('Remember me') }}</span>
                 </label>
 
                 @if (Route::has('password.request'))
-                    <a class="text-sm font-medium text-gray-600 transition hover:text-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-600 focus:ring-offset-2 rounded" href="{{ route('password.request') }}">
+                    <a class="text-sm font-medium text-silver-300 transition hover:text-gold-300 focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 rounded" href="{{ route('password.request') }}">
                         {{ __('Forgot password?') }}
                     </a>
                 @endif
@@ -56,8 +56,8 @@
 
             @if (Route::has('register'))
                 <div class="pt-1 text-center">
-                    <p class="mb-3 text-sm text-gray-600">Don&rsquo;t have an account?</p>
-                    <a href="{{ route('register') }}" class="auth-account-link flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition hover:border-gold-600 hover:text-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-600 focus:ring-offset-2">
+                    <p class="mb-3 text-sm text-silver-300">Don&rsquo;t have an account?</p>
+                    <a href="{{ route('register') }}" class="auth-account-link flex w-full items-center justify-center rounded-lg border border-white/15 bg-charcoal-800 px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:border-gold-500 hover:text-gold-300 focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2">
                         {{ __('Create account') }}
                     </a>
                 </div>

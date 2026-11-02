@@ -11,9 +11,9 @@
     </style>
     <div class="auth-panel-aligned mx-auto w-full max-w-md">
         <div class="mb-8">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Account recovery</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold tracking-tight text-ink-900">Verify your code</h2>
-            <p class="mt-2 text-sm leading-6 text-gray-500">Enter the 6-digit code sent to <span class="font-medium text-ink-900">{{ $email }}</span>.</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-400">Account recovery</p>
+            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-white">Verify your code</h2>
+            <p class="mt-2 text-sm leading-6 text-silver-400">Enter the 6-digit code sent to <span class="font-medium text-white">{{ $email }}</span>.</p>
         </div>
 
         <x-auth-session-status class="mb-5" :status="session('status')" />
@@ -48,7 +48,7 @@
         }">
             @csrf
             <div>
-                <x-input-label for="otp" :value="__('Verification code')" class="text-ink-900" />
+                <x-input-label for="otp" :value="__('Verification code')" class="text-white" />
                 <input x-ref="otp" id="otp" name="otp" type="hidden" required>
                 <div class="otp-code-panel">
                     <div class="otp-inputs" @paste="paste($event)">
@@ -74,7 +74,7 @@
                 <x-input-error :messages="$errors->get('otp')" class="mt-2" />
             </div>
             <x-primary-button class="w-full justify-center rounded-lg py-3.5 text-sm shadow-sm">{{ __('Verify code') }}</x-primary-button>
-            <p class="pt-1 text-center text-sm text-gray-600">Didn&rsquo;t receive it? <a href="{{ route('password.request') }}" class="auth-account-link font-semibold text-gold-600 hover:text-gold-700">Request a new code.</a></p>
+            <p class="pt-1 text-center text-sm text-silver-300">Didn&rsquo;t receive it? <a href="{{ route('password.request') }}" class="auth-account-link font-semibold text-gold-400 hover:text-gold-200">Request a new code.</a></p>
         </form>
     </div>
 </x-guest-layout>

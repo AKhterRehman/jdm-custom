@@ -28,14 +28,16 @@
 
             .auth-premium-input {
                 min-height: 3.25rem;
-                border-color: #d1d5db;
-                border-radius: 0.625rem;
-                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+                border-color: rgba(255, 255, 255, 0.15);
+                background-color: rgba(255, 255, 255, 0.05);
+                color: #fff;
+                border-radius: 0.375rem;
+                box-shadow: none;
                 transition: border-color 150ms ease, box-shadow 150ms ease;
             }
 
             .auth-premium-input:focus {
-                border-color: #9a7b3f;
+                border-color: #c0a062;
                 box-shadow: 0 0 0 3px rgba(192, 160, 98, 0.22);
             }
 
@@ -59,13 +61,13 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 0.5rem;
-                color: #94a3b8;
+                color: #8f949c;
                 transition: color 150ms ease, background-color 150ms ease;
             }
 
             .auth-eye-toggle:hover {
-                background: #f7f1e3;
-                color: #9a7b3f;
+                background: rgba(192, 160, 98, 0.12);
+                color: #e0c993;
             }
 
             .auth-eye-toggle:focus-visible {
@@ -90,7 +92,8 @@
             }
 
             .auth-form-card {
-                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -12px rgba(15, 23, 42, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
             }
 
             @media (max-width: 640px) {
@@ -109,7 +112,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-ink-900 antialiased">
+    <body class="font-sans text-gray-300 antialiased bg-ink-900">
         <div class="grid min-h-screen lg:grid-cols-2">
             {{-- Hero / brand column --}}
             <div class="hidden lg:flex flex-col justify-between text-white p-12 relative overflow-hidden auth-hero-panel">
@@ -129,13 +132,13 @@
             </div>
 
             {{-- Form column --}}
-            <div class="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
+            <div class="flex min-h-screen flex-col items-center justify-center bg-ink-900 px-4 py-8 sm:px-6 sm:py-10 lg:items-center lg:overflow-y-auto lg:px-12 lg:py-10">
                 <div class="w-full sm:max-w-lg">
                     <a href="/" class="mb-6 flex h-24 items-center justify-center lg:hidden" aria-label="JDM Custom Creations home">
                         <img src="{{ asset('images/jdm-custom-logo-gold.png') }}" alt="JDM Custom Creations" class="object-contain" style="height: 5rem; width: auto;">
                     </a>
 
-                    <div class="auth-form-card rounded-2xl bg-white p-6 sm:p-10">
+                    <div class="auth-form-card rounded-2xl bg-charcoal-800 p-6 sm:p-10">
                         {{ $slot }}
                     </div>
                 </div>

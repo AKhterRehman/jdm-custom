@@ -82,15 +82,71 @@
     }
 }
 
-/* Prevent saved browser credentials from adding an overly saturated autofill background. */
-.login-field:-webkit-autofill,
-.login-field:-webkit-autofill:hover,
-.login-field:-webkit-autofill:focus {
-    -webkit-text-fill-color: #1f2937;
-    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
-    box-shadow: 0 0 0 1000px #ffffff inset;
+/* ---------- Dark form controls ---------- */
+/* Every field across the storefront, account, auth and admin follows the dark gallery look.
+   :where() keeps the specificity low enough for any utility class to still win. */
+@layer base {
+    :where(input)[type='text'],
+    :where(input)[type='email'],
+    :where(input)[type='password'],
+    :where(input)[type='number'],
+    :where(input)[type='search'],
+    :where(input)[type='tel'],
+    :where(input)[type='url'],
+    :where(input)[type='date'],
+    :where(input)[type='datetime-local'],
+    :where(input)[type='time'],
+    :where(input)[type='month'],
+    :where(input)[type='week'],
+    input:where(:not([type])),
+    textarea:where(*),
+    select:where(*) {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        color-scheme: dark;
+    }
+
+    :where(input)::placeholder,
+    textarea:where(*)::placeholder {
+        color: #8f949c;
+        opacity: 1;
+    }
+
+    select:where(*) {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238f949c' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    }
+
+    select:where(*) option {
+        background-color: #17171a;
+        color: #fff;
+    }
+
+    :where(input)[type='checkbox'],
+    :where(input)[type='radio'] {
+        background-color: transparent;
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #c0a062;
+    }
+
+    :where(input)[type='file'] {
+        color: #b4b8bf;
+        color-scheme: dark;
+    }
 }
 
+/* Browser autofill would otherwise paint a pale fill over the dark fields. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+    -webkit-box-shadow: 0 0 0 1000px #17171a inset;
+    box-shadow: 0 0 0 1000px #17171a inset;
+    transition: background-color 9999s ease-out 0s;
+}
 
 /* ---------- Luxury automotive identity ---------- */
 

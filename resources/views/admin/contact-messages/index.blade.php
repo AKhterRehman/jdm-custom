@@ -1,9 +1,9 @@
 <x-layouts.admin title="Contact Messages">
-    <h1 class="font-heading text-2xl font-bold text-ink-900 mb-8">Contact Messages</h1>
+    <h1 class="font-display text-3xl font-medium text-white mb-8">Contact Messages</h1>
 
-    <div class="rounded-lg border border-gray-200 bg-white overflow-hidden">
+    <div class="rounded-lg border border-white/10 bg-charcoal-800 overflow-hidden">
         <table class="w-full text-sm">
-            <thead class="bg-gray-50 text-left text-gray-500">
+            <thead class="bg-white/5 text-left text-silver-400">
                 <tr>
                     <th class="px-4 py-3">From</th>
                     <th class="px-4 py-3">Subject</th>
@@ -15,41 +15,41 @@
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100">
+            <tbody class="divide-y divide-white/10">
                 @forelse ($messages as $message)
-                    <tr class="cursor-pointer hover:bg-gray-50" onclick="window.location='{{ route('admin.contact-messages.show', $message) }}'">
+                    <tr class="cursor-pointer hover:bg-white/5" onclick="window.location='{{ route('admin.contact-messages.show', $message) }}'">
                         <td class="px-4 py-3">
-                            <p class="font-medium {{ $message->is_read ? 'text-gray-700' : 'text-ink-900' }}">{{ $message->name }}</p>
-                            <p class="text-gray-500">{{ $message->email }}</p>
+                            <p class="font-medium {{ $message->is_read ? 'text-gray-200' : 'text-ink-900' }}">{{ $message->name }}</p>
+                            <p class="text-silver-400">{{ $message->email }}</p>
                         </td>
                         <td class="px-4 py-3 {{ $message->is_read ? '' : 'font-semibold text-ink-900' }}">{{ $message->subject }}</td>
-                        <td class="px-4 py-3 text-gray-500">{{ $message->phone ?: '—' }}</td>
-                        <td class="px-4 py-3 text-gray-500">{{ $message->company_name ?: '—' }}</td>
-                        <td class="px-4 py-3 text-gray-500">{{ $message->inquiry_type ? ucfirst(str_replace('-', ' ', $message->inquiry_type)) : '—' }}</td>
-                        <td class="px-4 py-3 text-gray-500">{{ $message->created_at->format('M j, Y g:ia') }}</td>
+                        <td class="px-4 py-3 text-silver-400">{{ $message->phone ?: '—' }}</td>
+                        <td class="px-4 py-3 text-silver-400">{{ $message->company_name ?: '—' }}</td>
+                        <td class="px-4 py-3 text-silver-400">{{ $message->inquiry_type ? ucfirst(str_replace('-', ' ', $message->inquiry_type)) : '—' }}</td>
+                        <td class="px-4 py-3 text-silver-400">{{ $message->created_at->format('M j, Y g:ia') }}</td>
                         <td class="px-4 py-3">
                             @if (! $message->is_read)
-                                <span class="rounded-full bg-red-50 text-red-600 px-2 py-1 text-xs font-medium">New</span>
+                                <span class="rounded-full bg-gold-500/10 text-gold-400 px-2 py-1 text-xs font-medium">New</span>
                             @else
-                                <span class="text-gray-400">Read</span>
+                                <span class="text-silver-500">Read</span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right">
                             <form action="{{ route('admin.contact-messages.destroy', $message) }}" method="POST" onclick="event.stopPropagation();" onsubmit="return confirm('Delete this message?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-gray-400 hover:text-red-600">Delete</button>
+                                <button type="submit" class="text-silver-500 hover:text-gold-400">Delete</button>
                             </form>
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="8" class="px-4 py-6 text-center text-gray-500">No messages yet.</td></tr>
+                    <tr><td colspan="8" class="px-4 py-6 text-center text-silver-400">No messages yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
     <div class="mt-6">
-        {{ $messages->links() }}
+        <div class="dark-pagination">{{ $messages->links() }}</div>
     </div>
 </x-layouts.admin>

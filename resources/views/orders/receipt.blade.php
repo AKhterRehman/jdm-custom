@@ -6,7 +6,7 @@
     <style>
         * { box-sizing: border-box; }
         body { font-family: Helvetica, Arial, sans-serif; color: #1a1a1a; font-size: 13px; margin: 0; padding: 32px; }
-        .header { width: 100%; border-bottom: 3px solid #dc2626; padding-bottom: 16px; margin-bottom: 24px; }
+        .header { width: 100%; border-bottom: 3px solid #9a7b3f; padding-bottom: 16px; margin-bottom: 24px; }
         .header td { vertical-align: top; }
         .brand-logo { display: block; height: 70px; width: auto; object-fit: contain; }
         .muted { color: #6b7280; }
