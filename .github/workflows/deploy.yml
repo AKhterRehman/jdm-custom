@@ -72,4 +72,4 @@ jobs:
       - name: Run production Laravel commands
         run: |
           ssh -p "${{ secrets.HOSTINGER_SSH_PORT || 65002 }}" "${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}" \
-            "cd '${{ secrets.HOSTINGER_DEPLOY_PATH }}' && php artisan storage:link && php artisan migrate --force && php artisan optimize"
+            "cd '${{ secrets.HOSTINGER_DEPLOY_PATH }}' && php83 artisan storage:link && php83 artisan migrate --force && php83 artisan optimize"
