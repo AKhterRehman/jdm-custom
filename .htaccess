@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews -Indexes
+    RewriteEngine On
+
+    # Never expose Laravel/project files from the web root.
+    <FilesMatch "^(\.env|artisan|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|vite\.config\.(js|ts))$">
+        Require all denied
+    </FilesMatch>
+
+    # Serve files that belong to Laravel's public directory.
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+    RewriteRule ^(.+)$ public/$1 [END]
+
+    # Send every other request to Laravel's front controller.
+    RewriteRule ^ public/index.php [END]
+</IfModule>
