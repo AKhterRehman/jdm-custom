@@ -56,7 +56,7 @@ jobs:
 
       - name: Deploy application files
         run: |
-          rsync -az --delete \
+          rsync -az --delete -e "ssh -p ${{ secrets.HOSTINGER_SSH_PORT || 65002 }}" \
             --exclude '.git/' \
             --exclude '.github/' \
             --exclude '.env' \
