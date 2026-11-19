@@ -186,9 +186,56 @@ class CheckoutController extends Controller
         abort_unless($order->user_id === $request->user()->id, 403);
         abort_unless($order->payment_method === 'stripe' && $order->payment_status !== 'paid', 404);
 
+        // The earlier Checkout Session must be settled first. If the customer was already
+        // charged (their webhook or return trip never reached us) we confirm that order
+        // instead of opening a second payment, and an unpaid open session is closed so it
+        // can never be paid alongside the new one.
+        if ($order->stripe_session_id) {
+            $stripe = new StripeClient(config('services.stripe.secret'));
+
+            try {
+                $previous = $stripe->checkout->sessions->retrieve($order->stripe_session_id);
+
+                if ($previous->payment_status !== 'paid' && $previous->status === 'open') {
+                    try {
+                        $previous = $stripe->checkout->sessions->expire($order->stripe_session_id);
+                    } catch (\Throwable $exception) {
+                        // It may have been paid in the meantime, so look again before deciding.
+                        $previous = $stripe->checkout->sessions->retrieve($order->stripe_session_id);
+                    }
+                }
+            } catch (\Throwable $exception) {
+                report($exception);
+
+                return back()->with('error', 'We could not check your earlier payment with Stripe. Please try again in a moment so you are not charged twice.');
+            }
+
+            if ($previous->payment_status === 'paid') {
+                $this->confirmPaidOrder($order, $inventory);
+
+                return redirect()->route('orders.show', $order)->with('status', 'Your payment was already received. Your order is confirmed.');
+            }
+
+            if ($previous->status === 'complete') {
+                return back()->with('error', 'Your earlier payment is still being confirmed. Please wait a moment before trying again.');
+            }
+
+            if ($previous->status === 'open') {
+                return back()->with('error', 'We could not close your earlier card checkout yet. Please try again in a moment so you are not charged twice.');
+            }
+        }
+
         DB::transaction(function () use ($order, $inventory) {
             $lockedOrder = Order::query()->with('coupon')->lockForUpdate()->findOrFail($order->id);
-            $inventory->reserve($lockedOrder);
+
+            // Stock is held from the moment the order is placed. Only an order whose hold was
+            // already given back (cancelled or failed) needs to reserve it again, otherwise
+            // the same units would be taken twice.
+            $holdWasReleased = $lockedOrder->payment_status === 'failed' || $lockedOrder->status === 'cancelled';
+
+            if ($holdWasReleased) {
+                $inventory->reserve($lockedOrder);
+            }
 
             if ($lockedOrder->coupon && $lockedOrder->payment_status === 'failed') {
                 $lockedOrder->coupon()->increment('used_count');
@@ -321,6 +368,29 @@ class CheckoutController extends Controller
 
         return $session;
     }
+    /** Mark an order paid after Stripe confirmed the charge, taking its stock back if it had been released. */
+    private function confirmPaidOrder(Order $order, OrderInventoryService $inventory): void
+    {
+        DB::transaction(function () use ($order, $inventory) {
+            $lockedOrder = Order::query()->lockForUpdate()->findOrFail($order->id);
+
+            if ($lockedOrder->payment_status === 'paid') {
+                return;
+            }
+
+            if ($lockedOrder->payment_status === 'failed' || $lockedOrder->status === 'cancelled') {
+                try {
+                    $inventory->reserve($lockedOrder);
+                } catch (\Throwable $exception) {
+                    // The customer has paid, so the order must stand. Staff need to restock or refund.
+                    Log::critical('Order was paid after its stock hold was released and stock is short.', ['order_id' => $lockedOrder->id]);
+                }
+            }
+
+            $lockedOrder->update(['payment_status' => 'paid', 'status' => 'processing']);
+        });
+    }
+
     private function releaseFailedOrder(Order $order, OrderInventoryService $inventory): void
     {
         DB::transaction(function () use ($order, $inventory) {
