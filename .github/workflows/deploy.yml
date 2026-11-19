@@ -2,7 +2,7 @@ name: Build and deploy Laravel
 
 on:
   push:
-    branches: [main]
+    branches: [main, design-1]
   workflow_dispatch:
 
 permissions:
