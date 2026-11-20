@@ -85,12 +85,7 @@
                     <h2 class="font-display text-lg font-semibold text-white mb-4">Payment Method</h2>
                     <div class="space-y-3">
                         <label class="flex items-center gap-3 rounded-md border border-white/10 p-4 cursor-pointer has-[:checked]:border-gold-500 has-[:checked]:bg-gold-200/30">
-                            <input type="radio" name="payment_method" value="cod" checked>
-                            <span class="text-sm font-medium text-white">Cash on Delivery</span>
-                        </label>
-
-                        <label class="flex items-center gap-3 rounded-md border border-white/10 p-4 cursor-pointer has-[:checked]:border-gold-500 has-[:checked]:bg-gold-200/30">
-                            <input type="radio" name="payment_method" value="stripe">
+                            <input type="radio" name="payment_method" value="stripe" checked>
                             <span class="text-sm font-medium text-white">Credit / Debit Card (Stripe)</span>
                         </label>
 

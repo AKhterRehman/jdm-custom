@@ -97,7 +97,7 @@ class CheckoutController extends Controller
             'new_address.state' => ['nullable', 'string', 'max:255'],
             'new_address.postal_code' => ['nullable', 'string', 'max:50'],
             'new_address.country' => ['nullable', 'required_without:address_id', 'string', 'max:255'],
-            'payment_method' => ['required', 'in:cod,stripe'],
+            'payment_method' => ['required', 'in:stripe'],
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
 
