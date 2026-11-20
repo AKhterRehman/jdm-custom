@@ -1,5 +1,19 @@
 <x-layouts.storefront :dark="true" :title="$product->name">
     @php $displayName = \Illuminate\Support\Str::before(\Illuminate\Support\Str::before($product->name, ' | '), ' – '); @endphp
+    @php
+        $galleryImages = $product->images->map(function ($img) {
+            $extension = strtolower(pathinfo(parse_url($img->url(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION));
+            $isVideo = in_array($extension, ['mp4', 'webm', 'mov', 'm4v', 'ogg'], true);
+
+            return [
+                'url' => $img->url(),
+                'alt' => $img->alt_text,
+                'type' => $isVideo ? 'video' : 'image',
+                'mime' => $isVideo ? ($extension === 'webm' ? 'video/webm' : ($extension === 'mov' ? 'video/quicktime' : 'video/mp4')) : null,
+            ];
+        })->values();
+
+    @endphp
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <nav class="mb-8 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-silver-500">
             <a href="{{ route('home') }}" class="hover:text-gold-400">Home</a>
@@ -12,7 +26,7 @@
         <div class="grid gap-12 md:grid-cols-2 lg:gap-20">
              <div
                 x-data="{
-                    images: {{ Js::from($product->images->map(fn ($img) => ['url' => $img->url(), 'alt' => $img->alt_text])->values()) }},
+                    images: {{ Js::from($galleryImages) }},
                     active: 0,
                     timer: null,
                     startAutoSlide() {
@@ -32,20 +46,8 @@
                 @mouseenter="clearInterval(timer)"
                 @mouseleave="startAutoSlide()">
                 <div class="art-plate relative aspect-[4/5] w-full shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]">
-                    <template x-for="(image, index) in images" :key="index">
-                        <img
-                            :src="image.url"
-                            :alt="image.alt"
-                            x-show="active === index"
-                            x-transition:enter="transition ease-out duration-700"
-                            x-transition:enter-start="opacity-0"
-                            x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition ease-in duration-700"
-                            x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0"
-                            class="absolute inset-0 h-full w-full object-cover"
-                        >
-                    </template>
+                    <img x-show="images[active] && images[active].type === 'image'" :src="images[active]?.url" :alt="images[active]?.alt" class="absolute inset-0 h-full w-full object-contain">
+                    <video x-show="images[active] && images[active].type === 'video'" :src="images[active]?.url" controls="controls" playsinline preload="metadata" class="absolute inset-0 h-full w-full object-contain bg-black"></video>
                 </div>
 
                 <div class="mt-4 grid grid-cols-4 gap-3" x-show="images.length > 1" x-cloak>
@@ -56,10 +58,12 @@
                             class="aspect-square overflow-hidden bg-charcoal-700 transition"
                             :class="active === index ? 'ring-2 ring-gold-500' : 'ring-1 ring-white/10 hover:ring-gold-400'"
                         >
-                            <img :src="image.url" :alt="image.alt" class="h-full w-full object-cover">
+                            <video x-show="image.type === 'video'" :src="image.url" muted playsinline preload="metadata" class="h-full w-full object-cover"></video>
+                            <img x-show="image.type === 'image'" :src="image.url" :alt="image.alt" class="h-full w-full object-cover">
                         </button>
                     </template>
                 </div>
+
             </div>
 
             <div>

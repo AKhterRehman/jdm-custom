@@ -362,10 +362,8 @@ class ProductSeeder extends Seeder
     }
 
     /**
-     * PLACEHOLDER: the client has no Porsche piece listed yet, but Porsche is the first marque he
-     * named. This keeps a Porsche crest in the collection using a free licence (Unsplash) photo of a
-     * real Porsche emblem. Replace the image with the client's own photo, or deactivate the product,
-     * before launch. The SKU below is how the homepage finds it.
+     * Porsche gallery supplied by the client: regular gold edition, silver Stealth Edition,
+     * detailed views, and the supplied product video.
      */
     private function syncPlaceholderProducts(): void
     {
@@ -375,10 +373,10 @@ class ProductSeeder extends Seeder
         $newProduct = ! $product->exists;
         $product->fill([
             'category_id' => $category->id,
-            'name' => 'Porsche Crest Wall Art',
+            'name' => 'Porsche Crest Wall Art | Regular Edition',
             'slug' => 'porsche-crest-wall-art',
-            'short_description' => 'A hand finished Porsche crest in hardwood and epoxy, made to order.',
-            'description' => "A Porsche crest for the collector's garage, hand finished in hardwood and epoxy and made to order in the size you choose.",
+            'short_description' => 'The original gold Porsche crest, handcrafted in hardwood and epoxy for the collector’s garage.',
+            'description' => "The regular Porsche edition is a handcrafted hardwood and epoxy crest made to order for collectors. Explore detailed views of the front, finish, edges, and display presentation in the product gallery.",
             'price' => 400,
             'sale_price' => null,
             'is_active' => true,
@@ -389,10 +387,54 @@ class ProductSeeder extends Seeder
         }
         $product->save();
 
-        $product->images()->updateOrCreate(['sort_order' => 0], [
-            'path' => '/images/catalog/placeholder-porsche-crest.jpg',
-            'alt_text' => 'Porsche crest (placeholder photo)',
+        $regularMedia = [
+            ['/images/products/porsche/regular-00.webp', 'Regular Porsche edition hero view'],
+            ['/images/products/porsche/regular-01.jpeg', 'Regular Porsche edition detail view'],
+            ['/images/products/porsche/regular-02.jpeg', 'Regular Porsche edition crest detail'],
+            ['/images/products/porsche/regular-03.jpeg', 'Regular Porsche edition epoxy detail'],
+            ['/images/products/porsche/regular-04.jpeg', 'Regular Porsche edition finish detail'],
+            ['/images/products/porsche/regular-05.jpeg', 'Regular Porsche edition edge detail'],
+            ['/images/products/porsche/regular-06.jpeg', 'Regular Porsche edition close-up'],
+            ['/images/products/porsche/regular-07.jpeg', 'Regular Porsche edition wall display'],
+            ['/images/products/porsche/regular-08.jpg', 'Regular Porsche edition installed view'],
+            ['/images/products/porsche/regular-09.jpg', 'Regular Porsche edition full presentation'],
+            ['/images/products/porsche/regular-10.jpg', 'Regular Porsche edition front view'],
+            ['/images/products/porsche/regular-11.jpg', 'Regular Porsche edition angled view'],
+            ['/images/products/porsche/regular-12.jpg', 'Regular Porsche edition wall view'],
+            ['/images/products/porsche/regular-13.jpg', 'Regular Porsche edition close-up view'],
+            ['/images/products/porsche/porsche-gallery.mp4', 'Regular Porsche edition product video'],
+        ];
+        foreach ($regularMedia as $sort => [$path, $alt]) {
+            $product->images()->updateOrCreate(['sort_order' => $sort], ['path' => $path, 'alt_text' => $alt]);
+        }
+
+        $stealth = Product::updateOrCreate(['sku' => 'JDM-PORSCHE-STEALTH'], [
+            'category_id' => $category->id,
+            'name' => 'Porsche Crest Wall Art | Stealth Edition',
+            'slug' => 'porsche-crest-wall-art-stealth-edition',
+            'short_description' => 'The silver Porsche Stealth Edition, handcrafted with a refined monochrome finish.',
+            'description' => "The silver Stealth Edition reimagines the Porsche crest in a sleek monochrome finish. Use the gallery to explore the front, texture, edges, and installed presentation from every angle.",
+            'price' => 400,
+            'sale_price' => null,
+            'is_active' => true,
+            'total_stock_quantity' => 1,
+            'available_stock_quantity' => 1,
         ]);
+        $stealthMedia = [
+            ['/images/products/porsche/stealth-01.jpeg', 'Stealth Porsche edition detail view'],
+            ['/images/products/porsche/stealth-02.jpeg', 'Stealth Porsche edition edge detail'],
+            ['/images/products/porsche/stealth-03.jpeg', 'Stealth Porsche edition crest detail'],
+            ['/images/products/porsche/stealth-04.jpeg', 'Stealth Porsche edition finish detail'],
+            ['/images/products/porsche/stealth-05.jpeg', 'Stealth Porsche edition close-up'],
+            ['/images/products/porsche/stealth-06.jpeg', 'Stealth Porsche edition wall display'],
+            ['/images/products/porsche/stealth-07.jpeg', 'Stealth Porsche edition installed view'],
+            ['/images/products/porsche/stealth-08.jpeg', 'Stealth Porsche edition full presentation'],
+            ['/images/products/porsche/stealth-09.jpg', 'Stealth Porsche edition full presentation'],
+            ['/images/products/porsche/porsche-gallery.mp4', 'Stealth Porsche edition product video'],
+        ];
+        foreach ($stealthMedia as $sort => [$path, $alt]) {
+            $stealth->images()->updateOrCreate(['sort_order' => $sort], ['path' => $path, 'alt_text' => $alt]);
+        }
     }
 
     private function syncStandardSizePricing(): void
