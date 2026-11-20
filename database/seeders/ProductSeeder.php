@@ -430,8 +430,8 @@ class ProductSeeder extends Seeder
             ['/images/products/porsche/stealth-07.jpeg', 'Stealth Porsche edition installed view'],
             ['/images/products/porsche/stealth-08.jpeg', 'Stealth Porsche edition full presentation'],
             ['/images/products/porsche/stealth-09.jpg', 'Stealth Porsche edition full presentation'],
-            ['/images/products/porsche/porsche-gallery.mp4', 'Stealth Porsche edition product video'],
         ];
+        $stealth->images()->where('path', '/images/products/porsche/porsche-gallery.mp4')->delete();
         foreach ($stealthMedia as $sort => [$path, $alt]) {
             $stealth->images()->updateOrCreate(['sort_order' => $sort], ['path' => $path, 'alt_text' => $alt]);
         }
