@@ -32,7 +32,11 @@
             <div class="lg:col-span-5" data-reveal>
                 <p class="lux-eyebrow">JDM Custom Creations</p>
                 <h1 class="mt-6 font-display text-5xl font-medium leading-[1.02] tracking-tight sm:text-7xl">
-                    Automotive art,<br><span class="text-gradient-animate italic">handcrafted.</span>
+                    Automotive art,<br>
+                    <span class="text-gradient-animate italic">handcrafted.</span>
+                    <span class="mt-3 block font-sans text-base not-italic tracking-[0.18em] text-silver-300 sm:text-lg">
+                        <strong class="font-semibold text-white">ONE</strong> of a kind every time
+                    </span>
                 </h1>
                 <div class="lux-rule mt-8"></div>
                 <p class="mt-8 max-w-md text-base leading-relaxed text-silver-300">
