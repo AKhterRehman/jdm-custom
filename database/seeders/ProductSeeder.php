@@ -421,6 +421,7 @@ class ProductSeeder extends Seeder
             'available_stock_quantity' => 1,
         ]);
         $stealthMedia = [
+            ['/images/products/porsche/stealth-09.jpg', 'Stealth Porsche edition full presentation'],
             ['/images/products/porsche/stealth-01.jpeg', 'Stealth Porsche edition detail view'],
             ['/images/products/porsche/stealth-02.jpeg', 'Stealth Porsche edition edge detail'],
             ['/images/products/porsche/stealth-03.jpeg', 'Stealth Porsche edition crest detail'],
@@ -429,7 +430,6 @@ class ProductSeeder extends Seeder
             ['/images/products/porsche/stealth-06.jpeg', 'Stealth Porsche edition wall display'],
             ['/images/products/porsche/stealth-07.jpeg', 'Stealth Porsche edition installed view'],
             ['/images/products/porsche/stealth-08.jpeg', 'Stealth Porsche edition full presentation'],
-            ['/images/products/porsche/stealth-09.jpg', 'Stealth Porsche edition full presentation'],
         ];
         $stealth->images()->where('path', '/images/products/porsche/porsche-gallery.mp4')->delete();
         foreach ($stealthMedia as $sort => [$path, $alt]) {
